@@ -109,7 +109,7 @@ export default function Home() {
     };
   }, []);
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-white to-emerald-50 dark:from-gray-900 dark:to-gray-800 overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-white to-emerald-50 dark:from-gray-900 dark:to-gray-800 overflow-x-hidden overflow-guard" style={{ maxWidth: '100vw', overflowX: 'hidden' }}>
       {/* Navigation */}
       <header className="absolute top-0 left-0 right-0 z-30">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
