@@ -11,7 +11,9 @@ import {
   X,
   AlertCircle,
   Clock,
-  Download
+  Download,
+  HelpCircle,
+  Info
 } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { useTheme } from "@/context/ThemeContext";
@@ -24,6 +26,30 @@ import Footer from "@/components/Footer";
 // Services
 import apiService from "@/services/api.service";
 import authService from "@/services/auth.service";
+
+// Help tooltip component
+const InfoTooltip = ({ message }) => {
+  const [showTooltip, setShowTooltip] = useState(false);
+  
+  return (
+    <div className="relative inline-block ml-2">
+      <button
+        onMouseEnter={() => setShowTooltip(true)}
+        onMouseLeave={() => setShowTooltip(false)}
+        onClick={() => setShowTooltip(!showTooltip)}
+        className="text-gray-500 hover:text-emerald-500 dark:text-gray-400 dark:hover:text-emerald-400 focus:outline-none"
+      >
+        <Info size={16} />
+      </button>
+      {showTooltip && (
+        <div className="absolute z-10 w-64 p-3 text-sm text-left bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 -left-4 bottom-full mb-2">
+          <div className="text-gray-700 dark:text-gray-300">{message}</div>
+          <div className="absolute w-3 h-3 bg-white dark:bg-gray-800 border-b border-r border-gray-200 dark:border-gray-700 transform rotate-45 left-5 -bottom-1.5"></div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default function Attendance() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -195,16 +221,20 @@ export default function Attendance() {
   };
 
   const handleStatusChange = async (internId, newStatus) => {
+    // Define the admin note upfront
+    const adminNote = "Attendance marked by admin - no signature required";
+    
     try {
-      // Find the intern in the current list
+      // Ensure first letter is capitalized to match backend validation requirements
+      const capitalizedStatus = newStatus.charAt(0).toUpperCase() + newStatus.slice(1).toLowerCase();
+      
+      // Find the intern in the current list and update UI immediately (optimistic update)
       const updatedInterns = interns.map(intern => {
         if (intern.id === internId) {
           return { ...intern, status: newStatus };
         }
         return intern;
       });
-      
-      // Update UI immediately (optimistic update)
       setInterns(updatedInterns);
       
       // Get the target intern record
@@ -214,67 +244,60 @@ export default function Attendance() {
         return;
       }
       
-      // Use the MongoDB ID of the intern (not the attendance record ID)
+      // Use the MongoDB ID of the intern
       const targetMongoId = targetIntern.mongoId;
       
-      // Safety check - if we don't have a MongoDB ID, fall back to other options
+      // If we don't have a MongoDB ID, try fallback options
       if (!targetMongoId) {
         console.warn('MongoDB ID not found for intern. Attempting fallback...');
-        // Log the full intern object for debugging
         console.log('Intern object:', targetIntern);
         
-        // If we have internId and it looks like a MongoDB ID, try that
         if (targetIntern.internId && targetIntern.internId.match(/^[0-9a-f]{24}$/)) {
+          // Use internId as fallback
           toast.warning('Using fallback ID method');
-          return handleUpdateWithId(targetIntern.internId, capitalizedStatus);
+          try {
+            const response = await apiService.updateData(`attendance/${targetIntern.internId}`, {
+              status: capitalizedStatus,
+              date: currentDate.toISOString().split('T')[0],
+              notes: adminNote
+            });
+            
+            if (response.status === 'success') {
+              toast.success(`Marked ${capitalizedStatus}`);
+            } else {
+              toast.error('Failed to update: ' + (response.message || 'Unknown error'));
+              setInterns(interns); // Revert to previous state
+            }
+          } catch (error) {
+            console.error('Error in fallback update:', error);
+            toast.error(error.message || 'Failed to update attendance');
+            setInterns(interns); // Revert to previous state
+          }
+          return;
         } else {
           toast.error('Cannot determine intern database ID. Please refresh.');
           return;
         }
       }
       
-      // Helper function for ID fallback
-      const handleUpdateWithId = async (id, status) => {
-        try {
-          console.log(`Attempting fallback update with ID: ${id}, status: ${status}`);
-          const response = await apiService.updateData(`attendance/${id}`, {
-            status: status,
-            date: currentDate.toISOString().split('T')[0]
-          });
-          
-          if (response.status === 'success') {
-            toast.success(`Marked ${status}`);
-          } else {
-            toast.error('Failed to update attendance status: ' + (response.message || 'Unknown error'));
-            setInterns(interns); // Revert to previous state
-          }
-        } catch (error) {
-          console.error('Error in fallback update:', error);
-          toast.error(error.message || 'Failed to update attendance status');
-          setInterns(interns); // Revert to previous state
-        }
-      };
-      
-      // Send update to backend if not in demo mode
+      // Main update path using MongoDB ID
       try {
-        // Ensure first letter is capitalized to match backend validation requirements
-        const capitalizedStatus = newStatus.charAt(0).toUpperCase() + newStatus.slice(1).toLowerCase();
-        // Log for debugging
-        console.log(`Updating attendance for intern with MongoDB ID: ${targetMongoId}, status: ${capitalizedStatus}`);
+        console.log(`Updating attendance for intern with ID: ${targetMongoId}, status: ${capitalizedStatus}`);
+        
         const response = await apiService.updateData(`attendance/${targetMongoId}`, {
           status: capitalizedStatus,
-          date: currentDate.toISOString().split('T')[0]
+          date: currentDate.toISOString().split('T')[0],
+          notes: adminNote
         });
         
-        if (response.status !== 'success') {
-          // If backend update fails, revert the UI
+        if (response.status === 'success') {
+          toast.success(`Marked ${capitalizedStatus}`);
+        } else {
           toast.error('Failed to update attendance status');
           setInterns(interns); // Revert to previous state
-        } else {
-          toast.success(`Marked ${newStatus}`);
         }
       } catch (error) {
-        console.error('Error updating status:', error.message);
+        console.error('Error updating status:', error);
         toast.error(`Failed to update attendance status. Please try again.`);
         setInterns(interns); // Revert UI to previous state
       }
@@ -287,40 +310,41 @@ export default function Attendance() {
 
   const handleBulkMarkPresent = async () => {
     try {
-      // Update all interns to present status in UI
+      setIsSaving(true);
+      
+      // Update UI immediately (optimistic update)
       const updatedInterns = interns.map(intern => ({
         ...intern,
         status: 'present'
       }));
       
-      // Update UI immediately (optimistic update)
       setInterns(updatedInterns);
       
-      // Send bulk update to backend
-      try {
-        const response = await apiService.postData('attendance/bulk-update', {
-          date: currentDate.toISOString().split('T')[0],
-          status: 'Present',
-          department: selectedDepartment === 'All Departments' ? null : selectedDepartment
-        });
-        
-        if (response.status !== 'success') {
-          toast.error('Failed to mark all as present');
-          // Revert UI if backend update fails
-          setInterns(interns);
-        } else {
-          toast.success('All interns marked as present');
-        }
-      } catch (error) {
-        console.error('Error marking all present:', error.message);
-        toast.error('Failed to communicate with server. Please try again.');
-        // Revert UI
-        setInterns(interns);
+      // Add a note that this was admin-marked attendance (no signature required)
+      const attendanceNote = `Bulk attendance marked by admin - no signatures required`;
+      
+      // Send update to backend
+      const formattedDate = currentDate.toISOString().split('T')[0];
+      const response = await apiService.postData('attendance/bulk-update', {
+        date: formattedDate,
+        status: 'Present',
+        department: selectedDepartment === 'All Departments' ? null : selectedDepartment,
+        notes: attendanceNote
+      });
+      
+      if (response.status === 'success') {
+        toast.success('All interns marked as present');
+      } else {
+        toast.error('Failed to mark all as present');
+        setInterns(interns); // Revert to previous state
       }
+      
+      setIsSaving(false);
     } catch (error) {
-      console.error('Error in mark all present handler:', error);
+      console.error('Error in bulk mark present handler:', error);
       toast.error('Failed to mark all as present');
       setInterns(interns); // Revert UI
+      setIsSaving(false);
     }
   };
 
@@ -434,17 +458,24 @@ export default function Attendance() {
         <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
         
         <main className="flex-1 overflow-y-auto overflow-x-hidden p-5">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex items-center justify-between mb-6">
-              <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Attendance</h1>
+          <div className="flex items-center mb-6">
+            <ClipboardCheck className="h-6 w-6 text-emerald-500 mr-2" />
+            <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Attendance Management</h1>
+            <InfoTooltip message="Signatures are only required during initial intern registration. Daily attendance can be managed by administrators without requiring interns to sign in each day." />
+          </div>
+          <div className="mb-6 p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg border border-emerald-100 dark:border-emerald-800">
+            <div className="flex items-start">
+              <HelpCircle className="h-5 w-5 text-emerald-500 mr-2 mt-0.5" />
+              <div>
+                <h3 className="font-medium text-emerald-700 dark:text-emerald-300">Admin-Managed Attendance</h3>
+                <p className="text-sm text-emerald-600 dark:text-emerald-400 mt-1">
+                  Once interns are registered with their signatures, you can mark their daily attendance as present, absent, late, or excused without requiring them to sign in each day.
+                </p>
+              </div>
             </div>
-            
-            <div className="mb-6">
-              <p className="text-gray-600 dark:text-gray-300">
-                Mark and view intern attendance records
-              </p>
-            </div>
-            
+          </div>
+          
+          <div className="attendance-content">
             {isLoading ? (
               <div className="flex justify-center items-center h-64">
                 <div className="loader"></div>

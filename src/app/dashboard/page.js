@@ -133,19 +133,21 @@ function Dashboard() {
 
   // Initialize chart and activity data state
   const [attendanceData, setAttendanceData] = useState({
-    labels: ['Present', 'Absent', 'Late'],
+    labels: ['Present', 'Absent', 'Late', 'Excused'],
     datasets: [
       {
-        data: [0, 0, 0],
+        data: [0, 0, 0, 0],
         backgroundColor: [
-          'rgba(34, 197, 94, 0.7)',
-          'rgba(239, 68, 68, 0.7)',
-          'rgba(234, 179, 8, 0.7)',
+          'rgba(34, 197, 94, 0.7)',  // Green for Present
+          'rgba(239, 68, 68, 0.7)',   // Red for Absent
+          'rgba(234, 179, 8, 0.7)',   // Yellow for Late
+          'rgba(16, 185, 129, 0.7)',  // Emerald for Excused
         ],
         borderColor: [
-          'rgba(34, 197, 94, 1)',
-          'rgba(239, 68, 68, 1)',
-          'rgba(234, 179, 8, 1)',
+          'rgba(34, 197, 94, 1)',     // Green for Present
+          'rgba(239, 68, 68, 1)',     // Red for Absent
+          'rgba(234, 179, 8, 1)',     // Yellow for Late
+          'rgba(16, 185, 129, 1)',    // Emerald for Excused
         ],
         borderWidth: 1,
       },
@@ -320,19 +322,26 @@ function Dashboard() {
           
           // Update attendance chart data
           setAttendanceData({
-            labels: ['Present', 'Absent', 'Late'],
+            labels: ['Present', 'Absent', 'Late', 'Excused'],
             datasets: [
               {
-                data: [summary.present || 0, summary.absent || 0, summary.late || 0],
+                data: [
+                  summary.present || 0, 
+                  summary.absent || 0, 
+                  summary.late || 0,
+                  summary.excused || 0  // Added excused status
+                ],
                 backgroundColor: [
-                  'rgba(34, 197, 94, 0.7)',
-                  'rgba(239, 68, 68, 0.7)',
-                  'rgba(234, 179, 8, 0.7)',
+                  'rgba(34, 197, 94, 0.7)',  // Green for Present
+                  'rgba(239, 68, 68, 0.7)',   // Red for Absent
+                  'rgba(234, 179, 8, 0.7)',   // Yellow for Late
+                  'rgba(16, 185, 129, 0.7)',  // Emerald for Excused
                 ],
                 borderColor: [
-                  'rgba(34, 197, 94, 1)',
-                  'rgba(239, 68, 68, 1)',
-                  'rgba(234, 179, 8, 1)',
+                  'rgba(34, 197, 94, 1)',     // Green for Present
+                  'rgba(239, 68, 68, 1)',     // Red for Absent
+                  'rgba(234, 179, 8, 1)',     // Yellow for Late
+                  'rgba(16, 185, 129, 1)',    // Emerald for Excused
                 ],
                 borderWidth: 1,
               },
@@ -717,6 +726,9 @@ function Dashboard() {
                                   {record.status === 'absent' && (
                                     <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">Absent</span>
                                   )}
+                                  {record.status === 'excused' && (
+                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">Excused</span>
+                                  )}
                                 </td>
                               </tr>
                             ))}
@@ -770,6 +782,9 @@ function Dashboard() {
                         {item.status === 'absent' && (
                           <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300">Absent</span>
                         )}
+                        {item.status === 'excused' && (
+                          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300">Excused</span>
+                        )}
                         {item.status === 'leave' && (
                           <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300">Leave</span>
                         )}
@@ -793,4 +808,5 @@ function Dashboard() {
     </ErrorBoundary>
   );
 }
+
 

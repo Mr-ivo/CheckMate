@@ -117,8 +117,14 @@ class ApiService {
    * @param {Object} data - Data to update
    * @returns {Promise} - Promise resolving to response data
    */
-  async updateData(endpoint, data) {
+  async updateData(endpoint, data = {}) {
     try {
+      // Ensure data is an object and has a notes property with a default value
+      const safeData = { ...data };
+      if (!safeData.notes) {
+        safeData.notes = "System generated note";
+      }
+      
       const token = this.getToken();
       if (!token) {
         throw new Error('Authentication token not found');
@@ -130,7 +136,7 @@ class ApiService {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(safeData)
       });
 
       // Check if response is JSON
