@@ -12,7 +12,8 @@ class AuthService {
    */
   async login(email, password) {
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      const response = await fetch(`${API_BASE}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
