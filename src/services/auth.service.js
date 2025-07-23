@@ -12,21 +12,35 @@ class AuthService {
    */
   async login(email, password) {
     try {
+      // Log the API URL being used for debugging
       const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      console.log('Using API URL:', API_BASE);
+      
+      // Add credentials: 'include' for better cross-origin support
       const response = await fetch(`${API_BASE}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
+        credentials: 'include', // Include cookies in cross-origin requests
         body: JSON.stringify({ email, password })
       });
 
+      // Enhanced error handling
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Login failed');
+        let errorMessage = 'Login failed';
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.message || errorMessage;
+        } catch (jsonError) {
+          // If response is not JSON
+          errorMessage = `Login failed (${response.status}: ${response.statusText})`;
+        }
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
+      console.log('Login response:', data); // For debugging
       
       if (data.data?.token) {
         // Store token in localStorage
@@ -34,11 +48,21 @@ class AuthService {
         
         // Store user data
         localStorage.setItem('checkmate_user', JSON.stringify(data.data.user));
+        
+        // Also store in sessionStorage as a backup (more reliable on some mobile browsers)
+        sessionStorage.setItem('checkmate_auth_token', data.data.token);
+        sessionStorage.setItem('checkmate_user', JSON.stringify(data.data.user));
+      } else {
+        console.error('No token received in login response');
       }
       
       return data.data;
     } catch (error) {
       console.error('Authentication error:', error);
+      // More detailed error logging
+      if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+        console.error('Network error - API might be unreachable or blocked by CORS');
+      }
       throw error;
     }
   }

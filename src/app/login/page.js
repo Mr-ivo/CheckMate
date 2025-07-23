@@ -19,17 +19,55 @@ export default function Login() {
   const onSubmit = async (data) => {
     setIsLoading(true);
     try {
+      // Display login attempt toast
+      const loadingToast = toast.loading("Logging in...");
+      
+      // Log device info for debugging
+      console.log('Device info:', {
+        userAgent: navigator.userAgent,
+        platform: navigator.platform,
+        vendor: navigator.vendor,
+        isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      });
+      
       // Call the real authentication service
       const result = await authService.login(data.email, data.password);
+      
+      // Dismiss loading toast and show success
+      toast.dismiss(loadingToast);
       toast.success("Login successful!");
       
-      // Redirect to the dashboard (you can implement role-specific dashboards later)
-      router.push('/dashboard');
+      // Store the user role in both localStorage and sessionStorage for redundancy
+      try {
+        localStorage.setItem('checkmate_user_role', result.user.role);
+        sessionStorage.setItem('checkmate_user_role', result.user.role);
+      } catch (storageError) {
+        console.warn('Storage error:', storageError);
+        // Continue anyway - auth service already stored the token
+      }
       
-      // Store the user role in localStorage for role-based UI rendering
-      localStorage.setItem('checkmate_user_role', result.user.role);
+      // Redirect to the dashboard with a small delay to ensure storage is complete
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 100);
     } catch (error) {
-      toast.error(error.message || "Login failed. Please check your credentials.");
+      // Provide more detailed error messages
+      let errorMessage = "Login failed. Please check your credentials.";
+      
+      if (error.message) {
+        errorMessage = error.message;
+        
+        // Add helpful context for specific errors
+        if (error.message.includes('Failed to fetch') || error.message.includes('Network')) {
+          errorMessage = "Network error: Cannot connect to server. Please check your internet connection.";
+        } else if (error.message.includes('401')) {
+          errorMessage = "Invalid email or password. Please try again.";
+        } else if (error.message.includes('CORS')) {
+          errorMessage = "Access error: Your browser is blocking the connection. Please try a different browser.";
+        }
+      }
+      
+      toast.error(errorMessage);
       console.error("Login error:", error);
     } finally {
       setIsLoading(false);
