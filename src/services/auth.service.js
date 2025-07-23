@@ -48,8 +48,6 @@ class AuthService {
   logout() {
     localStorage.removeItem('checkmate_auth_token');
     localStorage.removeItem('checkmate_user');
-    // Optionally call the backend logout endpoint
-    // fetch('http://localhost:5000/api/auth/logout', {...})
   }
 
   /**

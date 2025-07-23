@@ -128,6 +128,14 @@ function Dashboard() {
       daysLate: 0,
       daysAbsent: 0,
       checkInStreak: 0
+    },
+    weeklyAttendance: {
+      percentage: 0,
+      presentDays: 0,
+      excusedDays: 0,
+      lateDays: 0,
+      absentDays: 0,
+      totalDays: 7
     }
   });
 
@@ -293,6 +301,9 @@ function Dashboard() {
               // Check if the intern has checked in today
               const todayCheckIn = await apiService.fetchData(`attendance/intern/${internId}/today`);
               
+              // Fetch weekly attendance percentage
+              const weeklyAttendance = await apiService.fetchData(`attendance/weekly/${internId}`);
+              
               setInternData({
                 checkInStatus: todayCheckIn?.data?.status || 'not-checked-in',
                 attendanceHistory: internAttendanceData?.data?.history || [],
@@ -301,6 +312,21 @@ function Dashboard() {
                   daysLate: internAttendanceData?.data?.stats?.late || 0,
                   daysAbsent: internAttendanceData?.data?.stats?.absent || 0,
                   checkInStreak: internAttendanceData?.data?.stats?.streak || 0
+                },
+                weeklyAttendance: weeklyAttendance?.data ? {
+                  percentage: weeklyAttendance.data.attendancePercentage || 0,
+                  presentDays: weeklyAttendance.data.presentDays || 0,
+                  excusedDays: weeklyAttendance.data.excusedDays || 0,
+                  lateDays: weeklyAttendance.data.lateDays || 0,
+                  absentDays: weeklyAttendance.data.absentDays || 0,
+                  totalDays: weeklyAttendance.data.totalDays || 7
+                } : {
+                  percentage: 0,
+                  presentDays: 0,
+                  excusedDays: 0,
+                  lateDays: 0,
+                  absentDays: 0,
+                  totalDays: 7
                 }
               });
             }
@@ -432,7 +458,8 @@ function Dashboard() {
           label: 'Attendance Rate (%)',
           data: lastFiveDays.map(day => {
             const total = day.present + day.late + day.absent + day.excused;
-            return total > 0 ? ((day.present + day.late) / total * 100).toFixed(0) : 0;
+            // Updated formula to include excused absences as positive attendance
+            return total > 0 ? ((day.present + day.late + day.excused) / total * 100).toFixed(0) : 0;
           }),
           backgroundColor: 'rgba(59, 130, 246, 0.7)',
           borderColor: 'rgba(59, 130, 246, 1)',
@@ -675,6 +702,65 @@ function Dashboard() {
                       </div>
                     </div>
                     
+                    {/* Weekly Attendance Percentage */}
+                    <div className="mb-8 bg-white dark:bg-gray-700 p-6 rounded-lg shadow border border-gray-100 dark:border-gray-600">
+                      <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Weekly Attendance</h4>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Your attendance for the past 7 days</p>
+                          <div className="flex items-center gap-4">
+                            <div>
+                              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                                {internData.weeklyAttendance.percentage}%
+                              </p>
+                            </div>
+                            <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+                              <div className="flex items-center gap-1">
+                                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                                <span className="text-xs text-gray-600 dark:text-gray-300">Present: {internData.weeklyAttendance.presentDays}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <span className="text-xs text-gray-600 dark:text-gray-300">Late: {internData.weeklyAttendance.lateDays}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                                <span className="text-xs text-gray-600 dark:text-gray-300">Excused: {internData.weeklyAttendance.excusedDays}</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                                <span className="text-xs text-gray-600 dark:text-gray-300">Absent: {internData.weeklyAttendance.absentDays}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="w-24 h-24">
+                          <div className="relative w-full h-full">
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <div className="text-sm font-medium text-gray-700 dark:text-gray-300">7 days</div>
+                            </div>
+                            <svg className="w-full h-full" viewBox="0 0 36 36">
+                              <circle cx="18" cy="18" r="16" fill="none" className="stroke-gray-200 dark:stroke-gray-600" strokeWidth="2"></circle>
+                              <circle 
+                                cx="18" 
+                                cy="18" 
+                                r="16" 
+                                fill="none" 
+                                className="stroke-blue-500 dark:stroke-blue-400" 
+                                strokeWidth="2" 
+                                strokeDasharray={`${internData.weeklyAttendance.percentage} 100`} 
+                                strokeLinecap="round" 
+                                transform="rotate(-90 18 18)"
+                              ></circle>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-3">
+                        Note: Attendance percentage includes both present days and excused absences.
+                      </p>
+                    </div>
+                    
                     {/* Attendance stats */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                       <div className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow border border-gray-100 dark:border-gray-600">
@@ -793,9 +879,9 @@ function Dashboard() {
                   ))}
                 </div>
                 <div className="bg-gray-50 dark:bg-gray-700 px-8 py-4">
-                  <a href="#" className="text-sm font-medium text-emerald-600 dark:text-emerald-400 hover:text-blue-500 dark:hover:text-blue-300">
+                  <Link href="/activity" className="text-sm font-medium text-emerald-600 dark:text-emerald-400 hover:text-blue-500 dark:hover:text-blue-300">
                     View all activity →
-                  </a>
+                  </Link>
                 </div>
               </motion.div>
             </motion.div>

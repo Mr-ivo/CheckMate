@@ -85,7 +85,7 @@ function InternsDashboard() {
         console.log(`Updating ${endpoint}:`, data); // Debug log
         
         const response = await fetch(`${API_BASE}/${endpoint}`, {
-          method: 'PATCH',
+          method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
             ...(token ? { 'Authorization': `Bearer ${token}` } : {})
@@ -503,15 +503,81 @@ function InternsDashboard() {
     console.log('Edit modal should be visible now');
   };
   
+  // Custom function to update intern with PUT method
+  const updateIntern = async (internId, data) => {
+    try {
+      // Get auth token for authenticated requests
+      const token = localStorage.getItem('checkmate_auth_token');
+      const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      
+      console.log(`Updating intern ${internId}:`, data); // Debug log
+      
+      const response = await fetch(`${API_BASE}/interns/${internId}`, {
+        method: 'PUT', // Explicitly using PUT for intern updates
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+      });
+      
+      if (!response.ok) {
+        // Try to get detailed error information
+        const errorText = await response.text();
+        console.error('API Error response body:', JSON.stringify(errorText));
+        throw new Error(`API Error response body: ${JSON.stringify(errorText)}`);
+      }
+      
+      return await response.json();
+    } catch (err) {
+      console.error(`Error updating intern:`, err);
+      throw err;
+    }
+  };
+
   // Handle edit form submission
-  const handleEditIntern = async (e) => {
-    e.preventDefault();
+  const handleEditIntern = async () => {
     try {
       setIsLoading(true);
       
-      // Validate required fields
-      if (!formData.name || !formData.employeeId || !formData.email || !formData.department) {
-        toast.error('Please fill all required fields');
+      // Enhanced validation for required fields
+      const validationErrors = [];
+      
+      // Check required fields
+      if (!formData.name.trim()) validationErrors.push('Name is required');
+      if (!formData.employeeId.trim()) validationErrors.push('Employee ID is required');
+      if (!formData.email.trim()) validationErrors.push('Email is required');
+      if (!formData.department.trim()) validationErrors.push('Department is required');
+      
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (formData.email.trim() && !emailRegex.test(formData.email.trim())) {
+        validationErrors.push('Please enter a valid email address');
+      }
+      
+      // Validate employee ID format (alphanumeric)
+      const employeeIdRegex = /^[a-zA-Z0-9-]+$/;
+      if (formData.employeeId.trim() && !employeeIdRegex.test(formData.employeeId.trim())) {
+        validationErrors.push('Employee ID should contain only letters, numbers, and hyphens');
+      }
+      
+      // Check password if provided
+      if (formData.password && formData.password.length < 6) {
+        validationErrors.push('Password must be at least 6 characters long');
+      }
+      
+      // Display validation errors if any
+      if (validationErrors.length > 0) {
+        toast.error(
+          <div>
+            <strong>Please fix the following errors:</strong>
+            <ul className="mt-2 list-disc pl-5">
+              {validationErrors.map((error, index) => (
+                <li key={index}>{error}</li>
+              ))}
+            </ul>
+          </div>
+        );
         setIsLoading(false);
         return;
       }
@@ -522,7 +588,8 @@ function InternsDashboard() {
         internId: formData.employeeId.trim(),
         department: formData.department.trim(),
         email: formData.email.trim(),
-        supervisorName: formData.supervisor.trim() || undefined,
+        supervisor: formData.supervisor.trim() || undefined, // Changed from supervisorName to supervisor to match backend model
+        status: 'active', // Ensure status is included
       };
       
       // Only include password if provided
@@ -532,8 +599,8 @@ function InternsDashboard() {
       
       console.log('Update payload:', payload);
       
-      // Call API to update the intern
-      const response = await apiService.updateData(`interns/${selectedIntern._id}`, payload);
+      // Call our custom function to update the intern with PUT method
+      const response = await updateIntern(selectedIntern._id, payload);
       
       if (response.status === 'success') {
         toast.success('Intern updated successfully!');

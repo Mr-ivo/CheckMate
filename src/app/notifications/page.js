@@ -32,7 +32,7 @@ export default function Notifications() {
     {
       id: 2,
       title: "Meeting reminder",
-      message: "Marketing department meeting at 2:00 PM in Conference Room A",
+      message: "Graphic design department meeting at 2:00 PM in Conference Room A",
       time: "1 hour ago",
       read: false,
       type: "reminder",
