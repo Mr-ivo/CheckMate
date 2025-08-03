@@ -18,7 +18,7 @@ export const useApi = (endpoint, options = {}) => {
   const getAuthToken = () => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('checkmate_auth_token');
-    }
+    }  
     return null;
   };
 

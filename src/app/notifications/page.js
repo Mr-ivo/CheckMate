@@ -6,13 +6,10 @@ import { Bell, Check, ChevronLeft, Trash2 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { toast } from "react-hot-toast";
 
-// Layout components
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
-import Footer from "@/components/Footer";
+// Import DashboardLayout
+import DashboardLayout from "@/components/DashboardLayout";
 
 export default function Notifications() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const { isDarkMode } = useTheme();
   const [notifications, setNotifications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -164,13 +161,8 @@ export default function Notifications() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
-      <Navbar toggleSidebar={toggleSidebar} />
-      
-      <div className="flex flex-1 pt-16">
-        <Sidebar isOpen={sidebarOpen} />
-        
-        <main className="flex-1 p-4 md:p-6">
+    <DashboardLayout>
+      <div className="p-4 md:p-6">
           <div className="max-w-6xl mx-auto">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-2xl font-bold">Notifications</h1>
@@ -276,10 +268,7 @@ export default function Notifications() {
               </motion.div>
             )}
           </div>
-        </main>
-      </div>
-      
-      <Footer />
-    </div>
-  );
+        </div>
+      </DashboardLayout>
+    );
 }

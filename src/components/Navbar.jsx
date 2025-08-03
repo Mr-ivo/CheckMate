@@ -3,44 +3,206 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
-import { Menu, X, Moon, Sun, Bell, ChevronRight } from 'lucide-react';
-import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Moon, Sun, Bell, ChevronRight, Search, User } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useApi } from '@/hooks/useApi';
+import { searchAllSources } from '@/utils/search';
+import SearchResults from './SearchResults';
+import { motion } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
 
-export default function Navbar({ toggleSidebar }) {
+export default function Navbar() {
   const { isDarkMode, toggleTheme } = useTheme();
   const [showNotifications, setShowNotifications] = useState(false);
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [searchResults, setSearchResults] = useState({});
+  const [isSearching, setIsSearching] = useState(false);
   const notificationRef = useRef(null);
-  const mobileMenuRef = useRef(null);
+  const profileMenuRef = useRef(null);
+  const searchRef = useRef(null);
   const pathname = usePathname();
-  
-  // Close mobile menu when clicking outside
+  const router = useRouter();
+
+  // Don't initialize useApi without an endpoint - we'll use direct fetch calls instead
+  // This prevents the 404 errors to /api/undefined
+
+  // Search configuration - define which fields to search in each data type
+  const searchConfig = {
+    interns: {
+      // Search in user name, email, and other intern fields
+      fields: ['userId.name', 'userId.email', 'internId', 'department', 'status', 'supervisor.name', 'name', 'email']
+    },
+    attendance: {
+      fields: ['status', 'date', 'internId.userId.name', 'internId.userId.email', 'internId.internId', 'internName']
+    }
+  };
+
+  // Handle search input changes with debounce
   useEffect(() => {
-    function handleClickOutside(event) {
-      // Ignore clicks on the toggle button itself
-      if (event.target.closest('[aria-label="Toggle navigation menu"]')) {
-        return;
+    const timer = setTimeout(() => {
+      if (searchQuery && searchQuery.trim().length >= 2) {
+        performSearch(searchQuery);
+      } else {
+        setSearchResults({});
+        if (searchQuery.length === 0) {
+          setShowSearchResults(false);
+        }
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  // Search function
+  const performSearch = async (query) => {
+    if (!query || query.trim().length < 2) return;
+
+    setIsSearching(true);
+    setShowSearchResults(true);
+
+    try {
+      // Fetch data from APIs using direct API calls since fetchData doesn't take parameters
+      // We need to make these calls directly
+      const API_BASE = process.env.NEXT_PUBLIC_API_URL || 
+        (typeof window !== 'undefined' && window.location.hostname !== 'localhost' 
+          ? 'https://checkmate-backend-fm9d.onrender.com/api'
+          : 'http://localhost:5000/api');
+          
+      const getAuthToken = () => {
+        if (typeof window !== 'undefined') {
+          return localStorage.getItem('checkmate_auth_token');
+        }  
+        return null;
+      };
+      
+      const token = getAuthToken();
+      const headers = {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+      };
+      
+      const [internsResponse, attendanceResponse] = await Promise.all([
+        fetch(`${API_BASE}/interns`, { headers }).then(res => res.json()),
+        fetch(`${API_BASE}/attendance`, { headers }).then(res => res.json())
+      ]);
+      
+      console.log('INTERN SEARCH DEBUG - Raw API responses:', { 
+        interns: internsResponse, 
+        attendance: attendanceResponse 
+      });
+      
+
+
+      // Process the intern data to ensure name fields are accessible
+      // Debug the API response structure
+      console.log('INTERN SEARCH DEBUG - Raw API response:', internsResponse);
+      console.log('INTERN SEARCH DEBUG - Response structure:', {
+        hasData: !!internsResponse?.data,
+        dataType: typeof internsResponse?.data,
+        hasInterns: !!internsResponse?.data?.interns,
+        internsType: typeof internsResponse?.data?.interns,
+        isArray: Array.isArray(internsResponse?.data?.interns)
+      });
+      
+      // The API returns { data: { interns: [...] } }
+      let internsDataRaw = [];
+      if (Array.isArray(internsResponse?.data?.interns)) {
+        internsDataRaw = internsResponse.data.interns;
+      } else if (Array.isArray(internsResponse?.data)) {
+        internsDataRaw = internsResponse.data;
+      } else if (Array.isArray(internsResponse)) {
+        internsDataRaw = internsResponse;
+      } else if (internsResponse?.data?.interns && typeof internsResponse.data.interns === 'object') {
+        // If it's an object, try to convert to array
+        internsDataRaw = Object.values(internsResponse.data.interns);
       }
       
-      // Close menu when clicking outside
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
-        setShowMobileMenu(false);
+      console.log('INTERN SEARCH DEBUG - Processed internsDataRaw:', {
+        length: internsDataRaw.length,
+        type: typeof internsDataRaw,
+        isArray: Array.isArray(internsDataRaw),
+        sample: internsDataRaw[0]
+      });
+      
+      // Then map over the array safely - no need to flatten since we're using nested paths
+      const internsData = Array.isArray(internsDataRaw) ? internsDataRaw.map(intern => {
+        if (!intern) return {};
+        
+        // Return the intern object as-is since we're using nested property paths
+        return intern;
+      }) : [];
+
+      // Process attendance data with similar debugging
+      console.log('ATTENDANCE SEARCH DEBUG - Raw API response:', attendanceResponse);
+      
+      let attendanceData = [];
+      if (Array.isArray(attendanceResponse?.data?.records)) {
+        attendanceData = attendanceResponse.data.records;
+      } else if (Array.isArray(attendanceResponse?.records)) {
+        attendanceData = attendanceResponse.records;
+      } else if (Array.isArray(attendanceResponse?.data)) {
+        attendanceData = attendanceResponse.data;
+      } else if (Array.isArray(attendanceResponse)) {
+        attendanceData = attendanceResponse;
+      }
+      
+      console.log('ATTENDANCE SEARCH DEBUG - Processed attendanceData:', {
+        length: attendanceData.length,
+        type: typeof attendanceData,
+        isArray: Array.isArray(attendanceData),
+        sample: attendanceData[0]
+      });
+
+      const dataSources = {
+        interns: internsData,
+        attendance: attendanceData
+      };
+      
+      console.log('Search debug - Data sources for search:', {
+        internsCount: dataSources.interns?.length || 0,
+        attendanceCount: dataSources.attendance?.length || 0,
+        sampleIntern: dataSources.interns?.[0],
+        sampleAttendance: dataSources.attendance?.[0]
+      });
+
+      // Perform the search across all data sources
+      const results = searchAllSources(query, dataSources, searchConfig);
+      console.log('Search debug - Search query:', query);
+      console.log('Search debug - Search config:', searchConfig);
+      console.log('Search debug - Search results:', results);
+      setSearchResults(results);
+    } catch (error) {
+      console.error('Search error:', error);
+      setSearchResults({});
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  // Handle search form submission
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      // For form submission, we'll navigate to a dedicated search page
+      router.push(`/dashboard/search?q=${encodeURIComponent(searchQuery)}`);
+      setShowSearchResults(false);
+    }
+  };
+
+  // Handle click outside to close search results
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSearchResults(false);
       }
     }
-    
+
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-  
-  // Close mobile menu on route change
-  useEffect(() => {
-    setShowMobileMenu(false);
-  }, [pathname]);
-  
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [searchRef]);
+
   // Handle click outside to close notifications dropdown
   useEffect(() => {
     function handleClickOutside(event) {
@@ -54,6 +216,19 @@ export default function Navbar({ toggleSidebar }) {
     };
   }, [notificationRef]);
 
+  // Handle click outside to close profile menu
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+        setShowProfileMenu(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [profileMenuRef]);
+
   // Mock notifications
   const notifications = [
     { id: 1, text: "New intern joined the Mobile Development team", time: "5 minutes ago", read: false },
@@ -61,62 +236,76 @@ export default function Navbar({ toggleSidebar }) {
     { id: 3, text: "Attendance report ready for review", time: "3 hours ago", read: true },
   ];
 
-  const navLinks = [
-    { name: 'Dashboard', href: '/dashboard' },
-    { name: 'Interns', href: '/interns' },
-    { name: 'Attendance', href: '/attendance' },
-    { name: 'Reports', href: '/reports' },
-    { name: 'Settings', href: '/settings' },
-  ];
-
   return (
-    <nav className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800 fixed w-full z-30">
+    <nav className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800 w-full z-30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex items-center">
+          {/* Left section - Logo only */}
+          <div className="flex items-center -ml-16">
+            {/* Logo */}
             <Link href="/dashboard" className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
                 <Image 
-                  src="/Screenshot__9_-removebg-preview.png" 
+                  src="/checkmate-logo.png" 
                   alt="CheckMate Logo" 
-                  width={70} 
-                  height={70} 
-                  className="h-9 w-auto" 
+                  width={400} 
+                  height={400} 
+                  className="h-48 w-auto" 
                 />
               </div>
             </Link>
           </div>
           
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex md:items-center md:space-x-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`px-3 py-2 rounded-md text-sm font-medium ${
-                  pathname === link.href
-                    ? 'bg-emerald-100 text-emerald-700 dark:bg-gray-700 dark:text-emerald-300'
-                    : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
+          {/* Center section - Search bar */}
+          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-sm mx-2 lg:mx-4 items-center -ml-8" ref={searchRef}>
+            <div className="w-full relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search size={16} className="text-gray-400 dark:text-gray-500" />
+              </div>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => searchQuery.trim().length >= 2 && setShowSearchResults(true)}
+                placeholder="Search interns, attendance..."
+                className="block w-full pl-10 pr-12 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800/70 text-sm text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200 shadow-sm"
+                aria-label="Search"
+                autoComplete="off"
+              />
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                {isSearching ? (
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-emerald-500 mr-1"></div>
+                ) : (
+                  <kbd className="hidden sm:inline-flex items-center rounded px-1.5 text-xs font-semibold text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 mr-1">
+                    ⌘K
+                  </kbd>
+                )}
+                <button 
+                  type="submit" 
+                  className="p-0.5 rounded-md text-gray-400 hover:text-emerald-500 dark:text-gray-500 dark:hover:text-emerald-400 focus:outline-none"
+                  aria-label="Submit search"
+                >
+                  <ChevronRight size={14} />
+                </button>
+              </div>
+              
+              {/* Search results dropdown */}
+              {showSearchResults && (
+                <SearchResults 
+                  results={searchResults} 
+                  isLoading={isSearching} 
+                  onResultClick={() => setShowSearchResults(false)}
+                />
+              )}
+            </div>
+          </form>
           
-          <div className="flex items-center">
-            {toggleSidebar && (
-              <button
-                onClick={toggleSidebar}
-                className="p-1 rounded-md bg-gray-50 dark:bg-gray-800 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 focus:outline-none mr-2"
-                aria-label="Toggle sidebar"
-              >
-                <ChevronRight size={16} />
-              </button>
-            )}
+          {/* Right section - User actions */}
+          <div className="flex items-center space-x-1 md:space-x-2">
+            {/* Notifications */}
             <div className="relative" ref={notificationRef}>
               <button
-                className="p-2 rounded-md text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white focus:outline-none relative"
+                className="p-2 rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white focus:outline-none relative"
                 aria-label="Notifications"
                 onClick={() => setShowNotifications(!showNotifications)}
               >
@@ -170,95 +359,56 @@ export default function Navbar({ toggleSidebar }) {
                 </motion.div>
               )}
             </div>
+            
+            {/* Theme toggle */}
             <button
               onClick={toggleTheme}
-              className="ml-2 p-2 rounded-md text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white focus:outline-none"
+              className="p-2 rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white focus:outline-none"
               aria-label="Toggle theme"
             >
               {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            {/* Hamburger Menu Toggle Button */}
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                // Force state to toggle properly
-                setShowMobileMenu(prevState => !prevState);
-                console.log('Mobile menu toggled!');
-              }}
-              className="ml-2 md:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white focus:outline-none transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800 active:scale-95"
-              aria-expanded={showMobileMenu}
-              aria-label="Toggle navigation menu"
-              type="button"
-              style={{ 
-                touchAction: 'manipulation',
-                position: 'relative',
-                zIndex: 60 
-              }}
-            >
-              {showMobileMenu ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            
+            {/* Profile menu */}
+            <div className="relative" ref={profileMenuRef}>
+              <button
+                className="p-1 rounded-full border-2 border-gray-200 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                aria-label="User menu"
+                onClick={() => setShowProfileMenu(!showProfileMenu)}
+              >
+                <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
+                  <User size={16} className="text-gray-500 dark:text-gray-400" />
+                </div>
+              </button>
+              
+              {/* Profile Dropdown */}
+              {showProfileMenu && (
+                <motion.div
+                  className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50 border border-gray-200 dark:border-gray-700"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Admin User</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">admin@example.com</p>
+                  </div>
+                  
+                  <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    Your Profile
+                  </Link>
+                  <Link href="/settings" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    Settings
+                  </Link>
+                  <Link href="/logout" className="block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    Sign out
+                  </Link>
+                </motion.div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Mobile menu overlay and container */}
-      {showMobileMenu && (
-        <>
-          {/* Backdrop overlay - higher z-index than navbar but lower than content */}
-          <div 
-            className="fixed inset-0 bg-black bg-opacity-50"
-            style={{ zIndex: 55 }}
-            onClick={() => setShowMobileMenu(false)}
-          />
-          
-          {/* Menu container - highest z-index */}
-          <div 
-            className="fixed top-16 inset-x-0 bg-white dark:bg-gray-900 shadow-lg border-t border-gray-100 dark:border-gray-800"
-            style={{ zIndex: 59 }}
-            ref={mobileMenuRef}
-          >
-              <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                {navLinks.map((link, index) => (
-                  <motion.div
-                    key={link.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ 
-                      duration: 0.2, 
-                      delay: 0.05 * index,
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 15
-                    }}
-                  >
-                    <Link
-                      href={link.href}
-                      className={`block px-3 py-3 rounded-md text-base font-medium flex items-center ${
-                        pathname === link.href
-                          ? 'bg-emerald-100 text-emerald-700 dark:bg-gray-700 dark:text-emerald-300'
-                          : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
-                      }`}
-                      onClick={() => setShowMobileMenu(false)}
-                    >
-                      <motion.div 
-                        className="mr-3 flex items-center justify-center w-8 h-8 rounded-md bg-emerald-50 dark:bg-emerald-900/30"
-                        whileHover={{ scale: 1.1 }}
-                      >
-                        {link.name === 'Dashboard' && <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-emerald-600 dark:text-emerald-400" viewBox="0 0 20 20" fill="currentColor"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>}
-                        {link.name === 'Interns' && <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-emerald-600 dark:text-emerald-400" viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" /></svg>}
-                        {link.name === 'Attendance' && <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-emerald-600 dark:text-emerald-400" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" /></svg>}
-                        {link.name === 'Reports' && <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-emerald-600 dark:text-emerald-400" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm2 10a1 1 0 10-2 0v3a1 1 0 102 0v-3zm4-1a1 1 0 011 1v3a1 1 0 11-2 0v-3a1 1 0 011-1z" clipRule="evenodd" /></svg>}
-                        {link.name === 'Settings' && <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-emerald-600 dark:text-emerald-400" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" /></svg>}
-                      </motion.div>
-                      <span>{link.name}</span>
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
-          </div>
-        </>
-      )}
     </nav>
   );
 }

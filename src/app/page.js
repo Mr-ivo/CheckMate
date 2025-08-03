@@ -112,16 +112,17 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-white to-emerald-50 dark:from-gray-900 dark:to-gray-800 overflow-x-hidden overflow-guard" style={{ maxWidth: '100vw', overflowX: 'hidden' }}>
       {/* Navigation */}
       <header className="absolute top-0 left-0 right-0 z-30">
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
+        <div className="container mx-auto max-w-7xl px-0">
+          <div className="flex justify-between items-center py-0">
             <div className="flex items-center w-1/4">
               <Link href="/" className="flex items-center">
                 <Image 
-                  src="/Screenshot__9_-removebg-preview.png" 
+                  src="/checkmate-logo.png" 
                   alt="CheckMate Logo" 
-                  width={180} 
-                  height={180} 
-                  className="py-1"
+                  width={280} 
+                  height={250} 
+                  className="py-0 ml-0 pl-0"
+                  style={{ marginLeft: 0, paddingLeft: 0 }}
                 />
               </Link>
             </div>

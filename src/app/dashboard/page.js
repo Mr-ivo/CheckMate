@@ -17,11 +17,6 @@ import {
 // Next.js components
 import Link from "next/link";
 
-// Layout components
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
-import Footer from "@/components/Footer";
-
 // Import enhanced components
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { CardSkeleton, ChartSkeleton, TableRowSkeleton } from "@/components/SkeletonLoader";
@@ -36,9 +31,8 @@ import { AttendanceChart, WeeklyChart } from "@/components/DashboardCharts";
 // Import the API hook
 import { useApi } from "@/hooks/useApi";
 
-// No longer using external auth service
-
-// Import ProtectedRoute component
+// Import DashboardLayout and ProtectedRoute
+import DashboardLayout from "@/components/DashboardLayout";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 // Protect the Dashboard route
@@ -53,8 +47,7 @@ export default function DashboardPage() {
 
 // Main Dashboard component
 function Dashboard() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const { isDarkMode, toggleTheme } = useTheme();
+  const { isDarkMode } = useTheme();
   const [isLoading, setIsLoading] = useState(true);
   const [stats, setStats] = useState({
     totalStaff: 0,
@@ -528,17 +521,9 @@ function Dashboard() {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-        <Navbar 
-          toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
-        />
-        <Sidebar 
-          isOpen={sidebarOpen} 
-          toggleSidebar={() => setSidebarOpen(!sidebarOpen)} 
-        />
-
-        <main className={`pt-28 pb-8 px-4 sm:px-6 lg:px-8 transition-all duration-300 ${sidebarOpen ? 'md:ml-60' : ''}`}>
-        <div className="max-w-7xl mx-auto">
+      <DashboardLayout>
+        <div className="pt-16 pb-8 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
           {/* Dashboard Header with Date Filter */}
           <div className="md:flex md:items-center md:justify-between mb-8">
             <div className="flex-1 min-w-0">
@@ -887,12 +872,11 @@ function Dashboard() {
             </motion.div>
           )}
         </div>
-      </main>
-      
-      <Footer />
-    </div>
+      </div>
+      </DashboardLayout>
     </ErrorBoundary>
   );
 }
+
 
 

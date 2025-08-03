@@ -28,10 +28,8 @@ import {
 import { Bar, Line, Doughnut } from "react-chartjs-2";
 import { toast } from "react-hot-toast";
 
-// Layout components
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
-import Footer from "@/components/Footer";
+// Import DashboardLayout
+import DashboardLayout from "@/components/DashboardLayout";
 import { useTheme } from "@/context/ThemeContext";
 
 // Register ChartJS components
@@ -48,7 +46,6 @@ ChartJS.register(
 );
 
 export default function Reports() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const { isDarkMode, toggleTheme } = useTheme();
   const [isLoading, setIsLoading] = useState(true);
   const [dateRange, setDateRange] = useState('month'); // week, month, quarter, year
@@ -489,15 +486,8 @@ export default function Reports() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navbar 
-        toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
-        isDarkMode={isDarkMode}
-        toggleTheme={toggleTheme}
-      />
-      <Sidebar isOpen={sidebarOpen} />
-
-      <main className={`pt-20 pb-8 px-4 sm:px-6 lg:px-8 transition-all duration-300 ${sidebarOpen ? 'md:ml-60' : ''}`}>
+    <DashboardLayout>
+      <div className="p-4 sm:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
           <div className="md:flex md:items-center md:justify-between mb-8">
             <div className="flex-1 min-w-0">
@@ -792,9 +782,7 @@ export default function Reports() {
             </motion.div>
           )}
         </div>
-      </main>
-      
-      <Footer />
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }
