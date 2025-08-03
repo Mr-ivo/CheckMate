@@ -113,7 +113,7 @@ export default function Home() {
       {/* Navigation */}
       <header className="absolute top-0 left-0 right-0 z-30">
         <div className="container mx-auto max-w-7xl px-0">
-          <div className="flex justify-between items-center py-0">
+          <div className="flex justify-between items-center py-0 -mt-8">
             <div className="flex items-center w-1/4">
               <Link href="/" className="flex items-center">
                 <Image 
@@ -121,7 +121,7 @@ export default function Home() {
                   alt="CheckMate Logo" 
                   width={280} 
                   height={250} 
-                  className="py-0 ml-0 pl-0"
+                  className="py-0 -ml-8 pl-0"
                   style={{ marginLeft: 0, paddingLeft: 0 }}
                 />
               </Link>

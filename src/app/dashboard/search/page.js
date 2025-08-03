@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { User, Calendar, Clock, AlertCircle, CheckCircle, XCircle, Search } from 'lucide-react';
 import Link from 'next/link';
@@ -8,7 +8,7 @@ import DashboardLayout from '@/components/DashboardLayout';
 import { useApi } from '@/hooks/useApi';
 import { searchAllSources } from '@/utils/search';
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
   const [searchResults, setSearchResults] = useState({});
@@ -182,9 +182,8 @@ export default function SearchPage() {
   };
   
   return (
-    <DashboardLayout>
-      <div className="px-4 sm:px-6 lg:px-8 py-8">
-        <div className="max-w-5xl mx-auto">
+    <div className="px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-5xl mx-auto">
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
               Search Results for "{query}"
@@ -256,7 +255,22 @@ export default function SearchPage() {
             )}
           </div>
         </div>
-      </div>
+    </div>
+  );
+}
+
+// Wrap the search content in a suspense boundary
+export default function SearchPage() {
+  return (
+    <DashboardLayout>
+      <Suspense fallback={
+        <div className="px-4 sm:px-6 lg:px-8 py-8 text-center">
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500 mb-4"></div>
+          <p className="text-gray-600 dark:text-gray-400">Loading search results...</p>
+        </div>
+      }>
+        <SearchContent />
+      </Suspense>
     </DashboardLayout>
   );
 }
