@@ -71,13 +71,28 @@ export default function Sidebar({ isCollapsed, toggleSidebar }) {
       }`}
     >
       <div className="h-full flex flex-col justify-between py-4">
-                        {/* Logo Section */}
+        {/* Logo Section */}
         <div className="px-2 py-4 border-b border-gray-200 dark:border-gray-700">
-          <Link href="/dashboard" className="flex items-center justify-center">
-            <div className="flex-shrink-0 flex items-center">
-              <Target size={16} className="text-emerald-600 dark:text-emerald-400" />
-            </div>
-          </Link>
+          <div className="flex items-center justify-between">
+            <Link href="/dashboard" className="flex items-center justify-center">
+              <div className="flex-shrink-0 flex items-center">
+                <Target size={16} className="text-emerald-600 dark:text-emerald-400" />
+              </div>
+            </Link>
+            
+            {/* Toggle Button */}
+            <button
+              onClick={toggleSidebar}
+              className="p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-800 transition-all duration-200"
+              title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            >
+              {isCollapsed ? (
+                <ChevronRight size={16} />
+              ) : (
+                <ChevronLeft size={16} />
+              )}
+            </button>
+          </div>
         </div>
 
         <nav className="flex-1 px-2 space-y-1">

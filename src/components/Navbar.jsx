@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
-import { Moon, Sun, Bell, ChevronRight, Search, User } from 'lucide-react';
+import { Moon, Sun, Bell, ChevronRight, Search, User, Menu } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useApi } from '@/hooks/useApi';
 import { searchAllSources } from '@/utils/search';
@@ -11,7 +11,7 @@ import SearchResults from './SearchResults';
 import { motion } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
 
-export default function Navbar() {
+export default function Navbar({ toggleSidebar, isMobile }) {
   const { isDarkMode, toggleTheme } = useTheme();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -240,8 +240,8 @@ export default function Navbar() {
     <nav className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800 w-full z-30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          {/* Left section - Logo only */}
-          <div className="flex items-center -ml-16">
+          {/* Left section - Logo */}
+          <div className="flex items-center -ml-24">
             {/* Logo */}
             <Link href="/dashboard" className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
@@ -302,6 +302,17 @@ export default function Navbar() {
           
           {/* Right section - User actions */}
           <div className="flex items-center space-x-1 md:space-x-2">
+            {/* Mobile menu button */}
+            {isMobile && (
+              <button
+                onClick={toggleSidebar}
+                className="p-2 rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white focus:outline-none"
+                aria-label="Toggle sidebar"
+              >
+                <Menu size={20} />
+              </button>
+            )}
+            
             {/* Notifications */}
             <div className="relative" ref={notificationRef}>
               <button

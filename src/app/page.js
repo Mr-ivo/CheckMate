@@ -109,20 +109,20 @@ export default function Home() {
     };
   }, []);
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-white to-emerald-50 dark:from-gray-900 dark:to-gray-800 overflow-x-hidden overflow-guard" style={{ maxWidth: '100vw', overflowX: 'hidden' }}>
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-white to-emerald-50 dark:from-gray-900 dark:to-gray-800 overflow-x-hidden" style={{ maxWidth: '100vw' }}>
       {/* Navigation */}
       <header className="absolute top-0 left-0 right-0 z-30">
-        <div className="container mx-auto max-w-7xl px-0">
-          <div className="flex justify-between items-center py-0 -mt-8">
-            <div className="flex items-center w-1/4">
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
+          <div className="flex justify-between items-center py-0 mt-0 sm:-mt-8">
+            <div className="flex items-center w-1/2 sm:w-1/4">
               <Link href="/" className="flex items-center">
                 <Image 
                   src="/checkmate-logo.png" 
                   alt="CheckMate Logo" 
                   width={280} 
                   height={250} 
-                  className="py-0 -ml-8 pl-0"
-                  style={{ marginLeft: 0, paddingLeft: 0 }}
+                  className="py-0 pl-0 -ml-0 sm:-ml-8 scale-75 sm:scale-100 origin-left"
+                  style={{ paddingLeft: 0 }}
                 />
               </Link>
             </div>
@@ -137,10 +137,10 @@ export default function Home() {
                 FAQ
               </Link>
             </nav>
-            <div className="hidden md:block w-1/4 text-right">
+            <div className="hidden md:block w-1/4 text-right pr-1">
               <Link 
                 href="/login" 
-                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-all duration-200 shadow-sm"
+                className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-md text-sm transition-all duration-200 shadow-sm"
               >
                 Sign In
               </Link>
@@ -184,46 +184,60 @@ export default function Home() {
             
             {/* Menu container */}
             <div 
-              className="fixed top-20 inset-x-0 bg-white dark:bg-gray-900 shadow-lg border-t border-gray-100 dark:border-gray-800"
-              style={{ 
-                zIndex: 59, 
-                maxHeight: 'calc(100vh - 5rem)', 
-                overflowY: 'auto',
-                paddingBottom: '2rem'
-              }}
+              className="fixed inset-y-0 right-0 max-w-full w-3/4 sm:w-64 bg-white dark:bg-gray-800 shadow-lg transform z-50 transition-transform duration-300"
+              style={{ zIndex: 56 }}
               ref={mobileMenuRef}
             >
-              <div className="px-4 py-4 space-y-3">
-                <Link 
-                  href="#features" 
-                  className="block px-4 py-2 text-lg font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 rounded-md"
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  Features
-                </Link>
-                <Link 
-                  href="#how-it-works" 
-                  className="block px-4 py-2 text-lg font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 rounded-md"
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  How It Works
-                </Link>
-                <Link 
-                  href="#faq" 
-                  className="block px-4 py-2 text-lg font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 rounded-md"
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  FAQ
-                </Link>
-                <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <Link 
-                    href="/login" 
-                    className="block w-full px-4 py-2 text-center text-white bg-emerald-600 hover:bg-emerald-700 font-medium rounded-md transition-all duration-200 shadow-sm"
+              <div className="flex flex-col h-full">
+                <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-700">
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">Menu</h3>
+                  <button
+                    onClick={() => setShowMobileMenu(false)}
+                    className="text-gray-500 dark:text-gray-400 focus:outline-none"
+                    aria-label="Close menu"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                
+                <nav className="flex-1 overflow-y-auto py-4 px-4 space-y-6">
+                  <Link href="#features" 
+                    className="block text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium"
                     onClick={() => setShowMobileMenu(false)}
                   >
-                    Sign In
+                    Features
                   </Link>
-                </div>
+                  <Link href="#how-it-works" 
+                    className="block text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium"
+                    onClick={() => setShowMobileMenu(false)}
+                  >
+                    How It Works
+                  </Link>
+                  <Link href="#testimonials" 
+                    className="block text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium"
+                    onClick={() => setShowMobileMenu(false)}
+                  >
+                    Testimonials
+                  </Link>
+                  <Link href="#faq" 
+                    className="block text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium"
+                    onClick={() => setShowMobileMenu(false)}
+                  >
+                    FAQ
+                  </Link>
+                  
+                  <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <Link
+                      href="/login"
+                      className="block w-full px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg text-center transition-all duration-200 shadow-sm"
+                      onClick={() => setShowMobileMenu(false)}
+                    >
+                      Sign In
+                    </Link>
+                  </div>
+                </nav>
               </div>
             </div>
           </>
@@ -232,7 +246,7 @@ export default function Home() {
       
       {/* Hero Section */}
       <motion.section 
-        className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-screen max-w-full"
+        className="relative pt-32 sm:pt-12 lg:pt-20 pb-20 lg:pb-32 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-screen max-w-full"
         initial="hidden"
         animate="visible"
         variants={containerVariants}

@@ -6,16 +6,19 @@ import Navbar from './Navbar';
 import { useTheme } from '@/context/ThemeContext';
 
 export default function DashboardLayout({ children }) {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false); // Start expanded on desktop
+  const [isMobile, setIsMobile] = useState(false);
   const { isDarkMode } = useTheme();
 
-  // Close sidebar on mobile by default
+  // Handle responsive layout
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      
+      // Auto-collapse on small screens
+      if (mobile) {
         setSidebarCollapsed(true);
-      } else {
-        setSidebarCollapsed(false);
       }
     };
 
@@ -33,16 +36,26 @@ export default function DashboardLayout({ children }) {
   };
 
   return (
-    <div className={`flex h-screen bg-gray-100 ${isDarkMode ? 'dark' : ''}`}>
+    <div className={`flex h-screen bg-gray-100 dark:bg-gray-900 ${isDarkMode ? 'dark' : ''}`}>
+      {/* Mobile overlay */}
+      {isMobile && !sidebarCollapsed && (
+        <div 
+          className="fixed inset-0 z-40 bg-black bg-opacity-50" 
+          onClick={() => setSidebarCollapsed(true)}
+        />
+      )}
+      
       {/* Sidebar */}
-      <Sidebar isCollapsed={sidebarCollapsed} toggleSidebar={toggleSidebar} />
+      <div className={`${isMobile ? 'fixed z-50' : 'relative'} ${sidebarCollapsed && isMobile ? 'hidden' : ''}`}>
+        <Sidebar isCollapsed={sidebarCollapsed} toggleSidebar={toggleSidebar} />
+      </div>
 
       {/* Main Content Area */}
-      <div className={`flex flex-col flex-1 overflow-hidden dark:bg-gray-900 transition-all duration-300 ${
-        sidebarCollapsed ? 'ml-16' : 'ml-64'
+      <div className={`flex flex-col flex-1 overflow-hidden transition-all duration-300 ${
+        isMobile ? 'ml-0' : sidebarCollapsed ? 'ml-16' : 'ml-64'
       }`}>
         {/* Top Navigation Bar */}
-        <Navbar />
+        <Navbar toggleSidebar={toggleSidebar} isMobile={isMobile} />
 
         {/* Main Content */}
         <main className="flex-1 overflow-y-auto">
