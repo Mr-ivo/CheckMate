@@ -312,6 +312,94 @@ class ApiService {
   async resetSettings() {
     return this.postData('settings/reset', {});
   }
+
+  /**
+   * Send email notification to absent intern
+   * @param {Object} emailData - Email data containing intern info and date
+   * @returns {Promise} - Promise resolving to email send result
+   */
+  async sendAbsenteeEmail(emailData) {
+    try {
+      const token = this.getToken();
+      if (!token) {
+        throw new Error('Authentication token not found');
+      }
+
+      const response = await fetch(`${this.baseUrl}/email/absent`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(emailData)
+      });
+
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.message || `API error: ${response.status}`);
+        }
+        return data;
+      } else {
+        const text = await response.text();
+        console.error('Non-JSON response:', text);
+        throw new Error(`API returned non-JSON response. Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('API error:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Send bulk email notifications to multiple absent interns
+   * @param {Array} absentInterns - Array of absent intern data
+   * @param {string} date - Date of absence
+   * @returns {Promise} - Promise resolving to bulk email send results
+   */
+  async sendBulkAbsenteeEmails(absentInterns, date) {
+    try {
+      const emailData = {
+        internData: absentInterns,
+        date: date,
+        type: 'bulk'
+      };
+      return await this.sendAbsenteeEmail(emailData);
+    } catch (error) {
+      console.error('Bulk email error:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Test email configuration
+   * @returns {Promise} - Promise resolving to email configuration test result
+   */
+  async testEmailConfiguration() {
+    try {
+      const token = this.getToken();
+      if (!token) {
+        throw new Error('Authentication token not found');
+      }
+
+      const response = await fetch(`${this.baseUrl}/email/absent`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || `API error: ${response.status}`);
+      }
+      return data;
+    } catch (error) {
+      console.error('Email configuration test error:', error);
+      throw error;
+    }
+  }
 }
 
 // Create a singleton instance

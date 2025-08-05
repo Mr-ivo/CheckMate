@@ -13,7 +13,8 @@ import {
   Clock,
   Download,
   HelpCircle,
-  Info
+  Info,
+  Mail
 } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { useTheme } from "@/context/ThemeContext";
@@ -21,6 +22,7 @@ import { useTheme } from "@/context/ThemeContext";
 // Layout components
 import DashboardLayout from "@/components/DashboardLayout";
 import Footer from "@/components/Footer";
+import EmailNotificationModal from "@/components/EmailNotificationModal";
 
 // Services
 import apiService from "@/services/api.service";
@@ -63,6 +65,10 @@ export default function Attendance() {
   // Store intern lookup map for ID conversion
   const [internMap, setInternMap] = useState({});
 
+  // Email notification states
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [absentInterns, setAbsentInterns] = useState([]);
+
   // Fetch departments and interns from backend
   useEffect(() => {
     const fetchData = async () => {
@@ -104,10 +110,32 @@ export default function Attendance() {
           toast.error('Error loading department data. Please refresh.')
         }
         
-        // Try to fetch attendance data
+        // Try to fetch both attendance data and intern details
         try {
           const formattedDate = currentDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
-          const attendanceResponse = await apiService.fetchData(`attendance/date/${formattedDate}`);
+          
+          // Fetch both attendance records and full intern details
+          const [attendanceResponse, internsResponse] = await Promise.all([
+            apiService.fetchData(`attendance/date/${formattedDate}`),
+            apiService.fetchData('interns')
+          ]);
+          
+          console.log('Attendance response:', attendanceResponse);
+          console.log('Interns response:', internsResponse);
+          
+          // Create a map of intern details for easy lookup
+          const internDetailsMap = {};
+          if (internsResponse && internsResponse.status === 'success' && internsResponse.data) {
+            const internsList = internsResponse.data.interns || internsResponse.data;
+            internsList.forEach(intern => {
+              // Map by both _id and internId for flexible lookup
+              internDetailsMap[intern._id] = intern;
+              if (intern.internId) {
+                internDetailsMap[intern.internId] = intern;
+              }
+            });
+            console.log('Intern details map:', internDetailsMap);
+          }
           
           if (attendanceResponse && attendanceResponse.status === 'success' && attendanceResponse.data) {
             // Add detailed logging to identify data structure issues
@@ -117,36 +145,45 @@ export default function Attendance() {
             const lookupMap = {};
             const attendanceData = attendanceResponse.data.map(record => {
               // Log individual record for debugging
-              console.log('Processing record:', record);
+              console.log('Processing attendance record:', record);
               
               // Store mapping between string internId and MongoDB _id
               if (record.internId && record._id) {
                 lookupMap[record.internId._id || record.internId] = record._id;
               }
               
-              // Extract department directly from the record, with fallbacks
-              // Based on the logs, department is directly on the record, not nested in internId
+              // Get full intern details from the intern details map
+              const internId = record.internId._id || record.internId;
+              const internDetails = internDetailsMap[internId];
+              console.log('Found intern details for', internId, ':', internDetails);
+              
+              // Extract department from intern details or attendance record
               let department = 'Unassigned';
-              if (record.department) {
+              if (internDetails && internDetails.department) {
+                department = internDetails.department;
+              } else if (record.department) {
                 department = record.department;
               } else if (record.internId && typeof record.internId === 'object' && record.internId.department) {
-                // Fallback to nested location if direct property doesn't exist
                 department = record.internId.department;
               }
               
-              // Based on console logs, record.internId is a string, not an object
+              // Build comprehensive record with intern details
               const mappedRecord = {
                 id: record._id, // MongoDB _id for API operations
                 mongoId: record._id, // Use record's _id as the mongo ID for API calls
                 internId: typeof record.internId === 'string' ? record.internId : 
-                         (record.internId && record.internId.internId) || 'N/A', // Handle string or object
-                name: record.name || 'Unknown', // Name is directly on the record
+                         (record.internId && record.internId.internId) || 'N/A',
+                name: record.name || (internDetails && (internDetails.name || internDetails.user?.name)) || 'Unknown',
                 employeeId: typeof record.internId === 'string' ? record.internId : 
                            (record.internId && record.internId.internId) || 'N/A',
                 department: department,
                 status: record.status || '',
                 checkInTime: record.checkInTime || null,
-                checkOutTime: record.checkOutTime || null
+                checkOutTime: record.checkOutTime || null,
+                // Add email and phone from intern details
+                email: internDetails?.email || internDetails?.user?.email || null,
+                phone: internDetails?.phone || null,
+                user: internDetails?.user || null // Include user data for fallback
               };
               
               // Log the mapped record
@@ -448,13 +485,69 @@ export default function Attendance() {
     }
   };
 
+  // Get absent interns for the current date
+  const getAbsentInterns = () => {
+    console.log('=== DEBUGGING ABSENTEE DETECTION ===');
+    console.log('Total interns:', interns.length);
+    console.log('All interns data:', interns);
+    
+    // Filter interns who are marked as absent or have no status (not marked)
+    const absentList = interns.filter(intern => {
+      const status = intern.status;
+      const isAbsent = status === 'absent';
+      const isNotMarked = !status || status === 'not_marked' || status === '';
+      
+      console.log(`Intern ${intern.name}: status='${status}', isAbsent=${isAbsent}, isNotMarked=${isNotMarked}`);
+      
+      // Consider both explicitly absent and not marked as absent
+      return isAbsent || isNotMarked;
+    });
+    
+    console.log('Absent/Not marked interns found:', absentList.length);
+    console.log('Absent interns details:', absentList);
+    console.log('=== END DEBUGGING ===');
+    
+    return absentList;
+  };
+
+  // Handle opening email modal
+  const handleSendAbsenteeEmails = () => {
+    const absent = getAbsentInterns();
+    console.log('Attempting to send emails to:', absent.length, 'interns');
+    
+    if (absent.length === 0) {
+      toast.error('No absent interns found for the selected date. All interns are marked as present.');
+      return;
+    }
+    
+    console.log('Opening email modal for absent interns:', absent);
+    setAbsentInterns(absent);
+    setShowEmailModal(true);
+  };
+
+  // Handle email sent callback
+  const handleEmailSent = (results) => {
+    console.log('Email results:', results);
+    // Optionally update UI or state based on email results
+  };
+
   return (
     <DashboardLayout>
         <main className="flex-1 overflow-y-auto overflow-x-hidden p-5">
-          <div className="flex items-center mb-6">
-            <ClipboardCheck className="h-6 w-6 text-emerald-500 mr-2" />
-            <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Attendance Management</h1>
-            <InfoTooltip message="Signatures are only required during initial intern registration. Daily attendance can be managed by administrators without requiring interns to sign in each day." />
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center">
+              <ClipboardCheck className="h-6 w-6 text-emerald-500 mr-2" />
+              <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Attendance Management</h1>
+              <InfoTooltip message="Signatures are only required during initial intern registration. Daily attendance can be managed by administrators without requiring interns to sign in each day." />
+            </div>
+            <button
+              onClick={handleSendAbsenteeEmails}
+              className="flex items-center px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-md transition-colors"
+              title="Send email to absent interns"
+            >
+              <Mail size={16} className="mr-2" />
+              Email Absentees
+            </button>
           </div>
           <div className="mb-6 p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg border border-emerald-100 dark:border-emerald-800">
             <div className="flex items-start">
@@ -682,6 +775,15 @@ export default function Attendance() {
             )}
           </div>
         </main>
+        
+        {/* Email Notification Modal */}
+        <EmailNotificationModal
+          isOpen={showEmailModal}
+          onClose={() => setShowEmailModal(false)}
+          absentInterns={absentInterns}
+          selectedDate={currentDate}
+          onEmailSent={handleEmailSent}
+        />
     </DashboardLayout>
   );
 }
