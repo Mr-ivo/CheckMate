@@ -9,7 +9,7 @@ class EmailService {
   initializeTransporter() {
     // Configure the email transporter
     // You can use Gmail, Outlook, or any SMTP service
-    this.transporter = nodemailer.createTransporter({
+    this.transporter = nodemailer.createTransport({
       service: 'gmail', // You can change this to your preferred email service
       auth: {
         user: process.env.EMAIL_USER, // Your email address
@@ -18,7 +18,7 @@ class EmailService {
     });
 
     // Alternative configuration for custom SMTP
-    // this.transporter = nodemailer.createTransporter({
+    // this.transporter = nodemailer.createTransport({
     //   host: process.env.SMTP_HOST,
     //   port: process.env.SMTP_PORT || 587,
     //   secure: false, // true for 465, false for other ports
