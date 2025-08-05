@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, Suspense } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 
@@ -13,7 +13,7 @@ const LoadingContext = createContext({
 // Hook to use the loading context
 export const useLoading = () => useContext(LoadingContext);
 
-export default function LoadingProvider({ children }) {
+function LoadingProviderContent({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -67,5 +67,25 @@ export default function LoadingProvider({ children }) {
       </div>
       {children}
     </LoadingContext.Provider>
+  );
+}
+
+export default function LoadingProvider({ children }) {
+  return (
+    <Suspense fallback={
+      <div className="fixed inset-0 bg-white/90 dark:bg-gray-900/90 z-[9999] flex items-center justify-center backdrop-blur-md">
+        <div className="logo-loader scale-150">
+          <Image 
+            src="/checkmate-logo.png" 
+            alt="Loading" 
+            width={100} 
+            height={100}
+            priority
+          />
+        </div>
+      </div>
+    }>
+      <LoadingProviderContent>{children}</LoadingProviderContent>
+    </Suspense>
   );
 }
