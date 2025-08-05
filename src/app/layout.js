@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "@/context/ThemeContext";
+import LoadingProvider from "@/components/LoadingProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +16,10 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
         <ThemeProvider>
-          <Toaster position="top-right" />
-          {children}
+          <LoadingProvider>
+            <Toaster position="top-right" />
+            {children}
+          </LoadingProvider>
         </ThemeProvider>
       </body>
     </html>

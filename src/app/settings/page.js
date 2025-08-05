@@ -20,9 +20,7 @@ import { useTheme } from "@/context/ThemeContext";
 import apiService from "@/services/api.service";
 
 // Layout components
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
-import Footer from "@/components/Footer";
+import DashboardLayout from "@/components/DashboardLayout";
 
 export default function SettingsPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -331,16 +329,8 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navbar 
-        toggleSidebar={() => setSidebarOpen(!sidebarOpen)} 
-        isDarkMode={isDarkMode}
-        toggleTheme={toggleTheme}
-      />
-      
-      <Sidebar isOpen={sidebarOpen} />
-      
-      <main className={`flex-grow pt-16 transition-all duration-300 ${sidebarOpen ? 'md:ml-60' : 'ml-0'}`}>
+    <DashboardLayout>
+      <main className="flex-grow p-4 md:p-6">
         <div className="p-6">
           <motion.div 
             variants={containerVariants}
@@ -758,6 +748,6 @@ export default function SettingsPage() {
           </div>
         </div>
       </main>
-    </div>
+    </DashboardLayout>
   );
 }

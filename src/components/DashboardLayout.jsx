@@ -36,7 +36,7 @@ export default function DashboardLayout({ children }) {
   };
 
   return (
-    <div className={`flex h-screen bg-gray-100 dark:bg-gray-900 ${isDarkMode ? 'dark' : ''}`}>
+    <div className={`flex flex-col md:flex-row h-screen bg-gray-100 ${isDarkMode ? 'dark' : ''}`} style={{ overflowY: 'auto', overflowX: 'hidden' }}>
       {/* Mobile overlay */}
       {isMobile && !sidebarCollapsed && (
         <div 
@@ -51,14 +51,12 @@ export default function DashboardLayout({ children }) {
       </div>
 
       {/* Main Content Area */}
-      <div className={`flex flex-col flex-1 overflow-hidden transition-all duration-300 ${
-        isMobile ? 'ml-0' : sidebarCollapsed ? 'ml-16' : 'ml-64'
-      }`}>
+      <div className={`flex flex-col flex-1 dark:bg-gray-900 transition-all duration-300 ${!isMobile && !sidebarCollapsed ? 'ml-64' : !isMobile && sidebarCollapsed ? 'ml-16' : 'ml-0'}`}>
         {/* Top Navigation Bar */}
         <Navbar toggleSidebar={toggleSidebar} isMobile={isMobile} />
 
         {/* Main Content */}
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 pb-20 md:pb-0">
           {children}
         </main>
       </div>

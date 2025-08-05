@@ -66,7 +66,7 @@ export default function Sidebar({ isCollapsed, toggleSidebar }) {
 
   return (
     <motion.aside
-      className={`fixed left-0 top-0 h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 shadow-sm z-20 transition-all duration-300 ${
+      className={`fixed left-0 top-0 h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 shadow-sm z-50 transition-all duration-300 ${
         isCollapsed ? 'w-16' : 'w-64'
       }`}
     >
@@ -74,17 +74,18 @@ export default function Sidebar({ isCollapsed, toggleSidebar }) {
         {/* Logo Section */}
         <div className="px-2 py-4 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between">
-            <Link href="/dashboard" className="flex items-center justify-center">
-              <div className="flex-shrink-0 flex items-center">
-                <Target size={16} className="text-emerald-600 dark:text-emerald-400" />
+            <Link href="/dashboard" className="flex items-center justify-center flex-grow">
+              <div className="flex-shrink-0 flex items-center justify-center w-full">
+                <Target size={20} className="text-emerald-600 dark:text-emerald-400" />
               </div>
             </Link>
             
             {/* Toggle Button */}
             <button
               onClick={toggleSidebar}
-              className="p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-800 transition-all duration-200"
+              className="p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-800 transition-all duration-200 relative z-[999]"
               title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+              style={{ pointerEvents: 'auto' }}
             >
               {isCollapsed ? (
                 <ChevronRight size={16} />

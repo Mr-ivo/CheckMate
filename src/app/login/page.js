@@ -16,40 +16,55 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm();
 
+  // Create a full-screen loader element
+  const FullScreenLoader = () => (
+    <div className="fixed inset-0 bg-white/90 dark:bg-gray-900/90 z-[9999] flex flex-col items-center justify-center backdrop-blur-md">
+      <div className="logo-loader scale-150 mb-4">
+        <Image 
+          src="/checkmate-logo.png" 
+          alt="Loading" 
+          width={100} 
+          height={100}
+          priority
+        />
+      </div>
+      <p className="text-gray-800 dark:text-gray-200 font-medium mt-4">Signing in...</p>
+    </div>
+  );
+
   const onSubmit = async (data) => {
     setIsLoading(true);
+    
     try {
       // Display login attempt toast
       const loadingToast = toast.loading("Logging in...");
       
-      // Log device info for debugging
-      console.log('Device info:', {
-        userAgent: navigator.userAgent,
-        platform: navigator.platform,
-        vendor: navigator.vendor,
-        isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      // Pre-navigate to dashboard to start loading it
+      // This will make the transition faster
+      const authPromise = authService.login(data.email, data.password);
+      
+      // Set a timeout to ensure we don't wait too long
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Login timed out')), 5000);
       });
       
-      // Call the real authentication service
-      const result = await authService.login(data.email, data.password);
+      // Race between auth and timeout
+      const result = await Promise.race([authPromise, timeoutPromise]);
       
-      // Dismiss loading toast and show success
+      // Dismiss loading toast
       toast.dismiss(loadingToast);
       toast.success("Login successful!");
       
-      // Store the user role in both localStorage and sessionStorage for redundancy
+      // Store the user role
       try {
         localStorage.setItem('checkmate_user_role', result.user.role);
         sessionStorage.setItem('checkmate_user_role', result.user.role);
       } catch (storageError) {
         console.warn('Storage error:', storageError);
-        // Continue anyway - auth service already stored the token
       }
       
-      // Redirect to the dashboard with a small delay to ensure storage is complete
-      setTimeout(() => {
-        router.push('/dashboard');
-      }, 100);
+      // Navigate immediately
+      window.location.href = '/dashboard';
     } catch (error) {
       // Provide more detailed error messages
       let errorMessage = "Login failed. Please check your credentials.";
@@ -64,10 +79,16 @@ export default function Login() {
           errorMessage = "Invalid email or password. Please try again.";
         } else if (error.message.includes('CORS')) {
           errorMessage = "Access error: Your browser is blocking the connection. Please try a different browser.";
+        } else if (error.message.includes('timed out')) {
+          errorMessage = "Login is taking too long. Redirecting you anyway...";
+          // If it's a timeout, we'll still try to navigate
+          window.location.href = '/dashboard';
         }
       }
       
-      toast.error(errorMessage);
+      if (!error.message?.includes('timed out')) {
+        toast.error(errorMessage);
+      }
       console.error("Login error:", error);
     } finally {
       setIsLoading(false);
@@ -83,11 +104,15 @@ export default function Login() {
         className="max-w-md w-full bg-white dark:bg-gray-800 rounded-xl shadow-xl overflow-hidden"
       >
         <div className="px-8 pt-8 pb-6 text-center">
-          {/* Logo placeholder - replace with your actual logo */}
+          {/* Original CheckMate logo */}
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-emerald-600 rounded-full flex items-center justify-center">
-              <span className="text-white text-2xl font-bold">CM</span>
-            </div>
+            <Image 
+              src="/checkmate-logo.png" 
+              alt="CheckMate Logo" 
+              width={180} 
+              height={180} 
+              className="h-auto w-auto sm:max-w-[160px] max-w-[140px]" 
+            />
           </div>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Welcome Back</h2>
           <p className="text-gray-600 dark:text-gray-300 mb-6">Sign in to your account to continue</p>
@@ -188,7 +213,7 @@ export default function Login() {
             >
               {isLoading ? (
                 <>
-                  <span className="loader w-5 h-5"></span>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
                   <span>Signing in...</span>
                 </>
               ) : (

@@ -17,8 +17,7 @@ import { toast } from "react-hot-toast";
 import { useTheme } from "@/context/ThemeContext";
 
 // Layout components
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
+import DashboardLayout from "@/components/DashboardLayout";
 import Footer from "@/components/Footer";
 
 // Import ProtectedRoute component
@@ -40,7 +39,6 @@ function Interns() {
 }
 
 function InternsDashboard() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const { isDarkMode } = useTheme();
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -693,14 +691,9 @@ function InternsDashboard() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Navbar 
-        toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
-      />
+    <DashboardLayout>
       
-      <Sidebar isOpen={sidebarOpen} />
-      
-      <main className={`flex-grow pt-16 transition-all duration-300 ${sidebarOpen ? 'md:ml-60' : 'ml-0'}`}>
+      <main className="flex-grow p-4 md:p-6">
         {isLoading && (
           <div className="fixed inset-0 bg-black bg-opacity-30 z-50 flex justify-center items-center">
             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg flex items-center gap-3">
@@ -846,8 +839,6 @@ function InternsDashboard() {
           )}
         </div>
       </main>
-      
-      <Footer />
       
       {/* Add Intern Modal */}
       {showAddModal && (
@@ -1234,6 +1225,6 @@ function InternsDashboard() {
           </div>
         </div>
       )}
-    </div>
+    </DashboardLayout>
   );
 }

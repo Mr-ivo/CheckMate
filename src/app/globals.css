@@ -4,24 +4,24 @@
 @tailwind utilities;
 
 html, body {
-  overflow-x: hidden;
   width: 100%;
-  position: relative;
-  max-width: 100vw;
   margin: 0;
   padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-/* Prevent horizontal overflow in all environments including production */
+/* Main container styles */
 #__next, main, div[data-overlay-container="true"] {
-  overflow-x: clip;
   max-width: 100vw;
+  overflow-x: hidden;
+  height: 100%;
 }
 
 /* Handle absolutely positioned elements */
 .absolute {
   max-width: 100vw;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 /* Prevent horizontal scrollbar while preserving design */
@@ -54,12 +54,7 @@ html, body {
   --muted-foreground: #9ca3af;
 }
 
-body {
-  color: var(--foreground);
-  background-color: var(--background);
-  transition: background-color 0.3s, color 0.3s;
-}
-
+/* Standard spinner loader */
 .loader {
   width: 30px;
   height: 30px;
@@ -71,12 +66,108 @@ body {
   animation: rotation 1s linear infinite;
 }
 
+/* Logo-based loader */
+.logo-loader {
+  position: relative;
+  width: 160px; /* Increased from 40px */
+  height: 160px; /* Increased from 40px */
+  display: inline-block;
+}
+
+.logo-loader img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: float-and-pulse 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(0, 200, 150, 0.4));
+}
+
+/* Animation for direct DOM loader */
+.animate-loader {
+  animation: float-and-pulse 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(0, 200, 150, 0.4));
+}
+
+/* Login loader specific styles */
+#login-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+
+/* Login loader container */
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Loader background animation */
+.loader-bg {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,200,150,0.1) 0%, rgba(0,0,0,0) 70%);
+  animation: pulse-bg 2s ease-in-out infinite;
+}
+
+@keyframes float-and-pulse {
+  0% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(-15px) scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.9;
+  }
+}
+
+@keyframes pulse-bg {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
 @keyframes rotation {
   0% {
     transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(0.95);
   }
 }
 
@@ -94,15 +185,11 @@ body {
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

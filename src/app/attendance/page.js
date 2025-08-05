@@ -19,8 +19,7 @@ import { toast } from "react-hot-toast";
 import { useTheme } from "@/context/ThemeContext";
 
 // Layout components
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
+import DashboardLayout from "@/components/DashboardLayout";
 import Footer from "@/components/Footer";
 
 // Services
@@ -52,7 +51,6 @@ const InfoTooltip = ({ message }) => {
 };
 
 export default function Attendance() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const { isDarkMode } = useTheme();
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -451,12 +449,7 @@ export default function Attendance() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
-      <Sidebar isOpen={sidebarOpen} />
-      
-      <div className="flex flex-col flex-1 overflow-hidden">
-        <Navbar toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
-        
+    <DashboardLayout>
         <main className="flex-1 overflow-y-auto overflow-x-hidden p-5">
           <div className="flex items-center mb-6">
             <ClipboardCheck className="h-6 w-6 text-emerald-500 mr-2" />
@@ -689,9 +682,6 @@ export default function Attendance() {
             )}
           </div>
         </main>
-        
-        <Footer />
-      </div>
-    </div>
+    </DashboardLayout>
   );
 }

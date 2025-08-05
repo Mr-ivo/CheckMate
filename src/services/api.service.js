@@ -162,6 +162,49 @@ class ApiService {
   }
 
   /**
+   * Upload logo file
+   * @param {FormData} formData - Form data containing the logo file
+   * @returns {Promise} - Promise resolving to response data
+   */
+  async uploadLogo(formData) {
+    try {
+      const token = this.getToken();
+      if (!token) {
+        throw new Error('Authentication token not found');
+      }
+
+      // Remove Content-Type header to let the browser set it with the boundary parameter
+      const response = await fetch(`${this.baseUrl}/settings/logo`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      });
+
+      // Check if response is JSON
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.message || `API error: ${response.status}`);
+        }
+        
+        return data;
+      } else {
+        // Handle non-JSON response
+        const text = await response.text();
+        console.error('Non-JSON response:', text);
+        throw new Error(`API returned non-JSON response. Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('API error:', error);
+      throw error;
+    }
+  }
+
+  /**
    * Delete data via API
    * @param {string} endpoint - API endpoint
    * @returns {Promise} - Promise resolving to response data
