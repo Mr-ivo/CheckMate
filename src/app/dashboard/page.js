@@ -28,6 +28,8 @@ import { useTheme } from "@/context/ThemeContext";
 // Import the charts component (client-side only)
 import { AttendanceChart, WeeklyChart } from "@/components/DashboardCharts";
 
+
+
 // Import the API hook
 import { useApi } from "@/hooks/useApi";
 
@@ -522,7 +524,7 @@ function Dashboard() {
   return (
     <ErrorBoundary>
       <DashboardLayout>
-        <div className="pt-16 pb-8 px-4 sm:px-6 lg:px-8">
+        <div className="pt-6 pb-8 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
           {/* Dashboard Header with Date Filter */}
           <div className="md:flex md:items-center md:justify-between mb-8">
@@ -592,6 +594,7 @@ function Dashboard() {
                   </motion.div>
                 ))}
               </div>
+              
               
               {/* Charts */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">

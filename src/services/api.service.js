@@ -400,6 +400,132 @@ class ApiService {
       throw error;
     }
   }
+
+  /**
+   * Get notifications for the authenticated user
+   * @param {Object} params - Query parameters (page, limit, unreadOnly)
+   * @returns {Promise} - Promise resolving to notifications data
+   */
+  async getNotifications(params = {}) {
+    try {
+      const token = this.getToken();
+      if (!token) {
+        throw new Error('Authentication token not found');
+      }
+
+      const queryParams = new URLSearchParams(params).toString();
+      const url = `${this.baseUrl}/notifications${queryParams ? `?${queryParams}` : ''}`;
+
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || `API error: ${response.status}`);
+      }
+      return data;
+    } catch (error) {
+      console.error('Get notifications error:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Mark a notification as read
+   * @param {string} notificationId - ID of the notification to mark as read
+   * @returns {Promise} - Promise resolving to updated notification
+   */
+  async markNotificationAsRead(notificationId) {
+    try {
+      const token = this.getToken();
+      if (!token) {
+        throw new Error('Authentication token not found');
+      }
+
+      const response = await fetch(`${this.baseUrl}/notifications/${notificationId}/read`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || `API error: ${response.status}`);
+      }
+      return data;
+    } catch (error) {
+      console.error('Mark notification as read error:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Mark all notifications as read
+   * @returns {Promise} - Promise resolving to update result
+   */
+  async markAllNotificationsAsRead() {
+    try {
+      const token = this.getToken();
+      if (!token) {
+        throw new Error('Authentication token not found');
+      }
+
+      const response = await fetch(`${this.baseUrl}/notifications/read-all`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || `API error: ${response.status}`);
+      }
+      return data;
+    } catch (error) {
+      console.error('Mark all notifications as read error:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Delete a notification
+   * @param {string} notificationId - ID of the notification to delete
+   * @returns {Promise} - Promise resolving to deletion result
+   */
+  async deleteNotification(notificationId) {
+    try {
+      const token = this.getToken();
+      if (!token) {
+        throw new Error('Authentication token not found');
+      }
+
+      const response = await fetch(`${this.baseUrl}/notifications/${notificationId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || `API error: ${response.status}`);
+      }
+      return data;
+    } catch (error) {
+      console.error('Delete notification error:', error);
+      throw error;
+    }
+  }
 }
 
 // Create a singleton instance

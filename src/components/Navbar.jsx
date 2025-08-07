@@ -10,6 +10,7 @@ import { searchAllSources } from '@/utils/search';
 import SearchResults from './SearchResults';
 import { motion } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
+import apiService from '@/services/api.service';
 
 export default function Navbar({ toggleSidebar, isMobile }) {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -19,6 +20,9 @@ export default function Navbar({ toggleSidebar, isMobile }) {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [searchResults, setSearchResults] = useState({});
   const [isSearching, setIsSearching] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [notificationsLoading, setNotificationsLoading] = useState(false);
   const notificationRef = useRef(null);
   const profileMenuRef = useRef(null);
   const searchRef = useRef(null);
@@ -229,12 +233,68 @@ export default function Navbar({ toggleSidebar, isMobile }) {
     };
   }, [profileMenuRef]);
 
-  // Mock notifications
-  const notifications = [
-    { id: 1, text: "New intern joined the Mobile Development team", time: "5 minutes ago", read: false },
-    { id: 2, text: "Marketing department meeting at 2:00 PM", time: "1 hour ago", read: false },
-    { id: 3, text: "Attendance report ready for review", time: "3 hours ago", read: true },
-  ];
+  // Fetch notifications from API
+  const fetchNotifications = async () => {
+    try {
+      setNotificationsLoading(true);
+      const response = await apiService.getNotifications({ limit: 10 });
+      if (response.status === 'success') {
+        setNotifications(response.data.notifications || []);
+        setUnreadCount(response.data.unreadCount || 0);
+      }
+    } catch (error) {
+      console.error('Failed to fetch notifications:', error);
+      // Keep existing notifications on error
+    } finally {
+      setNotificationsLoading(false);
+    }
+  };
+
+  // Mark notification as read
+  const handleMarkAsRead = async (notificationId) => {
+    try {
+      await apiService.markNotificationAsRead(notificationId);
+      // Update local state
+      setNotifications(prev => 
+        prev.map(notification => 
+          notification._id === notificationId 
+            ? { ...notification, isRead: true, readAt: new Date() }
+            : notification
+        )
+      );
+      setUnreadCount(prev => Math.max(0, prev - 1));
+    } catch (error) {
+      console.error('Failed to mark notification as read:', error);
+    }
+  };
+
+  // Mark all notifications as read
+  const handleMarkAllAsRead = async () => {
+    try {
+      await apiService.markAllNotificationsAsRead();
+      // Update local state
+      setNotifications(prev => 
+        prev.map(notification => ({ 
+          ...notification, 
+          isRead: true, 
+          readAt: new Date() 
+        }))
+      );
+      setUnreadCount(0);
+    } catch (error) {
+      console.error('Failed to mark all notifications as read:', error);
+    }
+  };
+
+  // Fetch notifications on component mount
+  useEffect(() => {
+    fetchNotifications();
+    
+    // Set up polling for new notifications every 30 seconds
+    const interval = setInterval(fetchNotifications, 30000);
+    
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800 w-full z-30">
@@ -316,12 +376,16 @@ export default function Navbar({ toggleSidebar, isMobile }) {
             {/* Notifications */}
             <div className="relative" ref={notificationRef}>
               <button
-                className="p-2 rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white focus:outline-none relative"
+                className="relative p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
                 aria-label="Notifications"
                 onClick={() => setShowNotifications(!showNotifications)}
               >
                 <Bell size={20} />
-                <span className="absolute top-1 right-1 block h-2 w-2 rounded-full bg-red-500"></span>
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 block h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center">
+                    {unreadCount > 9 ? '9+' : unreadCount}
+                  </span>
+                )}
               </button>
               
               {/* Notifications Dropdown */}
@@ -334,23 +398,63 @@ export default function Navbar({ toggleSidebar, isMobile }) {
                 >
                   <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
                     <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">Notifications</h3>
-                    <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400 cursor-pointer hover:underline">Mark all as read</span>
+                    {unreadCount > 0 && (
+                      <button 
+                        onClick={handleMarkAllAsRead}
+                        className="text-xs font-medium text-emerald-600 dark:text-emerald-400 cursor-pointer hover:underline"
+                      >
+                        Mark all as read
+                      </button>
+                    )}
                   </div>
                   
                   <div className="max-h-60 overflow-y-auto">
-                    {notifications.length > 0 ? (
+                    {notificationsLoading ? (
+                      <div className="px-4 py-6 text-center text-sm text-gray-500 dark:text-gray-400">
+                        Loading notifications...
+                      </div>
+                    ) : notifications.length > 0 ? (
                       notifications.map((notification) => (
                         <div 
-                          key={notification.id}
-                          className={`px-4 py-3 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer ${notification.read ? '' : 'bg-blue-50 dark:bg-gray-700/60'}`}
+                          key={notification._id}
+                          className={`px-4 py-3 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer ${notification.isRead ? '' : 'bg-blue-50 dark:bg-gray-700/60'}`}
+                          onClick={() => {
+                            if (!notification.isRead) {
+                              handleMarkAsRead(notification._id);
+                            }
+                            if (notification.actionUrl) {
+                              router.push(notification.actionUrl);
+                              setShowNotifications(false);
+                            }
+                          }}
                         >
                           <div className="flex items-start">
                             <div className="flex-shrink-0 mt-0.5">
-                              {notification.read ? null : <div className="w-2 h-2 rounded-full bg-blue-600"></div>}
+                              {notification.isRead ? null : <div className="w-2 h-2 rounded-full bg-blue-600"></div>}
                             </div>
                             <div className="ml-3 flex-1">
-                              <p className="text-sm text-gray-800 dark:text-gray-200">{notification.text}</p>
-                              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{notification.time}</p>
+                              <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">{notification.title}</p>
+                              <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{notification.message}</p>
+                              <div className="flex items-center justify-between mt-2">
+                                <p className="text-xs text-gray-500 dark:text-gray-400">
+                                  {new Date(notification.createdAt).toLocaleDateString('en-US', {
+                                    month: 'short',
+                                    day: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                  })}
+                                </p>
+                                {notification.priority === 'high' && (
+                                  <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">
+                                    High Priority
+                                  </span>
+                                )}
+                                {notification.priority === 'urgent' && (
+                                  <span className="text-xs bg-red-200 text-red-900 px-2 py-1 rounded-full font-semibold">
+                                    Urgent
+                                  </span>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>

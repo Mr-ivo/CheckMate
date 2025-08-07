@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Bell, Check, ChevronLeft, Trash2 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { toast } from "react-hot-toast";
+import apiService from "../../services/api.service";
 
 // Import DashboardLayout
 import DashboardLayout from "@/components/DashboardLayout";
@@ -15,99 +16,116 @@ export default function Notifications() {
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState("all"); // all, unread, read
 
-  // Mock notifications data
-  const mockNotifications = [
-    {
-      id: 1,
-      title: "New intern joined",
-      message: "Alex Johnson has joined the Mobile Development department",
-      time: "10 minutes ago",
-      read: false,
-      type: "info",
-      date: "2025-07-08"
-    },
-    {
-      id: 2,
-      title: "Meeting reminder",
-      message: "Graphic design department meeting at 2:00 PM in Conference Room A",
-      time: "1 hour ago",
-      read: false,
-      type: "reminder",
-      date: "2025-07-08"
-    },
-    {
-      id: 3,
-      title: "Attendance report ready",
-      message: "June monthly attendance report is now ready for review",
-      time: "3 hours ago",
-      read: true,
-      type: "report",
-      date: "2025-07-08"
-    },
-    {
-      id: 4,
-      title: "Web Development project deadline",
-      message: "Web Development project deadline has been extended to July 15",
-      time: "Yesterday",
-      read: true,
-      type: "deadline",
-      date: "2025-07-07"
-    },
-    {
-      id: 5,
-      title: "Intern evaluation",
-      message: "Please complete the evaluation for all interns by Friday",
-      time: "2 days ago",
-      read: true,
-      type: "task",
-      date: "2025-07-06"
-    },
-    {
-      id: 6, 
-      title: "System update",
-      message: "CheckMate will undergo a system update on Saturday night. Expect 30 minutes of downtime.",
-      time: "1 week ago",
-      read: true,
-      type: "system",
-      date: "2025-07-01"
-    }
-  ];
-
   useEffect(() => {
-    // Simulate loading notifications
-    const timer = setTimeout(() => {
-      setNotifications(mockNotifications);
-      setIsLoading(false);
-    }, 800);
+    fetchNotifications();
+  }, [filter]);
 
-    return () => clearTimeout(timer);
-  }, []);
+  const fetchNotifications = async () => {
+    try {
+      setIsLoading(true);
+      const params = {
+        page: 1,
+        limit: 50,
+        unreadOnly: filter === 'unread' ? 'true' : 'false'
+      };
+      
+      const response = await apiService.getNotifications(params);
+      
+      if (response.status === 'success') {
+        // Transform backend data to match frontend format
+        const transformedNotifications = response.data.notifications.map(notif => ({
+          id: notif._id,
+          title: notif.title,
+          message: notif.message,
+          time: formatTimeAgo(notif.createdAt),
+          read: notif.isRead,
+          type: notif.type || 'info',
+          date: new Date(notif.createdAt).toISOString().split('T')[0],
+          priority: notif.priority,
+          _id: notif._id
+        }));
+        setNotifications(transformedNotifications);
+      } else {
+        console.error('Failed to fetch notifications:', response);
+        toast.error('Failed to fetch notifications');
+      }
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+      toast.error('Failed to fetch notifications');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const formatTimeAgo = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInMinutes = Math.floor((now - date) / (1000 * 60));
+    
+    if (diffInMinutes < 1) return 'Just now';
+    if (diffInMinutes < 60) return `${diffInMinutes} minute${diffInMinutes !== 1 ? 's' : ''} ago`;
+    
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) return `${diffInHours} hour${diffInHours !== 1 ? 's' : ''} ago`;
+    
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays === 1) return 'Yesterday';
+    if (diffInDays < 7) return `${diffInDays} days ago`;
+    
+    const diffInWeeks = Math.floor(diffInDays / 7);
+    if (diffInWeeks === 1) return '1 week ago';
+    return `${diffInWeeks} weeks ago`;
+  };
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
-  const markAsRead = (id) => {
-    setNotifications(
-      notifications.map(notification =>
-        notification.id === id ? { ...notification, read: true } : notification
-      )
-    );
-    toast.success("Notification marked as read");
+  const markAsRead = async (id) => {
+    try {
+      await apiService.markNotificationAsRead(id);
+      
+      // Update local state
+      setNotifications(
+        notifications.map(notification =>
+          notification.id === id ? { ...notification, read: true } : notification
+        )
+      );
+      toast.success("Notification marked as read");
+    } catch (error) {
+      console.error('Error marking notification as read:', error);
+      toast.error('Failed to mark notification as read');
+    }
   };
 
-  const markAllAsRead = () => {
-    setNotifications(
-      notifications.map(notification => ({ ...notification, read: true }))
-    );
-    toast.success("All notifications marked as read");
+  const markAllAsRead = async () => {
+    try {
+      await apiService.markAllNotificationsAsRead();
+      
+      // Update local state
+      setNotifications(
+        notifications.map(notification => ({ ...notification, read: true }))
+      );
+      toast.success("All notifications marked as read");
+    } catch (error) {
+      console.error('Error marking all notifications as read:', error);
+      toast.error('Failed to mark all notifications as read');
+    }
   };
 
-  const deleteNotification = (id) => {
-    setNotifications(
-      notifications.filter(notification => notification.id !== id)
-    );
-    toast.success("Notification deleted");
+  const deleteNotification = async (id) => {
+    try {
+      await apiService.deleteNotification(id);
+      
+      // Remove from local state
+      setNotifications(
+        notifications.filter(notification => notification.id !== id)
+      );
+      toast.success("Notification deleted");
+    } catch (error) {
+      console.error('Error deleting notification:', error);
+      toast.error('Failed to delete notification');
+    }
   };
 
   const clearAllNotifications = () => {

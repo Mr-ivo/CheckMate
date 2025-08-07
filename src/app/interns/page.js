@@ -946,6 +946,29 @@ function InternsDashboard() {
                   </div>
                   
                   <div className="mb-4">
+                    <label htmlFor="carrier" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 flex items-center gap-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-emerald-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                      </svg>
+                      Mobile Carrier
+                    </label>
+                    <select
+                      id="carrier"
+                      name="carrier"
+                      value={formData.carrier || ''}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
+                    >
+                      <option value="">Select Carrier (for SMS)</option>
+                      <option value="mtn">MTN Cameroon</option>
+                      <option value="orange">Orange Cameroon</option>
+                      <option value="camtel">Camtel Mobile</option>
+                      <option value="nexttel">Nexttel</option>
+                    </select>
+                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">📱 Required for SMS notifications. Select the intern's mobile carrier in Cameroon.</p>
+                  </div>
+                  
+                  <div className="mb-4">
                     <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 flex items-center gap-1">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-emerald-500" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
@@ -1153,6 +1176,29 @@ function InternsDashboard() {
                         placeholder="Enter phone number"
                       />
                       <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Optional: Contact phone number for the intern</p>
+                    </div>
+                    
+                    <div className="mb-4">
+                      <label htmlFor="carrier" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-emerald-500" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                        </svg>
+                        Mobile Carrier
+                      </label>
+                      <select
+                        id="carrier"
+                        name="carrier"
+                        value={formData.carrier || ''}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
+                      >
+                        <option value="">Select Carrier (for SMS)</option>
+                        <option value="mtn">MTN Cameroon</option>
+                        <option value="orange">Orange Cameroon</option>
+                        <option value="camtel">Camtel Mobile</option>
+                        <option value="nexttel">Nexttel</option>
+                      </select>
+                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">📱 Required for SMS notifications. Select the intern's mobile carrier in Cameroon.</p>
                     </div>
                     
                     <div className="mb-4">
