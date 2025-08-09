@@ -98,7 +98,7 @@ export default function Login() {
         className="w-full max-w-md bg-white rounded-lg shadow-md p-6"
       >
         {/* Logo and Header */}
-        <div className="text-center mb-6">
+        <div className="text-center mb-2">
           <div className="flex justify-center mb-3">
             <Image 
               src="/checkmate-logo.png" 
