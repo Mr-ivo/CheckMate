@@ -103,9 +103,9 @@ export default function Login() {
             <Image 
               src="/checkmate-logo.png" 
               alt="CheckMate Logo" 
-              width={180} 
+              width={160} 
               height={160} 
-              className="h-40 w-40" 
+              className="h-40 w-40 object-contain" 
             />
           </div>
           <h1 className="text-xl font-semibold text-gray-900 mb-1">Welcome Back</h1>
