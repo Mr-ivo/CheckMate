@@ -3,6 +3,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import authService from '@/services/auth.service';
+import { useTheme } from '@/context/ThemeContext';
 import { 
   LayoutDashboard, 
   Users, 
@@ -24,6 +25,7 @@ import {
 export default function Sidebar({ isCollapsed, toggleSidebar }) {
   const pathname = usePathname();
   const router = useRouter();
+  const { isDarkMode } = useTheme();
   
   // Handle logout
   const handleLogout = () => {

@@ -4,7 +4,13 @@ import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "@/context/ThemeContext";
 import LoadingProvider from "@/components/LoadingProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  display: 'swap',
+  fallback: ['system-ui', 'arial'],
+  preload: true,
+  variable: '--font-inter',
+});
 
 export const metadata = {
   title: "CheckMate - Company Attendance Management System",
@@ -14,10 +20,20 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} antialiased transition-colors duration-300`}>
         <ThemeProvider>
           <LoadingProvider>
-            <Toaster position="top-right" />
+            <Toaster 
+              position="top-right"
+              toastOptions={{
+                className: '',
+                style: {
+                  background: 'var(--card-background)',
+                  color: 'var(--card-foreground)',
+                  border: '1px solid var(--border-color)',
+                },
+              }}
+            />
             {children}
           </LoadingProvider>
         </ThemeProvider>

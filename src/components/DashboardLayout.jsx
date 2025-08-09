@@ -35,8 +35,15 @@ export default function DashboardLayout({ children }) {
     setSidebarCollapsed(!sidebarCollapsed);
   };
 
+
+
   return (
-    <div className={`flex flex-col md:flex-row h-screen bg-gray-100 ${isDarkMode ? 'dark' : ''}`} style={{ overflowY: 'auto', overflowX: 'hidden' }}>
+    <div 
+      data-dashboard="true"
+      className={`flex flex-col md:flex-row h-screen transition-colors duration-300 ${
+        isDarkMode ? 'bg-dark-bg dark' : 'bg-gray-100'
+      }`} 
+      style={{ overflowY: 'auto', overflowX: 'hidden' }}>
       {/* Mobile overlay */}
       {isMobile && !sidebarCollapsed && (
         <div 
@@ -51,12 +58,20 @@ export default function DashboardLayout({ children }) {
       </div>
 
       {/* Main Content Area */}
-      <div className={`flex flex-col flex-1 dark:bg-gray-900 transition-all duration-300 ${!isMobile && !sidebarCollapsed ? 'ml-64' : !isMobile && sidebarCollapsed ? 'ml-16' : 'ml-0'}`}>
+      <div className={`flex flex-col flex-1 transition-all duration-300 ${
+        isDarkMode 
+          ? 'bg-dark-bg' 
+          : 'bg-gray-50'
+      } ${!isMobile && !sidebarCollapsed ? 'ml-64' : !isMobile && sidebarCollapsed ? 'ml-16' : 'ml-0'}`}>
         {/* Top Navigation Bar */}
         <Navbar toggleSidebar={toggleSidebar} isMobile={isMobile} />
 
         {/* Main Content */}
-        <main className="flex-1 pb-20 md:pb-0">
+        <main className={`flex-1 pb-20 md:pb-0 transition-colors duration-300 ${
+          isDarkMode 
+            ? 'bg-dark-bg text-dark-text' 
+            : 'bg-gray-50 text-gray-900'
+        }`}>
           {children}
         </main>
       </div>

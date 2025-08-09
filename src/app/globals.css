@@ -3,6 +3,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Font fallbacks for better loading */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('system-ui'), local('-apple-system'), local('BlinkMacSystemFont'), local('Segoe UI'), local('Arial');
+  font-display: swap;
+}
+
 html, body {
   width: 100%;
   margin: 0;
@@ -31,27 +38,274 @@ html, body {
 }
 
 :root {
-  --primary-color: #3b82f6;
-  --primary-hover: #2563eb;
-  --background: #ffffff;
-  --foreground: #000000;
-  --card-background: #ffffff;
-  --card-foreground: #000000;
-  --border-color: #e5e7eb;
-  --muted-color: #f3f4f6;
-  --muted-foreground: #6b7280;
+  /* Light mode variables */
+  --primary-color: #22c55e;
+  --background: 255 255 255; /* white */
+  --foreground: 15 23 42; /* slate-900 */
+  --card-background: 255 255 255; /* white */
+  --card-foreground: 15 23 42; /* slate-900 */
+  --popover-background: 255 255 255; /* white */
+  --popover-foreground: 15 23 42; /* slate-900 */
+  --primary: 34 197 94; /* green-500 */
+  --primary-foreground: 255 255 255; /* white */
+  --secondary: 241 245 249; /* slate-100 */
+  --secondary-foreground: 15 23 42; /* slate-900 */
+  --muted: 241 245 249; /* slate-100 */
+  --muted-foreground: 100 116 139; /* slate-500 */
+  --accent: 241 245 249; /* slate-100 */
+  --accent-foreground: 15 23 42; /* slate-900 */
+  --destructive: 239 68 68; /* red-500 */
+  --destructive-foreground: 255 255 255; /* white */
+  --border-color: 226 232 240; /* slate-200 */
+  --input-background: 255 255 255; /* white */
+  --ring-color: 34 197 94; /* green-500 */
+  --surface: #f8fafc;
+  --surface-hover: #f1f5f9;
 }
 
 .dark {
-  --primary-color: #60a5fa;
-  --primary-hover: #3b82f6;
-  --background: #111827;
-  --foreground: #ffffff;
-  --card-background: #1f2937;
-  --card-foreground: #ffffff;
-  --border-color: #374151;
-  --muted-color: #1f2937;
-  --muted-foreground: #9ca3af;
+  /* Dark mode variables - using white text and black backgrounds for better contrast */
+  --primary-color: #4ade80;
+  --background: 0 0 0; /* pure black background */
+  --foreground: 255 255 255; /* pure white text */
+  --card-background: 15 23 42; /* very dark slate for cards */
+  --card-foreground: 255 255 255; /* pure white text on cards */
+  --popover-background: 15 23 42; /* very dark slate */
+  --popover-foreground: 255 255 255; /* pure white text */
+  --primary: 34 197 94; /* green-500 */
+  --primary-foreground: 255 255 255; /* pure white */
+  --secondary: 30 41 59; /* dark slate for secondary elements */
+  --secondary-foreground: 255 255 255; /* pure white text */
+  --muted: 30 41 59; /* dark slate instead of gray */
+  --muted-foreground: 255 255 255; /* pure white text instead of gray */
+  --accent: 30 41 59; /* dark slate */
+  --accent-foreground: 255 255 255; /* pure white text */
+  --destructive: 239 68 68; /* red-500 */
+  --destructive-foreground: 255 255 255; /* pure white */
+  --border-color: 51 65 85; /* slate-700 for subtle borders */
+  --input-background: 30 41 59; /* dark slate for inputs */
+  --ring-color: 34 197 94; /* green-500 */
+  --surface: #0f172a; /* very dark background for surfaces */
+  --surface-hover: #1e293b; /* slightly lighter on hover */
+}
+
+/* Apply CSS variables to body for consistent theming */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode styles - ONLY apply to dashboard pages */
+/* Target dashboard layout specifically to avoid affecting home/login pages */
+html.dark [data-dashboard="true"],
+html.dark [data-dashboard="true"] * {
+  color-scheme: dark;
+}
+
+/* Dashboard dark mode backgrounds */
+html.dark [data-dashboard="true"] {
+  background-color: rgb(var(--card-background)) !important;
+  color: rgb(var(--foreground)) !important;
+}
+
+/* Ensure all gray backgrounds become black in dark mode - DASHBOARD ONLY */
+html.dark [data-dashboard="true"] .bg-gray-50,
+html.dark [data-dashboard="true"] .bg-gray-100,
+html.dark [data-dashboard="true"] .bg-gray-200,
+html.dark [data-dashboard="true"] .bg-gray-300,
+html.dark [data-dashboard="true"] .bg-slate-50,
+html.dark [data-dashboard="true"] .bg-slate-100,
+html.dark [data-dashboard="true"] .bg-slate-200 {
+  background-color: rgb(var(--card-background)) !important;
+  color: rgb(var(--card-foreground)) !important;
+}
+
+/* Force white backgrounds to dark in dark mode - DASHBOARD ONLY */
+html.dark [data-dashboard="true"] .bg-white,
+html.dark [data-dashboard="true"] .bg-white\/95,
+html.dark [data-dashboard="true"] .bg-white\/90,
+html.dark [data-dashboard="true"] .bg-white\/80,
+html.dark [data-dashboard="true"] .bg-white\/70,
+html.dark [data-dashboard="true"] .bg-white\/60,
+html.dark [data-dashboard="true"] .bg-white\/50 {
+  background-color: rgb(var(--card-background)) !important;
+  color: rgb(var(--card-foreground)) !important;
+}
+
+/* Comprehensive card and box backgrounds for dark mode - DASHBOARD ONLY */
+html.dark [data-dashboard="true"] .bg-card,
+html.dark [data-dashboard="true"] .bg-background,
+html.dark [data-dashboard="true"] .bg-muted,
+html.dark [data-dashboard="true"] .bg-secondary,
+html.dark [data-dashboard="true"] .bg-accent,
+html.dark [data-dashboard="true"] .bg-popover,
+html.dark [data-dashboard="true"] .shadow-sm,
+html.dark [data-dashboard="true"] .shadow,
+html.dark [data-dashboard="true"] .shadow-md,
+html.dark [data-dashboard="true"] .shadow-lg,
+html.dark [data-dashboard="true"] .shadow-xl,
+html.dark [data-dashboard="true"] .shadow-2xl,
+html.dark [data-dashboard="true"] .rounded,
+html.dark [data-dashboard="true"] .rounded-sm,
+html.dark [data-dashboard="true"] .rounded-md,
+html.dark [data-dashboard="true"] .rounded-lg,
+html.dark [data-dashboard="true"] .rounded-xl,
+html.dark [data-dashboard="true"] .rounded-2xl {
+  background-color: rgb(var(--card-background)) !important;
+  color: rgb(var(--card-foreground)) !important;
+  border-color: rgb(var(--border-color)) !important;
+}
+
+/* Ensure all text is visible in dark mode - DASHBOARD ONLY */
+html.dark [data-dashboard="true"] .text-gray-500,
+html.dark [data-dashboard="true"] .text-gray-600,
+html.dark [data-dashboard="true"] .text-gray-700,
+html.dark [data-dashboard="true"] .text-gray-800,
+html.dark [data-dashboard="true"] .text-gray-900,
+html.dark [data-dashboard="true"] .text-slate-500,
+html.dark [data-dashboard="true"] .text-slate-600,
+html.dark [data-dashboard="true"] .text-slate-700,
+html.dark [data-dashboard="true"] .text-slate-800,
+html.dark [data-dashboard="true"] .text-slate-900 {
+  color: rgb(var(--foreground)) !important;
+}
+
+/* Fix borders in dark mode - DASHBOARD ONLY */
+html.dark [data-dashboard="true"] .border-gray-200,
+html.dark [data-dashboard="true"] .border-gray-300,
+html.dark [data-dashboard="true"] .border-slate-200,
+html.dark [data-dashboard="true"] .border-slate-300 {
+  border-color: rgb(var(--border-color)) !important;
+}
+
+/* Completely isolate login and home pages from dark mode */
+[data-page="login"],
+[data-page="login"] *,
+[data-page="home"],
+[data-page="home"] * {
+  color-scheme: light !important;
+}
+
+/* Override any dark mode styles for login page */
+html.dark [data-page="login"] {
+  background-color: #f9fafb !important;
+  color: #111827 !important;
+}
+
+html.dark [data-page="login"] .bg-white {
+  background-color: white !important;
+}
+
+html.dark [data-page="login"] .text-gray-900 {
+  color: #111827 !important;
+}
+
+html.dark [data-page="login"] .bg-green-500 {
+  background-color: #10b981 !important;
+}
+
+html.dark [data-page="login"] .text-green-600 {
+  color: #059669 !important;
+}
+
+/* Toast notification styling for visibility */
+.Toastify__toast {
+  background-color: #374151 !important;
+  color: white !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.Toastify__toast--success {
+  background-color: #10b981 !important;
+  color: white !important;
+}
+
+.Toastify__toast--error {
+  background-color: #ef4444 !important;
+  color: white !important;
+}
+
+.Toastify__toast--info {
+  background-color: #3b82f6 !important;
+  color: white !important;
+}
+
+.Toastify__toast--warning {
+  background-color: #f59e0b !important;
+  color: white !important;
+}
+
+.Toastify__toast-body {
+  color: white !important;
+  font-weight: 500;
+}
+
+.Toastify__close-button {
+  color: white !important;
+  opacity: 0.8;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1;
+}
+
+.Toastify__progress-bar {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Force dark mode styles with higher specificity - DASHBOARD ONLY */
+html.dark [data-dashboard="true"],
+html.dark [data-dashboard="true"] * {
+  color-scheme: dark;
+}
+
+/* Ensure Sidebar dark mode works */
+html.dark aside,
+html.dark nav {
+  background-color: var(--card-background) !important;
+  color: var(--card-foreground) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Force dark mode for specific components - DASHBOARD ONLY */
+html.dark [data-dashboard="true"] .bg-white {
+  background-color: var(--card-background) !important;
+}
+
+html.dark [data-dashboard="true"] .text-gray-900 {
+  color: var(--card-foreground) !important;
+}
+
+html.dark .border-gray-200 {
+  border-color: var(--border-color) !important;
+}
+
+/* Enhanced dark mode support for common elements */
+.bg-surface {
+  background-color: var(--surface);
+}
+
+.bg-surface:hover {
+  background-color: var(--surface-hover);
+}
+
+.text-foreground {
+  color: var(--foreground);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.border-default {
+  border-color: var(--border-color);
+}
+
+.bg-card {
+  background-color: var(--card-background);
+  color: var(--card-foreground);
 }
 
 /* Standard spinner loader */
@@ -96,15 +350,6 @@ html, body {
   width: 100%;
   height: 100%;
   z-index: 9999;
-}
-
-/* Login loader container */
-.loader-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
 }
 
 /* Loader background animation */
