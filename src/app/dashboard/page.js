@@ -14,32 +14,24 @@ import {
   Filter
 } from "lucide-react";
 
-// Next.js components
-import Link from "next/link";
 
-// Import enhanced components
+import Link from "next/link";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { CardSkeleton, ChartSkeleton, TableRowSkeleton } from "@/components/SkeletonLoader";
 import DateRangeFilter from "@/components/DateRangeFilter";
-
-// Import ThemeContext
+import InternDashboard from "@/components/InternDashboard";
 import { useTheme } from "@/context/ThemeContext";
-
-// Import the charts component (client-side only)
 import { AttendanceChart, WeeklyChart } from "@/components/DashboardCharts";
 
 
 
-// Import the API hook
-import { useApi } from "@/hooks/useApi";
 
-// Import DashboardLayout and ProtectedRoute
+import { useApi } from "@/hooks/useApi";
 import DashboardLayout from "@/components/DashboardLayout";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 // Protect the Dashboard route
 export default function DashboardPage() {
-  // Wrap everything in ProtectedRoute to ensure authentication
   return (
     <ProtectedRoute>
       <Dashboard />
@@ -141,16 +133,16 @@ function Dashboard() {
       {
         data: [0, 0, 0, 0],
         backgroundColor: [
-          'rgba(34, 197, 94, 0.7)',  // Green for Present
-          'rgba(239, 68, 68, 0.7)',   // Red for Absent
-          'rgba(234, 179, 8, 0.7)',   // Yellow for Late
-          'rgba(16, 185, 129, 0.7)',  // Emerald for Excused
+          'rgba(34, 197, 94, 0.7)',  
+          'rgba(239, 68, 68, 0.7)',   
+          'rgba(234, 179, 8, 0.7)',   
+          'rgba(16, 185, 129, 0.7)',  
         ],
         borderColor: [
-          'rgba(34, 197, 94, 1)',     // Green for Present
-          'rgba(239, 68, 68, 1)',     // Red for Absent
-          'rgba(234, 179, 8, 1)',     // Yellow for Late
-          'rgba(16, 185, 129, 1)',    // Emerald for Excused
+          'rgba(34, 197, 94, 1)',     
+          'rgba(239, 68, 68, 1)',     
+          'rgba(234, 179, 8, 1)',     
+          'rgba(16, 185, 129, 1)',    
         ],
         borderWidth: 1,
       },
@@ -191,8 +183,7 @@ function Dashboard() {
       // Call the check-in endpoint
       const response = await apiService.postData('attendance/check-in', {
         internId,
-        signature: 'Dashboard digital signature', // You might want to implement a signature capture
-        location: 'Dashboard check-in' // You could use geolocation API here
+        signature: 'Dashboard digital signature', 
       });
       
       if (response.status === 'success') {
@@ -232,8 +223,8 @@ function Dashboard() {
       // Call the check-out endpoint
       const response = await apiService.postData('attendance/check-out', {
         internId,
-        signature: 'Dashboard digital signature', // You might want to implement a signature capture
-        location: 'Dashboard check-out' // You could use geolocation API here
+        signature: 'Dashboard digital signature', 
+        location: 'Dashboard check-out'
       });
       
       if (response.status === 'success') {
@@ -275,21 +266,46 @@ function Dashboard() {
       try {
         setIsLoading(true);
         
-        // Fetch today's attendance data
-        const todayData = await apiService.fetchData('attendance/today');
+        // Fetch today's attendance data (backend will handle authorization)
+        let todayData = { data: [] };
+        let statsData = { data: {} };
+        let usersData = { data: [] };
         
-        // Fetch overall attendance stats
-        const statsData = await apiService.fetchData('attendance/stats');
+        // Try to fetch admin data, backend will return 403 if not authorized
+        try {
+          todayData = await apiService.fetchData('attendance/today');
+        } catch (error) {
+          console.log('Not authorized for today attendance data');
+        }
         
-        // Fetch users data if admin
-        const usersData = userRole === 'admin' ? await apiService.fetchData('users') : { data: [] };
+        try {
+          statsData = await apiService.fetchData('attendance/stats');
+        } catch (error) {
+          console.log('Not authorized for stats data');
+        }
+        
+        try {
+          usersData = await apiService.fetchData('users');
+        } catch (error) {
+          console.log('Not authorized for users data');
+        }
         
         // Fetch intern-specific data if user is an intern
         if (userRole === 'intern') {
           try {
-            // Get intern ID from localStorage or use a default
-            const internId = localStorage.getItem('checkmate_user_id');
-            if (internId) {
+            // Get user ID from localStorage
+            const userId = localStorage.getItem('checkmate_user_id');
+            if (userId) {
+              // First, get the intern record for this user
+              const userIntern = await apiService.fetchData(`interns/user/${userId}`);
+              const internId = userIntern?.data?.intern?._id || userIntern?.data?._id;
+              
+              if (!internId) {
+                console.warn('No intern record found for user');
+                setInternData(null);
+                return;
+              }
+              
               // Fetch intern's personal attendance data
               const internAttendanceData = await apiService.fetchData(`attendance/intern/${internId}`);
               
@@ -332,7 +348,7 @@ function Dashboard() {
         
         // Update state with fetched data
         if (todayData && todayData.data && todayData.data.summary) {
-          const summary = todayData.data.summary;
+          const summary = todayData.data.summary || {};
           
           setStats({
             totalStaff: summary.totalInterns || 0,
@@ -350,19 +366,19 @@ function Dashboard() {
                   summary.present || 0, 
                   summary.absent || 0, 
                   summary.late || 0,
-                  summary.excused || 0  // Added excused status
+                  summary.excused || 0  
                 ],
                 backgroundColor: [
-                  'rgba(34, 197, 94, 0.7)',  // Green for Present
-                  'rgba(239, 68, 68, 0.7)',   // Red for Absent
-                  'rgba(234, 179, 8, 0.7)',   // Yellow for Late
-                  'rgba(16, 185, 129, 0.7)',  // Emerald for Excused
+                  'rgba(34, 197, 94, 0.7)', 
+                  'rgba(239, 68, 68, 0.7)',  
+                  'rgba(234, 179, 8, 0.7)',   
+                  'rgba(16, 185, 129, 0.7)',  
                 ],
                 borderColor: [
-                  'rgba(34, 197, 94, 1)',     // Green for Present
-                  'rgba(239, 68, 68, 1)',     // Red for Absent
-                  'rgba(234, 179, 8, 1)',     // Yellow for Late
-                  'rgba(16, 185, 129, 1)',    // Emerald for Excused
+                  'rgba(34, 197, 94, 1)',    
+                  'rgba(239, 68, 68, 1)',    
+                  'rgba(234, 179, 8, 1)',   
+                  'rgba(16, 185, 129, 1)',    
                 ],
                 borderWidth: 1,
               },
@@ -370,12 +386,13 @@ function Dashboard() {
           });
           
           // Update recent activity with actual attendance records
-          if (todayData.data.records && todayData.data.records.length > 0) {
+          if (todayData.data.records && Array.isArray(todayData.data.records) && todayData.data.records.length > 0) {
             console.log('Dashboard records FULL DATA:', JSON.stringify(todayData.data.records, null, 2));
             
-            const recentRecords = todayData.data.records.slice(0, 5).map(record => {
-              // Extract name from the record using the EXACT backend structure
-              // In backend: records = await Attendance.find().populate({path: 'internId', populate: {path: 'userId', select: 'name email'}})
+            const recentRecords = todayData.data.records
+              .filter(record => record && record._id)
+              .slice(0, 5)
+              .map(record => {
               let internName = 'Unknown Intern';
               
               // Directly access the exact path used in the backend's getTodayAttendance function
@@ -464,7 +481,6 @@ function Dashboard() {
     };
   };
 
-  // Dark mode is now handled by ThemeContext
 
   // Animation variants
   const containerVariants = {
@@ -521,6 +537,22 @@ function Dashboard() {
 
   // recentActivity is now managed via useState above
 
+  // Show different dashboard based on role
+  if (userRole === 'intern') {
+    return (
+      <ErrorBoundary>
+        <DashboardLayout>
+          <div className="pt-6 pb-8 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+              <InternDashboard />
+            </div>
+          </div>
+        </DashboardLayout>
+      </ErrorBoundary>
+    );
+  }
+
+  // Admin/Supervisor Dashboard
   return (
     <ErrorBoundary>
       <DashboardLayout>
@@ -530,7 +562,7 @@ function Dashboard() {
           <div className="md:flex md:items-center md:justify-between mb-8">
             <div className="flex-1 min-w-0">
               <h1 className="text-2xl font-semibold text-gray-900 dark:text-white sm:text-3xl">
-                Dashboard
+                Admin Dashboard
               </h1>
               <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
                 Overview of attendance and check-ins

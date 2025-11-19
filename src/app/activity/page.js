@@ -12,11 +12,7 @@ import Footer from "@/components/Footer";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { TableRowSkeleton } from "@/components/SkeletonLoader";
 import DateRangeFilter from "@/components/DateRangeFilter";
-
-// Import ThemeContext
 import { useTheme } from "@/context/ThemeContext";
-
-// Import ProtectedRoute component
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 // Protect the Activity page route

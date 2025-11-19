@@ -189,12 +189,12 @@ function InternsDashboard() {
   // Form state
   const [formData, setFormData] = useState({
     name: "",
-    employeeId: "", // maps to internId in the backend
+    employeeId: "", 
     department: "",
     email: "",
-    phone: "", // Add phone field
-    password: "", // Add password field
-    supervisor: "", // Add supervisor field
+    phone: "", 
+    password: "", 
+    supervisor: "", 
   });
   
   // Function to generate a unique email based on name and timestamp
@@ -211,7 +211,6 @@ function InternsDashboard() {
     try {
       console.log('Fetching interns data...');
       
-      // Add debugging for the API URL
       const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
       console.log('Using API URL:', `${API_BASE}/interns`);
       
@@ -263,11 +262,8 @@ function InternsDashboard() {
       const formattedInterns = internsData.map((intern, index) => {
         console.log(`Processing intern ${index}:`, JSON.stringify(intern, null, 2));
         
-        // Log all keys to understand the data structure
         console.log(`Intern ${index} keys:`, Object.keys(intern));
         
-        // According to the backend schema, userId is the reference to User model
-        // and is populated with name, email, and profileImage
         console.log(`Checking userId object for intern ${index}:`, intern.userId);
         
         let name, email;
@@ -399,23 +395,19 @@ function InternsDashboard() {
     }
     
     try {
-      // Show loading state
       setIsLoading(true);
       
-      // Create API payload - make sure all fields match exactly what the backend expects
       const internData = {
-        name: formData.name.trim(), // Using 'name' as the backend expects this
-        email: formData.email.trim(), // User account email
-        internEmail: formData.email.trim(), // Intern-specific email (same as user email for now)
-        phone: formData.phone ? formData.phone.trim() : undefined, // Optional phone number
-        password: formData.password ? formData.password : "temppassword123", // Use entered password or default
+        name: formData.name.trim(), 
+        email: formData.email.trim(),
+        internEmail: formData.email.trim(), 
+        phone: formData.phone ? formData.phone.trim() : undefined, 
+        password: formData.password ? formData.password : "temppassword123", 
         internId: formData.employeeId.trim(),
         department: formData.department,
-        startDate: new Date().toISOString() // Proper date format for API
+        startDate: new Date().toISOString() 
       };
-      
-      // Add supervisor name as a string field - we'll store it as a plain string in the database
-      // Note: This will be stored as supervisorName in the backend to avoid conflicts
+     
       if (formData.supervisor && formData.supervisor.trim() !== "") {
         internData.supervisorName = formData.supervisor.trim();
       }
@@ -424,14 +416,11 @@ function InternsDashboard() {
       
       // Call API
       const response = await apiService.postData('interns', internData);
-      console.log('API Response:', response); // Debug log
+      console.log('API Response:', response); 
       
       if (response.status === 'success' && response.data?.intern) {
         console.log('Successfully added intern with response:', JSON.stringify(response.data.intern, null, 2));
         
-        // Instead of manually constructing the new intern object,
-        // just refresh the data from the server to ensure consistency
-        // This will use our robust data handling in fetchInterns
         await fetchInterns();
         
         // Reset form and close modal
@@ -443,7 +432,7 @@ function InternsDashboard() {
           department: "",
           email: "",
           password: "",
-          supervisor: "", // Reset supervisor name field
+          supervisor: "",
         });
         
         // Close modal

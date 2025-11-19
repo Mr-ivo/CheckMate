@@ -127,86 +127,57 @@ export default function Attendance() {
           const internDetailsMap = {};
           if (internsResponse && internsResponse.status === 'success' && internsResponse.data) {
             const internsList = internsResponse.data.interns || internsResponse.data;
-            internsList.forEach(intern => {
-              // Map by both _id and internId for flexible lookup
-              internDetailsMap[intern._id] = intern;
-              if (intern.internId) {
-                internDetailsMap[intern.internId] = intern;
-              }
-            });
+            if (Array.isArray(internsList)) {
+              internsList.filter(intern => intern && intern._id).forEach(intern => {
+                // Map by both _id and internId for flexible lookup
+                internDetailsMap[intern._id] = intern;
+                if (intern.internId) {
+                  internDetailsMap[intern.internId] = intern;
+                }
+              });
+            }
             console.log('Intern details map:', internDetailsMap);
           }
           
           if (attendanceResponse && attendanceResponse.status === 'success' && attendanceResponse.data) {
-            // Add detailed logging to identify data structure issues
+            // Backend already returns properly formatted data, just use it directly
             console.log('Raw attendance data:', attendanceResponse.data);
             
-            // Map backend data to our format and build intern ID lookup map
-            const lookupMap = {};
-            const attendanceData = attendanceResponse.data.map(record => {
-              // Log individual record for debugging
-              console.log('Processing attendance record:', record);
-              
-              // Store mapping between string internId and MongoDB _id
-              if (record.internId && record._id) {
-                lookupMap[record.internId._id || record.internId] = record._id;
-              }
-              
-              // Get full intern details from the intern details map
-              const internId = record.internId._id || record.internId;
-              const internDetails = internDetailsMap[internId];
-              console.log('Found intern details for', internId, ':', internDetails);
-              
-              // Extract department from intern details or attendance record
-              let department = 'Unassigned';
-              if (internDetails && internDetails.department) {
-                department = internDetails.department;
-              } else if (record.department) {
-                department = record.department;
-              } else if (record.internId && typeof record.internId === 'object' && record.internId.department) {
-                department = record.internId.department;
-              }
-              
-              // Build comprehensive record with intern details
-              const mappedRecord = {
-                id: record._id, // MongoDB _id for API operations
-                mongoId: record._id, // Use record's _id as the mongo ID for API calls
-                internId: typeof record.internId === 'string' ? record.internId : 
-                         (record.internId && record.internId.internId) || 'N/A',
-                name: record.name || (internDetails && (internDetails.name || internDetails.user?.name)) || 'Unknown',
-                employeeId: typeof record.internId === 'string' ? record.internId : 
-                           (record.internId && record.internId.internId) || 'N/A',
-                department: department,
+            const attendanceData = attendanceResponse.data
+              .filter(record => record && record._id)
+              .map(record => ({
+                id: record._id,
+                mongoId: record._id,
+                internId: record.internId || 'N/A',
+                name: record.name || 'Unknown',
+                employeeId: record.internId || 'N/A',
+                department: record.department || 'Unassigned',
                 status: record.status || '',
                 checkInTime: record.checkInTime || null,
                 checkOutTime: record.checkOutTime || null,
-                // Add email and phone from intern details
-                email: internDetails?.email || internDetails?.user?.email || null,
-                phone: internDetails?.phone || null,
-                user: internDetails?.user || null // Include user data for fallback
-              };
-              
-              // Log the mapped record
-              console.log('Mapped to:', mappedRecord);
-              
-              return mappedRecord;
-            });
-            
-            // Save lookup map for future API calls
-            setInternMap(lookupMap);
+                email: record.email || null,
+                phone: record.phone || null,
+                _id: record._id
+              }));
             
             // Extract unique departments from attendance records
             // This ensures the dropdown has the actual departments used in records
-            const uniqueDepartments = [...new Set(attendanceData.map(record => record.department).filter(Boolean))];
-            if (uniqueDepartments.length > 0) {
-              console.log('Extracted departments from records:', uniqueDepartments);
-              setDepartments(['All Departments', ...uniqueDepartments]);
+            if (Array.isArray(attendanceData) && attendanceData.length > 0) {
+              const uniqueDepartments = [...new Set(
+                attendanceData
+                  .filter(record => record && record.department)
+                  .map(record => record.department)
+              )];
+              if (uniqueDepartments.length > 0) {
+                console.log('Extracted departments from records:', uniqueDepartments);
+                setDepartments(['All Departments', ...uniqueDepartments]);
+              }
             }
             
             // Set interns array with data or empty array if no records found
-            setInterns(attendanceData.length > 0 ? attendanceData : []);
+            setInterns(Array.isArray(attendanceData) && attendanceData.length > 0 ? attendanceData : []);
             
-            if (attendanceData.length === 0) {
+            if (!attendanceData || attendanceData.length === 0) {
               console.warn('No attendance records found for this date');
               toast.info('No attendance records found for this date.');
             }

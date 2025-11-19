@@ -2,11 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { 
   Settings, 
   Clock, 
   Bell, 
   Shield, 
+  ShieldAlert,
+  Monitor,
+  MapPin,
   Database,
   Save,
   Building,
@@ -409,6 +413,51 @@ export default function SettingsPage() {
           <Bell className="h-5 w-5 mr-3" />
           Notifications
         </button>
+      </li>
+      <li>
+        <Link
+          href="/settings/security"
+          className="w-full flex items-center px-4 py-2 rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200"
+        >
+          <Shield className="h-5 w-5 mr-3" />
+          Security
+        </Link>
+      </li>
+      <li>
+        <Link
+          href="/settings/sessions"
+          className="w-full flex items-center px-4 py-2 rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200"
+        >
+          <Monitor className="h-5 w-5 mr-3" />
+          Sessions
+        </Link>
+      </li>
+      <li>
+        <Link
+          href="/settings/geofencing"
+          className="w-full flex items-center px-4 py-2 rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200"
+        >
+          <MapPin className="h-5 w-5 mr-3" />
+          Geofencing
+        </Link>
+      </li>
+      <li>
+        <Link
+          href="/settings/admin-security"
+          className="w-full flex items-center px-4 py-2 rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200"
+        >
+          <ShieldAlert className="h-5 w-5 mr-3" />
+          Admin Security
+        </Link>
+      </li>
+      <li>
+        <Link
+          href="/settings/user-management"
+          className="w-full flex items-center px-4 py-2 rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200"
+        >
+          <Users className="h-5 w-5 mr-3" />
+          User Management
+        </Link>
       </li>
       <li>
         <button

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+</head>
+<body>
+    <h1>CheckMate API Test</h1>
+    <button onclick="testAPI()">Test WebAuthn Route</button>
+    <pre id="result"></pre>
+
+    <script>
+        async function testAPI() {
+            const resultEl = document.getElementById('result');
+            resultEl.textContent = 'Testing...';
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/webauthn/auth/options', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: 'test@test.com' })
+                });
+                
+                const data = await response.json();
+                
+                resultEl.textContent = `
+Status: ${response.status}
+URL: ${response.url}
+Response: ${JSON.stringify(data, null, 2)}
+                `;
+            } catch (error) {
+                resultEl.textContent = `Error: ${error.message}`;
+            }
+        }
+        
+        // Auto-test on load
+        window.onload = () => {
+            console.log('Testing API endpoint directly...');
+            testAPI();
+        };
+    </script>
+</body>
+</html>
