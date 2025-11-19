@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Bell, Check, CheckCheck, Trash2, AlertCircle, Info, Clock, Star } from 'lucide-react';
-import { apiService } from '../../../services/api.service';
+import apiService from '../../../services/api.service';
 import { toast } from 'react-hot-toast';
 import DashboardLayout from '../../../components/DashboardLayout';
 

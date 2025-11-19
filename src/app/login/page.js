@@ -52,16 +52,10 @@ export default function Login() {
       
       // Check if 2FA is required
       if (result.requires2FA) {
-        toast.success("Password verified! Please enter your 2FA code.");
+        // OTP is automatically sent by backend during login
+        toast.success("Password verified! Check your email for the verification code.");
         
-        // Automatically send OTP
-        try {
-          await authService.sendOTP(data.email);
-          toast.success("Verification code sent to your email");
-        } catch (error) {
-          console.error("Failed to send OTP:", error);
-        }
-        
+        setUserEmail(data.email);
         setLoginStep("2fa");
         setIsLoading(false);
         return;
