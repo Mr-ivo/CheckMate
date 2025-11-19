@@ -20,6 +20,22 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                // Force light mode immediately on page load
+                document.documentElement.classList.remove('dark');
+                document.body.classList.remove('dark');
+                document.documentElement.style.colorScheme = 'light';
+                localStorage.removeItem('darkMode');
+                localStorage.removeItem('theme');
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className={`${inter.className} antialiased transition-colors duration-300`}>
         <ThemeProvider>
           <LoadingProvider>

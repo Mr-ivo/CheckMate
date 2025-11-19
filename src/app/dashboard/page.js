@@ -42,7 +42,7 @@ export default function DashboardPage() {
 // Main Dashboard component
 function Dashboard() {
   const { isDarkMode } = useTheme();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); // Start as false for faster initial render
   const [stats, setStats] = useState({
     totalStaff: 0,
     checkInRate: 0,
