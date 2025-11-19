@@ -475,15 +475,6 @@ export default function Navbar({ toggleSidebar, isMobile }) {
               )}
             </div>
             
-            {/* Theme toggle */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white focus:outline-none"
-              aria-label="Toggle theme"
-            >
-              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-            
             {/* Profile menu */}
             <div className="relative" ref={profileMenuRef}>
               <button

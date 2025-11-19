@@ -728,20 +728,6 @@ export default function SettingsPage() {
                         </div>
                         <div>
                           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            Default Theme
-                          </label>
-                          <select
-                            value={systemSettings.defaultTheme}
-                            onChange={(e) => handleSystemSettingChange("defaultTheme", e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                          >
-                            <option value="system">System</option>
-                            <option value="light">Light</option>
-                            <option value="dark">Dark</option>
-                          </select>
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                             Language
                           </label>
                           <select
