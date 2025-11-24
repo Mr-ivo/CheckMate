@@ -43,6 +43,11 @@ const nextConfig = {
   
   // Disable strict mode to prevent double rendering in development
   reactStrictMode: false,
+  
+  // Force rebuild - dark mode completely removed
+  generateBuildId: async () => {
+    return `build-${Date.now()}`;
+  },
 };
 
 export default nextConfig;
