@@ -319,14 +319,25 @@ class AuthService {
   async getBiometricAuthOptions(email) {
     const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
     
+    console.log('🔐 Getting biometric auth options for:', email);
+    console.log('🔐 API URL:', `${API_BASE}/webauthn/auth/options`);
+    
     const response = await fetch(`${API_BASE}/webauthn/auth/options`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email })
     });
     
-    if (!response.ok) throw new Error('Failed to get auth options');
+    console.log('🔐 Response status:', response.status);
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error('❌ Failed to get auth options:', errorData);
+      throw new Error(errorData.message || 'Failed to get auth options');
+    }
+    
     const data = await response.json();
+    console.log('✅ Got auth options:', data);
     return data.data.options;
   }
 
@@ -336,18 +347,25 @@ class AuthService {
   async verifyBiometricAuth(email, credential) {
     const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
     
+    console.log('🔐 Verifying biometric auth for:', email);
+    console.log('🔐 Credential:', credential);
+    
     const response = await fetch(`${API_BASE}/webauthn/auth/verify`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, credential })
     });
     
+    console.log('🔐 Verify response status:', response.status);
+    
     if (!response.ok) {
-      const error = await response.json();
+      const error = await response.json().catch(() => ({}));
+      console.error('❌ Verification failed:', error);
       throw new Error(error.message || 'Authentication failed');
     }
     
     const data = await response.json();
+    console.log('✅ Verification successful:', data);
     
     if (data.data?.token) {
       localStorage.setItem('checkmate_auth_token', data.data.token);
