@@ -109,7 +109,7 @@ export default function Home() {
     };
   }, []);
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-white to-emerald-50 dark:from-gray-900 dark:to-gray-800 overflow-x-hidden" style={{ maxWidth: '100vw' }}>
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-white to-emerald-50 overflow-x-hidden" style={{ maxWidth: '100vw' }}>
       {/* Navigation */}
       <header className="absolute top-0 left-0 right-0 z-30">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
@@ -127,13 +127,13 @@ export default function Home() {
               </Link>
             </div>
             <nav className="hidden md:flex justify-center items-center space-x-12 flex-1">
-              <Link href="#features" className="text-gray-600 hover:text-emerald-600 dark:text-gray-300 dark:hover:text-emerald-400 font-medium text-lg">
+              <Link href="#features" className="text-gray-600 hover:text-emerald-600 font-medium text-lg">
                 Features
               </Link>
-              <Link href="#how-it-works" className="text-gray-600 hover:text-emerald-600 dark:text-gray-300 dark:hover:text-emerald-400 font-medium text-lg">
+              <Link href="#how-it-works" className="text-gray-600 hover:text-emerald-600 font-medium text-lg">
                 How It Works
               </Link>
-              <Link href="#faq" className="text-gray-600 hover:text-emerald-600 dark:text-gray-300 dark:hover:text-emerald-400 font-medium text-lg">
+              <Link href="#faq" className="text-gray-600 hover:text-emerald-600 font-medium text-lg">
                 FAQ
               </Link>
             </nav>
@@ -153,7 +153,7 @@ export default function Home() {
                   setShowMobileMenu(prevState => !prevState);
                   console.log('Home page mobile menu toggled!');
                 }}
-                className="text-gray-600 dark:text-gray-300 focus:outline-none p-2"
+                className="text-gray-600 focus:outline-none p-2"
                 aria-label="Toggle navigation menu"
                 aria-expanded={showMobileMenu}
                 style={{ touchAction: 'manipulation', position: 'relative', zIndex: 60 }}
@@ -184,42 +184,42 @@ export default function Home() {
             
             {/* Menu container */}
             <div 
-              className="fixed inset-y-0 right-0 max-w-full w-3/4 sm:w-64 bg-white dark:bg-gray-800 shadow-lg transform z-50 transition-transform duration-300"
+              className="fixed inset-y-0 right-0 max-w-full w-3/4 sm:w-64 bg-white shadow-lg transform z-50 transition-transform duration-300"
               style={{ zIndex: 56 }}
               ref={mobileMenuRef}
             >
               <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200 dark:border-gray-700">
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">Menu</h3>
+                <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200">
+                  <h3 className="text-lg font-medium text-gray-900">Menu</h3>
                 </div>
                 
                 <nav className="flex-1 overflow-y-auto py-4 px-4 space-y-6">
                   <Link href="#features" 
-                    className="block text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium"
+                    className="block text-gray-600 hover:text-emerald-600 font-medium"
                     onClick={() => setShowMobileMenu(false)}
                   >
                     Features
                   </Link>
                   <Link href="#how-it-works" 
-                    className="block text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium"
+                    className="block text-gray-600 hover:text-emerald-600 font-medium"
                     onClick={() => setShowMobileMenu(false)}
                   >
                     How It Works
                   </Link>
                   <Link href="#testimonials" 
-                    className="block text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium"
+                    className="block text-gray-600 hover:text-emerald-600 font-medium"
                     onClick={() => setShowMobileMenu(false)}
                   >
                     Testimonials
                   </Link>
                   <Link href="#faq" 
-                    className="block text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium"
+                    className="block text-gray-600 hover:text-emerald-600 font-medium"
                     onClick={() => setShowMobileMenu(false)}
                   >
                     FAQ
                   </Link>
                   
-                  <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+                  <div className="pt-6 border-t border-gray-200">
                     <Link
                       href="/login"
                       className="block w-full px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg text-center transition-all duration-200 shadow-sm"
@@ -243,7 +243,7 @@ export default function Home() {
         variants={containerVariants}
       >
         {/* Animated background pattern */}
-        <div className="absolute inset-0 z-0 opacity-20 dark:opacity-10 overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-20 overflow-hidden">
           <motion.div 
             className="absolute -top-24 -left-24 w-96 h-96 bg-emerald-400 rounded-full mix-blend-multiply filter blur-xl"
             animate={{
@@ -289,7 +289,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div variants={itemVariants}>
               <motion.h1 
-                className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6"
+                className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-6"
                 variants={itemVariants}
                 whileInView={{
                   textShadow: ["0 0 0px rgba(16, 185, 129, 0)", "0 0 15px rgba(16, 185, 129, 0.3)", "0 0 0px rgba(16, 185, 129, 0)"],
@@ -301,7 +301,7 @@ export default function Home() {
                 }}
               >
                 <motion.span 
-                  className="text-emerald-600 dark:text-emerald-400"
+                  className="text-emerald-600"
                   animate={{
                     color: ["#10b981", "#14b8a6", "#10b981"]
                   }}
@@ -314,7 +314,7 @@ export default function Home() {
               </motion.h1>
               
               <motion.p 
-                className="text-xl text-gray-600 dark:text-gray-300 mb-10"
+                className="text-xl text-gray-600 mb-10"
                 variants={itemVariants}
               >
                 A modern, intuitive attendance tracking system for interns and workers with digital signature check-in. Track attendance, manage schedules, and analyze productivity all in one platform.
@@ -332,7 +332,7 @@ export default function Home() {
                 </Link>
                 <Link 
                   href="/login" 
-                  className="px-8 py-3 bg-white dark:bg-gray-800 text-emerald-600 dark:text-emerald-400 font-medium rounded-lg border border-emerald-200 dark:border-gray-700 hover:border-emerald-400 dark:hover:border-gray-600 transition-all duration-200 flex items-center justify-center"
+                  className="px-8 py-3 bg-white text-emerald-600 font-medium rounded-lg border border-emerald-200 hover:border-emerald-400 transition-all duration-200 flex items-center justify-center"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd" />
@@ -342,7 +342,7 @@ export default function Home() {
               </motion.div>
               
               <motion.div variants={itemVariants} className="flex items-center space-x-4 mt-10">
-                <p className="text-sm text-gray-600 dark:text-gray-300">
+                <p className="text-sm text-gray-600">
                   <span className="font-semibold"></span> 
                 </p>
               </motion.div>
@@ -371,12 +371,12 @@ export default function Home() {
                     alt="CheckMate Dashboard Preview"
                     width={600}
                     height={400}
-                    className="rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 relative z-10"
+                    className="rounded-xl shadow-2xl border border-gray-200 relative z-10"
                     priority
                   />
                 </motion.div>
                 <motion.div 
-                  className="absolute -bottom-5 -left-5 w-32 h-32 bg-emerald-200 dark:bg-emerald-800/30 rounded-full z-0"
+                  className="absolute -bottom-5 -left-5 w-32 h-32 bg-emerald-200 rounded-full z-0"
                   animate={{
                     scale: [1, 1.2, 1],
                     x: [0, 5, 0],
@@ -389,7 +389,7 @@ export default function Home() {
                   }}
                 ></motion.div>
                 <motion.div 
-                  className="absolute -top-5 -right-5 w-20 h-20 bg-teal-200 dark:bg-teal-800/30 rounded-full z-0"
+                  className="absolute -top-5 -right-5 w-20 h-20 bg-teal-200 rounded-full z-0"
                   animate={{
                     scale: [1, 1.2, 1],
                     x: [0, -5, 0],
@@ -410,7 +410,7 @@ export default function Home() {
 
 
       {/* Features Section */}
-      <section id="features" className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 overflow-hidden">
+      <section id="features" className="py-16 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
         <div className="container mx-auto max-w-7xl">
           <motion.div 
             className="text-center mb-16"
@@ -425,7 +425,7 @@ export default function Home() {
             viewport={{ once: true, amount: 0.2 }}
           >
             <motion.h2 
-              className="text-3xl font-bold text-gray-900 dark:text-white mb-4"
+              className="text-3xl font-bold text-gray-900 mb-4"
               whileInView={{
                 textShadow: ["0 0 0px rgba(16, 185, 129, 0)", "0 0 10px rgba(16, 185, 129, 0.2)", "0 0 0px rgba(16, 185, 129, 0)"],
               }}
@@ -436,7 +436,7 @@ export default function Home() {
               }}
             >Powerful Features</motion.h2>
             <motion.p 
-              className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
+              className="text-xl text-gray-600 max-w-3xl mx-auto"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.8 }}
@@ -453,7 +453,7 @@ export default function Home() {
             {featureItems.map((feature, index) => (
               <motion.div
                 key={index}
-                className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 overflow-hidden"
+                className="bg-white p-6 rounded-xl shadow-md border border-gray-100 overflow-hidden"
                 variants={fadeInUpVariant}
                 whileHover={{
                   y: -10,
@@ -462,7 +462,7 @@ export default function Home() {
                 }}
               >
                 <motion.div 
-                  className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mb-4"
+                  className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mb-4"
                   initial={{ scale: 0.8, rotate: -10 }}
                   whileInView={{ scale: 1, rotate: 0 }}
                   transition={{ 
@@ -477,23 +477,23 @@ export default function Home() {
                     color: "#ffffff" 
                   }}
                 >
-                  <span className="text-emerald-600 dark:text-emerald-400 text-xl font-bold">{index + 1}</span>
+                  <span className="text-emerald-600 text-xl font-bold">{index + 1}</span>
                 </motion.div>
                 <motion.h3 
-                  className="text-xl font-semibold mb-2 text-gray-900 dark:text-white"
+                  className="text-xl font-semibold mb-2 text-gray-900"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 + index * 0.1 }}
                 >{feature.title}</motion.h3>
                 <motion.p 
-                  className="text-gray-600 dark:text-gray-300"
+                  className="text-gray-600"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ delay: 0.3 + index * 0.1 }}
                 >{feature.description}</motion.p>
                 
                 <motion.div 
-                  className="absolute -bottom-10 -right-10 w-32 h-32 bg-gradient-to-tr from-emerald-100 to-transparent dark:from-emerald-900/20 dark:to-transparent rounded-full z-0 opacity-70"
+                  className="absolute -bottom-10 -right-10 w-32 h-32 bg-gradient-to-tr from-emerald-100 to-transparent rounded-full z-0 opacity-70"
                   animate={{
                     scale: [1, 1.2, 1],
                     rotate: [0, 10, 0]
@@ -512,10 +512,10 @@ export default function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800 relative overflow-hidden">
+      <section id="how-it-works" className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 relative overflow-hidden">
         {/* Animated background elements */}
         <motion.div 
-          className="absolute top-20 left-10 w-64 h-64 bg-emerald-200 dark:bg-emerald-800/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30"
+          className="absolute top-20 left-10 w-64 h-64 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"
           animate={{
             x: [0, 30, 0],
             y: [0, 50, 0],
@@ -528,7 +528,7 @@ export default function Home() {
           }}
         />
         <motion.div 
-          className="absolute bottom-20 right-10 w-80 h-80 bg-teal-200 dark:bg-teal-800/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30"
+          className="absolute bottom-20 right-10 w-80 h-80 bg-teal-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"
           animate={{
             x: [0, -40, 0],
             y: [0, -30, 0],
@@ -555,7 +555,7 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <motion.h2 
-              className="text-3xl font-bold text-gray-900 dark:text-white mb-4"
+              className="text-3xl font-bold text-gray-900 mb-4"
               animate={{
                 textShadow: ["0 0 0px rgba(16, 185, 129, 0)", "0 0 10px rgba(16, 185, 129, 0.3)", "0 0 0px rgba(16, 185, 129, 0)"],
               }}
@@ -566,7 +566,7 @@ export default function Home() {
               }}
             >How It Works</motion.h2>
             <motion.p 
-              className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
+              className="text-xl text-gray-600 max-w-3xl mx-auto"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.8 }}
@@ -590,7 +590,7 @@ export default function Home() {
               }}
             >
               <motion.div 
-                className="w-20 h-20 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mb-6"
+                className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mb-6"
                 whileHover={{ 
                   scale: 1.1,
                   backgroundColor: "#10b981",
@@ -599,7 +599,7 @@ export default function Home() {
               >
                 <motion.svg 
                   xmlns="http://www.w3.org/2000/svg" 
-                  className="h-10 w-10 text-emerald-600 dark:text-emerald-400" 
+                  className="h-10 w-10 text-emerald-600" 
                   viewBox="0 0 20 20" 
                   fill="currentColor"
                   whileHover={{ color: "#ffffff" }}
@@ -607,8 +607,8 @@ export default function Home() {
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 005 10a6 6 0 0012 0c0-.352-.035-.696-.1-1.028a5 5 0 00-4.9-2.972z" clipRule="evenodd" />
                 </motion.svg>
               </motion.div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">1. Sign In</h3>
-              <p className="text-gray-600 dark:text-gray-300">Create an account or log in with your existing credentials to access the system.</p>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900">1. Sign In</h3>
+              <p className="text-gray-600">Create an account or log in with your existing credentials to access the system.</p>
             </motion.div>
             
             {/* Step 2 */}
@@ -621,7 +621,7 @@ export default function Home() {
               }}
             >
               <motion.div 
-                className="w-20 h-20 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mb-6"
+                className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mb-6"
                 whileHover={{ 
                   scale: 1.1,
                   backgroundColor: "#10b981",
@@ -630,7 +630,7 @@ export default function Home() {
               >
                 <motion.svg 
                   xmlns="http://www.w3.org/2000/svg" 
-                  className="h-10 w-10 text-emerald-600 dark:text-emerald-400" 
+                  className="h-10 w-10 text-emerald-600" 
                   viewBox="0 0 20 20" 
                   fill="currentColor"
                   whileHover={{ color: "#ffffff" }}
@@ -638,8 +638,8 @@ export default function Home() {
                   <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z" />
                 </motion.svg>
               </motion.div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">2. Daily Check-In</h3>
-              <p className="text-gray-600 dark:text-gray-300">Use the quick check-in feature with digital signature verification to mark your attendance.</p>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900">2. Daily Check-In</h3>
+              <p className="text-gray-600">Use the quick check-in feature with digital signature verification to mark your attendance.</p>
             </motion.div>
             
             {/* Step 3 */}
@@ -652,7 +652,7 @@ export default function Home() {
               }}
             >
               <motion.div 
-                className="w-20 h-20 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mb-6"
+                className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mb-6"
                 whileHover={{ 
                   scale: 1.1,
                   backgroundColor: "#10b981",
@@ -661,7 +661,7 @@ export default function Home() {
               >
                 <motion.svg 
                   xmlns="http://www.w3.org/2000/svg" 
-                  className="h-10 w-10 text-emerald-600 dark:text-emerald-400" 
+                  className="h-10 w-10 text-emerald-600" 
                   viewBox="0 0 20 20" 
                   fill="currentColor"
                   whileHover={{ color: "#ffffff" }}
@@ -669,8 +669,8 @@ export default function Home() {
                   <path fillRule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm2 10a1 1 0 10-2 0v3a1 1 0 102 0v-3zm4-1a1 1 0 011 1v3a1 1 0 11-2 0v-3a1 1 0 011-1z" clipRule="evenodd" />
                 </motion.svg>
               </motion.div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">3. Track & Report</h3>
-              <p className="text-gray-600 dark:text-gray-300">Access attendance history, generate reports, and analyze trends through the dashboard.</p>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900">3. Track & Report</h3>
+              <p className="text-gray-600">Access attendance history, generate reports, and analyze trends through the dashboard.</p>
             </motion.div>
           </motion.div>
           
@@ -689,68 +689,68 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900">
+      <section id="faq" className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Frequently Asked Questions</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">Find answers to common questions about CheckMate</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Find answers to common questions about CheckMate</p>
           </div>
           
           <div className="space-y-8">
             {/* FAQ Item 1 */}
             <motion.div 
-              className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-sm"
+              className="bg-gray-50 p-6 rounded-lg shadow-sm"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">How do I check in for attendance?</h3>
-              <p className="text-gray-600 dark:text-gray-300">To check in, simply log into the system, click on the "Check In" button on the dashboard, verify your identity with your digital signature, and submit. The system will automatically record your time and location.</p>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900">How do I check in for attendance?</h3>
+              <p className="text-gray-600">To check in, simply log into the system, click on the "Check In" button on the dashboard, verify your identity with your digital signature, and submit. The system will automatically record your time and location.</p>
             </motion.div>
             
             {/* FAQ Item 2 */}
             <motion.div 
-              className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-sm"
+              className="bg-gray-50 p-6 rounded-lg shadow-sm"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Can I check my attendance history?</h3>
-              <p className="text-gray-600 dark:text-gray-300">Yes, you can view your complete attendance history on your dashboard. The system maintains records of all your check-ins, including dates, times, and any notes or exceptions. You can also download reports for specific date ranges.</p>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900">Can I check my attendance history?</h3>
+              <p className="text-gray-600">Yes, you can view your complete attendance history on your dashboard. The system maintains records of all your check-ins, including dates, times, and any notes or exceptions. You can also download reports for specific date ranges.</p>
             </motion.div>
             
             {/* FAQ Item 3 */}
             <motion.div 
-              className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-sm"
+              className="bg-gray-50 p-6 rounded-lg shadow-sm"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">What if I forget to check in?</h3>
-              <p className="text-gray-600 dark:text-gray-300">If you forget to check in, you can submit a late check-in request through the system. Your supervisor will be notified and can approve the request. Make sure to include the reason for the missed check-in in your request.</p>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900">What if I forget to check in?</h3>
+              <p className="text-gray-600">If you forget to check in, you can submit a late check-in request through the system. Your supervisor will be notified and can approve the request. Make sure to include the reason for the missed check-in in your request.</p>
             </motion.div>
             
             {/* FAQ Item 4 */}
             <motion.div 
-              className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-sm"
+              className="bg-gray-50 p-6 rounded-lg shadow-sm"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Is my attendance data secure?</h3>
-              <p className="text-gray-600 dark:text-gray-300">Absolutely. We take data security very seriously. All your attendance data is encrypted and stored securely. Only authorized personnel can access detailed attendance records, and we comply with data protection regulations.</p>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900">Is my attendance data secure?</h3>
+              <p className="text-gray-600">Absolutely. We take data security very seriously. All your attendance data is encrypted and stored securely. Only authorized personnel can access detailed attendance records, and we comply with data protection regulations.</p>
             </motion.div>
           </div>
           
           <div className="mt-12 text-center">
-            <p className="text-gray-600 dark:text-gray-300">Have more questions?</p>
+            <p className="text-gray-600">Have more questions?</p>
             <Link 
               href="#" 
-              className="text-emerald-600 dark:text-emerald-400 font-medium hover:underline inline-flex items-center mt-2"
+              className="text-emerald-600 font-medium hover:underline inline-flex items-center mt-2"
             >
               Contact our support team
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
@@ -764,7 +764,7 @@ export default function Home() {
 
 
       {/* Footer */}
-      <footer className="py-8 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-auto">
+      <footer className="py-8 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200 mt-auto">
         <div className="container mx-auto max-w-5xl">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
@@ -775,14 +775,14 @@ export default function Home() {
                 height={120} 
                 className="py-1"
               />
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">© {new Date().getFullYear()} All rights reserved.</p>
+              <p className="text-sm text-gray-600 mt-2">© {new Date().getFullYear()} All rights reserved.</p>
             </div>
             
             <div className="flex space-x-6">
-              <Link href="/privacy-policy" className="text-gray-600 hover:text-emerald-600 dark:text-gray-400 dark:hover:text-emerald-400">
+              <Link href="/privacy-policy" className="text-gray-600 hover:text-emerald-600">
                 Privacy Policy
               </Link>
-              <Link href="/terms-of-service" className="text-gray-600 hover:text-emerald-600 dark:text-gray-400 dark:hover:text-emerald-400">
+              <Link href="/terms-of-service" className="text-gray-600 hover:text-emerald-600">
                 Terms of Service
               </Link>
             </div>
