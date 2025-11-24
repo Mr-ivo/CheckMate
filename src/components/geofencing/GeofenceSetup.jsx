@@ -253,7 +253,7 @@ export default function GeofenceSetup() {
               <input
                 type="range"
                 min="50"
-                max="1000"
+                max="5000"
                 step="50"
                 value={formData.radius}
                 onChange={(e) => setFormData({ ...formData, radius: parseInt(e.target.value) })}
@@ -261,7 +261,7 @@ export default function GeofenceSetup() {
               />
               <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
                 <span>50m</span>
-                <span>1000m</span>
+                <span>5000m</span>
               </div>
             </div>
 
@@ -406,7 +406,7 @@ export default function GeofenceSetup() {
               <li>• Users can only check-in when they are within the defined radius</li>
               <li>• Location is verified using GPS coordinates</li>
               <li>• Multiple geofences can be created for different locations</li>
-              <li>• Radius can be adjusted from 50m to 1000m</li>
+              <li>• Radius can be adjusted from 50m to 5000m</li>
             </ul>
           </div>
         </div>
