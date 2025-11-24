@@ -71,17 +71,25 @@ export default function BiometricButton({ email, onSuccess, className = "" }) {
       }
     } catch (error) {
       toast.dismiss("biometric");
-      console.error("Biometric authentication error:", error);
+      console.error("❌ Biometric authentication error:", error);
+      console.error("❌ Error name:", error.name);
+      console.error("❌ Error message:", error.message);
+      console.error("❌ Error stack:", error.stack);
 
       // User-friendly error messages
       if (error.name === "NotAllowedError") {
         toast.error("Biometric authentication cancelled");
       } else if (error.name === "InvalidStateError") {
         toast.error("Biometric sensor not available");
-      } else if (error.message.includes("No biometric credentials")) {
+      } else if (error.message && error.message.includes("No biometric credentials")) {
         toast.error("Please register your biometric first in settings");
+      } else if (error.message && error.message.includes("Credential not found")) {
+        toast.error("Device not registered. Please register in Settings → Security");
       } else {
-        toast.error(error.message || "Biometric authentication failed");
+        // Show the actual error message for debugging
+        const errorMsg = error.message || error.toString() || "Biometric authentication failed";
+        console.error("❌ Showing error to user:", errorMsg);
+        toast.error(`Authentication failed: ${errorMsg}`);
       }
     } finally {
       setIsLoading(false);
