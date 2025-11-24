@@ -459,6 +459,44 @@ class AuthService {
   }
 
   /**
+   * Authenticate with biometric (for check-in)
+   * Uses the current user's email from localStorage
+   */
+  async authenticateBiometric() {
+    try {
+      console.log('🔐 Starting biometric authentication for check-in');
+      
+      // Get current user email
+      const user = this.getCurrentUser();
+      if (!user || !user.email) {
+        throw new Error('No user logged in');
+      }
+      
+      console.log('🔐 User email:', user.email);
+      
+      // Import startAuthentication dynamically
+      const { startAuthentication } = await import('@simplewebauthn/browser');
+      
+      // Step 1: Get authentication options
+      const options = await this.getBiometricAuthOptions(user.email);
+      
+      // Step 2: Trigger biometric prompt
+      console.log('🔐 Triggering biometric prompt...');
+      const credential = await startAuthentication(options);
+      
+      // Step 3: Verify with server
+      console.log('🔐 Verifying credential...');
+      const result = await this.verifyBiometricAuth(user.email, credential);
+      
+      console.log('✅ Biometric authentication successful');
+      return { success: true, data: result };
+    } catch (error) {
+      console.error('❌ Biometric authentication failed:', error);
+      throw error;
+    }
+  }
+
+  /**
    * Refresh access token
    */
   async refreshToken() {
