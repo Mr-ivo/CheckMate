@@ -343,8 +343,8 @@ export default function SettingsPage() {
             className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between"
           >
             <motion.div variants={itemVariants} className="flex items-center mb-4 md:mb-0">
-              <Settings className="h-6 w-6 text-emerald-600 dark:text-emerald-400 mr-2" />
-              <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Settings</h1>
+              <Settings className="h-6 w-6 text-emerald-600 mr-2" />
+              <h1 className="text-2xl font-bold text-gray-800">Settings</h1>
             </motion.div>
             
             <motion.button
@@ -371,7 +371,7 @@ export default function SettingsPage() {
             {/* Settings Navigation */}
 <motion.div
   variants={itemVariants}
-  className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6"
+  className="bg-white rounded-xl shadow-md p-6"
 >
   <nav>
     <ul className="space-y-2">
@@ -380,8 +380,8 @@ export default function SettingsPage() {
           onClick={() => setActiveTab("organization")}
           className={`w-full flex items-center px-4 py-2 rounded-md transition-colors ${
             activeTab === "organization"
-              ? "bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-400"
-              : "hover:bg-gray-100 dark:hover:bg-gray-700"
+              ? "bg-emerald-100 text-emerald-600"
+              : "hover:bg-gray-100"
           }`}
         >
           <Building className="h-5 w-5 mr-3" />
@@ -393,8 +393,8 @@ export default function SettingsPage() {
           onClick={() => setActiveTab("workSchedule")}
           className={`w-full flex items-center px-4 py-2 rounded-md transition-colors ${
             activeTab === "workSchedule"
-              ? "bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-400"
-              : "hover:bg-gray-100 dark:hover:bg-gray-700"
+              ? "bg-emerald-100 text-emerald-600"
+              : "hover:bg-gray-100"
           }`}
         >
           <Calendar className="h-5 w-5 mr-3" />
@@ -406,8 +406,8 @@ export default function SettingsPage() {
           onClick={() => setActiveTab("notifications")}
           className={`w-full flex items-center px-4 py-2 rounded-md transition-colors ${
             activeTab === "notifications"
-              ? "bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-400"
-              : "hover:bg-gray-100 dark:hover:bg-gray-700"
+              ? "bg-emerald-100 text-emerald-600"
+              : "hover:bg-gray-100"
           }`}
         >
           <Bell className="h-5 w-5 mr-3" />
@@ -417,7 +417,7 @@ export default function SettingsPage() {
       <li>
         <Link
           href="/settings/security"
-          className="w-full flex items-center px-4 py-2 rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200"
+          className="w-full flex items-center px-4 py-2 rounded-md transition-colors hover:bg-gray-100 text-gray-700"
         >
           <Shield className="h-5 w-5 mr-3" />
           Security
@@ -426,7 +426,7 @@ export default function SettingsPage() {
       <li>
         <Link
           href="/settings/sessions"
-          className="w-full flex items-center px-4 py-2 rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200"
+          className="w-full flex items-center px-4 py-2 rounded-md transition-colors hover:bg-gray-100 text-gray-700"
         >
           <Monitor className="h-5 w-5 mr-3" />
           Sessions
@@ -435,7 +435,7 @@ export default function SettingsPage() {
       <li>
         <Link
           href="/settings/geofencing"
-          className="w-full flex items-center px-4 py-2 rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200"
+          className="w-full flex items-center px-4 py-2 rounded-md transition-colors hover:bg-gray-100 text-gray-700"
         >
           <MapPin className="h-5 w-5 mr-3" />
           Geofencing
@@ -444,7 +444,7 @@ export default function SettingsPage() {
       <li>
         <Link
           href="/settings/admin-security"
-          className="w-full flex items-center px-4 py-2 rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200"
+          className="w-full flex items-center px-4 py-2 rounded-md transition-colors hover:bg-gray-100 text-gray-700"
         >
           <ShieldAlert className="h-5 w-5 mr-3" />
           Admin Security
@@ -453,7 +453,7 @@ export default function SettingsPage() {
       <li>
         <Link
           href="/settings/user-management"
-          className="w-full flex items-center px-4 py-2 rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200"
+          className="w-full flex items-center px-4 py-2 rounded-md transition-colors hover:bg-gray-100 text-gray-700"
         >
           <Users className="h-5 w-5 mr-3" />
           User Management
@@ -464,8 +464,8 @@ export default function SettingsPage() {
           onClick={() => setActiveTab("system")}
           className={`w-full flex items-center px-4 py-2 rounded-md transition-colors ${
             activeTab === "system"
-              ? "bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-400"
-              : "hover:bg-gray-100 dark:hover:bg-gray-700"
+              ? "bg-emerald-100 text-emerald-600"
+              : "hover:bg-gray-100"
           }`}
         >
           <Settings className="h-5 w-5 mr-3" />
@@ -479,12 +479,12 @@ export default function SettingsPage() {
             {/* Settings Content */}
             <motion.div
               variants={itemVariants}
-              className="lg:col-span-3 bg-white dark:bg-gray-800 rounded-xl shadow-md p-6"
+              className="lg:col-span-3 bg-white rounded-xl shadow-md p-6"
             >
               {isLoading ? (
                 <div className="flex flex-col items-center justify-center h-64">
                   <div className="w-12 h-12 rounded-full border-4 border-emerald-200 border-t-emerald-600 animate-spin mb-4"></div>
-                  <p className="text-gray-500 dark:text-gray-400">Loading settings...</p>
+                  <p className="text-gray-500">Loading settings...</p>
                 </div>
               ) : error ? (
                 <div className="flex flex-col items-center justify-center h-64">
@@ -503,66 +503,66 @@ export default function SettingsPage() {
                   {/* Organization Settings Tab */}
                   {activeTab === "organization" && (
                     <div className="space-y-6">
-                      <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+                      <h2 className="text-xl font-semibold text-gray-800 mb-4">
                         Organization Settings
                       </h2>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
                             Organization Name
                           </label>
                           <input
                             type="text"
                             value={organizationSettings.name}
                             onChange={(e) => handleOrganizationChange("name", e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900"
                             placeholder="Enter organization name"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
                             Email Address
                           </label>
                           <input
                             type="email"
                             value={organizationSettings.email}
                             onChange={(e) => handleOrganizationChange("email", e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900"
                             placeholder="Enter email address"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
                             Phone Number
                           </label>
                           <input
                             type="tel"
                             value={organizationSettings.phone}
                             onChange={(e) => handleOrganizationChange("phone", e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900"
                             placeholder="Enter phone number"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
                             Address
                           </label>
                           <input
                             type="text"
                             value={organizationSettings.address}
                             onChange={(e) => handleOrganizationChange("address", e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900"
                             placeholder="Enter address"
                           />
                         </div>
                       </div>
 
                       <div className="mt-6">
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
                           Organization Logo
                         </label>
                         <div className="flex items-center space-x-4">
-                          <div className="relative w-20 h-20 rounded-md overflow-hidden bg-gray-200 dark:bg-gray-700">
+                          <div className="relative w-20 h-20 rounded-md overflow-hidden bg-gray-200">
                             <img 
                               src={organizationSettings.logo} 
                               alt="Logo" 
@@ -585,7 +585,7 @@ export default function SettingsPage() {
                                 disabled={isSubmitting}
                               />
                             </label>
-                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Maximum size: 2MB</p>
+                            <p className="text-xs text-gray-500 mt-1">Maximum size: 2MB</p>
                           </div>
                         </div>
                       </div>
@@ -595,54 +595,54 @@ export default function SettingsPage() {
                   {/* Work Schedule Settings Tab */}
                   {activeTab === "workSchedule" && (
                     <div className="space-y-6">
-                      <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+                      <h2 className="text-xl font-semibold text-gray-800 mb-4">
                         Work Schedule Settings
                       </h2>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
                             Working Hours
                           </label>
                           <input
                             type="time"
                             value={workSchedule.workHours}
                             onChange={(e) => handleWorkScheduleChange("workHours", e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900"
                             placeholder="Enter working hours"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
                             Late Threshold
                           </label>
                           <input
                             type="number"
                             value={workSchedule.lateThreshold}
                             onChange={(e) => handleWorkScheduleChange("lateThreshold", e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900"
                             placeholder="Enter late threshold"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
                             Grace Time
                           </label>
                           <input
                             type="number"
                             value={workSchedule.graceTime}
                             onChange={(e) => handleWorkScheduleChange("graceTime", e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900"
                             placeholder="Enter grace time"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
                             Working Days
                           </label>
                           <select
                             value={workSchedule.workDays}
                             onChange={(e) => handleWorkScheduleChange("workDays", e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900"
                           >
                             <option value="Monday">Monday</option>
                             <option value="Tuesday">Tuesday</option>
@@ -660,31 +660,31 @@ export default function SettingsPage() {
                   {/* Notifications Settings Tab */}
                   {activeTab === "notifications" && (
                     <div className="space-y-6">
-                      <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+                      <h2 className="text-xl font-semibold text-gray-800 mb-4">
                         Notifications Settings
                       </h2>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
                             Email Notifications
                           </label>
                           <input
                             type="email"
                             value={notificationSettings.email}
                             onChange={(e) => handleNotificationChange("email", e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900"
                             placeholder="Enter email address"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
                             Recipients
                           </label>
                           <input
                             type="text"
                             value={notificationSettings.recipients}
                             onChange={(e) => handleNotificationChange("recipients", e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900"
                             placeholder="Enter recipients"
                           />
                         </div>
@@ -695,18 +695,18 @@ export default function SettingsPage() {
                   {/* System Settings Tab */}
                   {activeTab === "system" && (
                     <div className="space-y-6">
-                      <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+                      <h2 className="text-xl font-semibold text-gray-800 mb-4">
                         System Settings
                       </h2>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
                             Date Format
                           </label>
                           <select
                             value={systemSettings.dateFormat}
                             onChange={(e) => handleSystemSettingChange("dateFormat", e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900"
                           >
                             <option value="YYYY-MM-DD">YYYY-MM-DD</option>
                             <option value="DD-MM-YYYY">DD-MM-YYYY</option>
@@ -714,26 +714,26 @@ export default function SettingsPage() {
                           </select>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
                             Time Format
                           </label>
                           <select
                             value={systemSettings.timeFormat}
                             onChange={(e) => handleSystemSettingChange("timeFormat", e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900"
                           >
                             <option value="24h">24h</option>
                             <option value="12h">12h</option>
                           </select>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
                             Language
                           </label>
                           <select
                             value={systemSettings.language}
                             onChange={(e) => handleSystemSettingChange("language", e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900"
                           >
                             <option value="en">English</option>
                             <option value="fr">French</option>
@@ -747,30 +747,30 @@ export default function SettingsPage() {
                   {/* Departments Settings Tab */}
                   {activeTab === "departments" && (
                     <div className="space-y-6">
-                      <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+                      <h2 className="text-xl font-semibold text-gray-800 mb-4">
                         Departments Settings
                       </h2>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
                             Department Name
                           </label>
                           <input
                             type="text"
                             value={departmentSettings.name}
                             onChange={(e) => handleDepartmentChange("name", e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900"
                             placeholder="Enter department name"
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
                             Department Description
                           </label>
                           <textarea
                             value={departmentSettings.description}
                             onChange={(e) => handleDepartmentChange("description", e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900"
                             placeholder="Enter department description"
                           />
                         </div>
@@ -786,3 +786,4 @@ export default function SettingsPage() {
     </DashboardLayout>
   );
 }
+

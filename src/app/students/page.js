@@ -152,7 +152,7 @@ export default function Students() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50">
       <Navbar 
         toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
         isDarkMode={isDarkMode}
@@ -164,10 +164,10 @@ export default function Students() {
         <div className="max-w-7xl mx-auto">
           <div className="md:flex md:items-center md:justify-between mb-8">
             <div className="flex-1 min-w-0">
-              <h2 className="text-2xl font-bold leading-7 text-gray-900 dark:text-white sm:text-3xl flex items-center">
+              <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl flex items-center">
                 <Users className="mr-2" /> Students
               </h2>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              <p className="mt-1 text-sm text-gray-500">
                 Manage all student records in one place
               </p>
             </div>
@@ -178,9 +178,9 @@ export default function Students() {
                   placeholder="Search students..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full"
+                  className="pl-10 pr-4 py-2 rounded-md border border-gray-300 bg-white text-gray-900 w-full"
                 />
-                <Search className="absolute left-3 top-2.5 text-gray-500 dark:text-gray-400" size={18} />
+                <Search className="absolute left-3 top-2.5 text-gray-500" size={18} />
               </div>
               <button
                 onClick={() => setShowAddModal(true)}
@@ -201,50 +201,50 @@ export default function Students() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+              <div className="bg-white shadow-md rounded-lg overflow-hidden">
                 <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead className="bg-gray-50 dark:bg-gray-700">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
                       <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Roll #
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Name
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Class
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Email
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Attendance
                         </th>
-                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Actions
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                    <tbody className="bg-white divide-y divide-gray-200">
                       {filteredStudents.length > 0 ? (
                         filteredStudents.map((student) => (
-                          <tr key={student.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                          <tr key={student.id} className="hover:bg-gray-50">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                               {student.rollNumber}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                               {student.name}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                               {student.class}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                               {student.email}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center">
-                                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2.5">
+                                <div className="w-full bg-gray-200 rounded-full h-2.5">
                                   <div 
                                     className={`h-2.5 rounded-full ${
                                       student.attendance > 90 ? 'bg-green-500' : 
@@ -254,17 +254,17 @@ export default function Students() {
                                     style={{ width: `${student.attendance}%` }}
                                   ></div>
                                 </div>
-                                <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">
+                                <span className="ml-2 text-xs text-gray-500">
                                   {student.attendance}%
                                 </span>
                               </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                              <button className="text-emerald-600 hover:text-emerald-900 dark:text-emerald-400 dark:hover:text-emerald-300 mr-4">
+                              <button className="text-emerald-600 hover:text-emerald-900 mr-4">
                                 <Edit2 size={16} />
                               </button>
                               <button 
-                                className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
+                                className="text-red-600 hover:text-red-900"
                                 onClick={() => handleDeleteStudent(student.id)}
                               >
                                 <Trash2 size={16} />
@@ -274,7 +274,7 @@ export default function Students() {
                         ))
                       ) : (
                         <tr>
-                          <td colSpan="6" className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                          <td colSpan="6" className="px-6 py-8 text-center text-gray-500">
                             No students found matching your search criteria.
                           </td>
                         </tr>
@@ -299,17 +299,17 @@ export default function Students() {
             <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
             <motion.div 
-              className="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+              className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                     <div className="flex justify-between items-center mb-4">
-                      <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">Add New Student</h3>
+                      <h3 className="text-lg leading-6 font-medium text-gray-900">Add New Student</h3>
                       <button onClick={() => setShowAddModal(false)} className="text-gray-400 hover:text-gray-500">
                         <X size={20} />
                       </button>
@@ -317,53 +317,53 @@ export default function Students() {
                     
                     <form onSubmit={handleAddStudent}>
                       <div className="mb-4">
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                         <input
                           type="text"
                           id="name"
                           name="name"
                           value={formData.name}
                           onChange={handleInputChange}
-                          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                           required
                         />
                       </div>
                       
                       <div className="mb-4">
-                        <label htmlFor="rollNumber" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Roll Number</label>
+                        <label htmlFor="rollNumber" className="block text-sm font-medium text-gray-700 mb-1">Roll Number</label>
                         <input
                           type="text"
                           id="rollNumber"
                           name="rollNumber"
                           value={formData.rollNumber}
                           onChange={handleInputChange}
-                          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                           required
                         />
                       </div>
                       
                       <div className="mb-4">
-                        <label htmlFor="class" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Class</label>
+                        <label htmlFor="class" className="block text-sm font-medium text-gray-700 mb-1">Class</label>
                         <input
                           type="text"
                           id="class"
                           name="class"
                           value={formData.class}
                           onChange={handleInputChange}
-                          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                           required
                         />
                       </div>
                       
                       <div className="mb-4">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                         <input
                           type="email"
                           id="email"
                           name="email"
                           value={formData.email}
                           onChange={handleInputChange}
-                          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
                           required
                         />
                       </div>
@@ -372,7 +372,7 @@ export default function Students() {
                         <button
                           type="button"
                           onClick={() => setShowAddModal(false)}
-                          className="mr-3 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-md"
+                          className="mr-3 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none rounded-md"
                         >
                           Cancel
                         </button>
@@ -394,3 +394,4 @@ export default function Students() {
     </div>
   );
 }
+

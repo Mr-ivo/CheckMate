@@ -60,11 +60,11 @@ export const LoginForm = ({ onLogin, isLoading = false }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
           Email
         </label>
         <div className="relative">
-          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500 dark:text-gray-400">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
             <Mail size={18} />
           </span>
           <input
@@ -74,15 +74,15 @@ export const LoginForm = ({ onLogin, isLoading = false }) => {
             value={formData.email}
             onChange={handleChange}
             className={`w-full pl-10 pr-3 py-2 border ${
-              errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-            } rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white`}
+              errors.email ? 'border-red-500' : 'border-gray-300'
+            } rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500
             placeholder="you@example.com"
             aria-invalid={errors.email ? "true" : "false"}
             aria-describedby="email-error"
           />
         </div>
         {errors.email && (
-          <div className="mt-1 flex items-center text-sm text-red-600 dark:text-red-400" id="email-error">
+          <div className="mt-1 flex items-center text-sm text-red-600" id="email-error">
             <AlertCircle size={14} className="mr-1" />
             <span>{errors.email}</span>
           </div>
@@ -90,11 +90,11 @@ export const LoginForm = ({ onLogin, isLoading = false }) => {
       </div>
 
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
           Password
         </label>
         <div className="relative">
-          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500 dark:text-gray-400">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
             <Lock size={18} />
           </span>
           <input
@@ -104,15 +104,15 @@ export const LoginForm = ({ onLogin, isLoading = false }) => {
             value={formData.password}
             onChange={handleChange}
             className={`w-full pl-10 pr-10 py-2 border ${
-              errors.password ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-            } rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white`}
+              errors.password ? 'border-red-500' : 'border-gray-300'
+            } rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500
             placeholder="••••••••"
             aria-invalid={errors.password ? "true" : "false"}
             aria-describedby="password-error"
           />
           <button
             type="button"
-            className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400 focus:outline-none"
+            className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 focus:outline-none"
             onClick={() => setShowPassword(!showPassword)}
             aria-label={showPassword ? "Hide password" : "Show password"}
           >
@@ -120,7 +120,7 @@ export const LoginForm = ({ onLogin, isLoading = false }) => {
           </button>
         </div>
         {errors.password && (
-          <div className="mt-1 flex items-center text-sm text-red-600 dark:text-red-400" id="password-error">
+          <div className="mt-1 flex items-center text-sm text-red-600" id="password-error">
             <AlertCircle size={14} className="mr-1" />
             <span>{errors.password}</span>
           </div>
@@ -135,16 +135,16 @@ export const LoginForm = ({ onLogin, isLoading = false }) => {
             type="checkbox"
             checked={formData.remember}
             onChange={handleChange}
-            className="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-emerald-600 focus:ring-emerald-500"
+            className="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
           />
-          <label htmlFor="remember" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+          <label htmlFor="remember" className="ml-2 block text-sm text-gray-700">
             Remember me
           </label>
         </div>
 
         <button
           type="button"
-          className="text-sm font-medium text-emerald-600 hover:text-emerald-500 dark:text-emerald-400 dark:hover:text-emerald-300"
+          className="text-sm font-medium text-emerald-600 hover:text-emerald-500"
           onClick={() => toast.success('Password reset email sent!')}
         >
           Forgot password?
@@ -267,11 +267,11 @@ export const RegisterForm = ({ onRegister, isLoading = false }) => {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
             First Name
           </label>
           <div className="relative">
-            <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500 dark:text-gray-400">
+            <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
               <User size={18} />
             </span>
             <input
@@ -281,14 +281,14 @@ export const RegisterForm = ({ onRegister, isLoading = false }) => {
               value={formData.firstName}
               onChange={handleChange}
               className={`w-full pl-10 pr-3 py-2 border ${
-                errors.firstName ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-              } rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white`}
+                errors.firstName ? 'border-red-500' : 'border-gray-300'
+              } rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500
               aria-invalid={errors.firstName ? "true" : "false"}
               aria-describedby="firstName-error"
             />
           </div>
           {errors.firstName && (
-            <div className="mt-1 flex items-center text-sm text-red-600 dark:text-red-400" id="firstName-error">
+            <div className="mt-1 flex items-center text-sm text-red-600" id="firstName-error">
               <AlertCircle size={14} className="mr-1" />
               <span>{errors.firstName}</span>
             </div>
@@ -296,11 +296,11 @@ export const RegisterForm = ({ onRegister, isLoading = false }) => {
         </div>
 
         <div>
-          <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
             Last Name
           </label>
           <div className="relative">
-            <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500 dark:text-gray-400">
+            <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
               <User size={18} />
             </span>
             <input
@@ -310,14 +310,14 @@ export const RegisterForm = ({ onRegister, isLoading = false }) => {
               value={formData.lastName}
               onChange={handleChange}
               className={`w-full pl-10 pr-3 py-2 border ${
-                errors.lastName ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-              } rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white`}
+                errors.lastName ? 'border-red-500' : 'border-gray-300'
+              } rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500
               aria-invalid={errors.lastName ? "true" : "false"}
               aria-describedby="lastName-error"
             />
           </div>
           {errors.lastName && (
-            <div className="mt-1 flex items-center text-sm text-red-600 dark:text-red-400" id="lastName-error">
+            <div className="mt-1 flex items-center text-sm text-red-600" id="lastName-error">
               <AlertCircle size={14} className="mr-1" />
               <span>{errors.lastName}</span>
             </div>
@@ -326,11 +326,11 @@ export const RegisterForm = ({ onRegister, isLoading = false }) => {
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
           Email
         </label>
         <div className="relative">
-          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500 dark:text-gray-400">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
             <Mail size={18} />
           </span>
           <input
@@ -340,15 +340,15 @@ export const RegisterForm = ({ onRegister, isLoading = false }) => {
             value={formData.email}
             onChange={handleChange}
             className={`w-full pl-10 pr-3 py-2 border ${
-              errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-            } rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white`}
+              errors.email ? 'border-red-500' : 'border-gray-300'
+            } rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500
             placeholder="you@example.com"
             aria-invalid={errors.email ? "true" : "false"}
             aria-describedby="email-error"
           />
         </div>
         {errors.email && (
-          <div className="mt-1 flex items-center text-sm text-red-600 dark:text-red-400" id="email-error">
+          <div className="mt-1 flex items-center text-sm text-red-600" id="email-error">
             <AlertCircle size={14} className="mr-1" />
             <span>{errors.email}</span>
           </div>
@@ -356,11 +356,11 @@ export const RegisterForm = ({ onRegister, isLoading = false }) => {
       </div>
 
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
           Password
         </label>
         <div className="relative">
-          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500 dark:text-gray-400">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
             <Lock size={18} />
           </span>
           <input
@@ -370,15 +370,15 @@ export const RegisterForm = ({ onRegister, isLoading = false }) => {
             value={formData.password}
             onChange={handleChange}
             className={`w-full pl-10 pr-10 py-2 border ${
-              errors.password ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-            } rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white`}
+              errors.password ? 'border-red-500' : 'border-gray-300'
+            } rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500
             placeholder="••••••••"
             aria-invalid={errors.password ? "true" : "false"}
             aria-describedby="password-error"
           />
           <button
             type="button"
-            className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400 focus:outline-none"
+            className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 focus:outline-none"
             onClick={() => setShowPassword(!showPassword)}
             aria-label={showPassword ? "Hide password" : "Show password"}
           >
@@ -386,7 +386,7 @@ export const RegisterForm = ({ onRegister, isLoading = false }) => {
           </button>
         </div>
         {errors.password && (
-          <div className="mt-1 flex items-center text-sm text-red-600 dark:text-red-400" id="password-error">
+          <div className="mt-1 flex items-center text-sm text-red-600" id="password-error">
             <AlertCircle size={14} className="mr-1" />
             <span>{errors.password}</span>
           </div>
@@ -394,11 +394,11 @@ export const RegisterForm = ({ onRegister, isLoading = false }) => {
       </div>
 
       <div>
-        <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
           Confirm Password
         </label>
         <div className="relative">
-          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500 dark:text-gray-400">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
             <Lock size={18} />
           </span>
           <input
@@ -408,15 +408,15 @@ export const RegisterForm = ({ onRegister, isLoading = false }) => {
             value={formData.confirmPassword}
             onChange={handleChange}
             className={`w-full pl-10 pr-3 py-2 border ${
-              errors.confirmPassword ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-            } rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white`}
+              errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
+            } rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500
             placeholder="••••••••"
             aria-invalid={errors.confirmPassword ? "true" : "false"}
             aria-describedby="confirmPassword-error"
           />
         </div>
         {errors.confirmPassword && (
-          <div className="mt-1 flex items-center text-sm text-red-600 dark:text-red-400" id="confirmPassword-error">
+          <div className="mt-1 flex items-center text-sm text-red-600" id="confirmPassword-error">
             <AlertCircle size={14} className="mr-1" />
             <span>{errors.confirmPassword}</span>
           </div>
@@ -424,7 +424,7 @@ export const RegisterForm = ({ onRegister, isLoading = false }) => {
       </div>
 
       <div>
-        <label htmlFor="role" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">
           Role
         </label>
         <select
@@ -432,7 +432,7 @@ export const RegisterForm = ({ onRegister, isLoading = false }) => {
           name="role"
           value={formData.role}
           onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
         >
           <option value="user">User</option>
           <option value="admin">Administrator</option>
@@ -447,18 +447,18 @@ export const RegisterForm = ({ onRegister, isLoading = false }) => {
           type="checkbox"
           checked={formData.agreeTerms}
           onChange={handleChange}
-          className={`h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-emerald-600 focus:ring-emerald-500 ${
+          className={`h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500 ${
             errors.agreeTerms ? 'border-red-500' : ''
           }`}
           aria-invalid={errors.agreeTerms ? "true" : "false"}
           aria-describedby="agreeTerms-error"
         />
-        <label htmlFor="agreeTerms" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+        <label htmlFor="agreeTerms" className="ml-2 block text-sm text-gray-700">
           I agree to the <a href="#" className="text-emerald-600 hover:text-emerald-500">terms and conditions</a>
         </label>
       </div>
       {errors.agreeTerms && (
-        <div className="mt-1 flex items-center text-sm text-red-600 dark:text-red-400" id="agreeTerms-error">
+        <div className="mt-1 flex items-center text-sm text-red-600" id="agreeTerms-error">
           <AlertCircle size={14} className="mr-1" />
           <span>{errors.agreeTerms}</span>
         </div>
@@ -512,11 +512,11 @@ export const ResetPasswordForm = ({ onReset, isLoading = false }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="reset-email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label htmlFor="reset-email" className="block text-sm font-medium text-gray-700 mb-1">
           Email
         </label>
         <div className="relative">
-          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500 dark:text-gray-400">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
             <Mail size={18} />
           </span>
           <input
@@ -528,22 +528,22 @@ export const ResetPasswordForm = ({ onReset, isLoading = false }) => {
               setError('');
             }}
             className={`w-full pl-10 pr-3 py-2 border ${
-              error ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-            } rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:text-white`}
+              error ? 'border-red-500' : 'border-gray-300'
+            } rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500
             placeholder="you@example.com"
             aria-invalid={error ? "true" : "false"}
             aria-describedby="reset-email-error"
           />
         </div>
         {error && (
-          <div className="mt-1 flex items-center text-sm text-red-600 dark:text-red-400" id="reset-email-error">
+          <div className="mt-1 flex items-center text-sm text-red-600" id="reset-email-error">
             <AlertCircle size={14} className="mr-1" />
             <span>{error}</span>
           </div>
         )}
       </div>
 
-      <div className="text-sm text-gray-600 dark:text-gray-400">
+      <div className="text-sm text-gray-600">
         We'll send a password reset link to your email address.
       </div>
 
@@ -572,3 +572,4 @@ export default {
   RegisterForm,
   ResetPasswordForm
 };
+

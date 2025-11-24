@@ -11,7 +11,7 @@ export default function AdminSecurityPage() {
   const [activeTab, setActiveTab] = useState('overview');
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+    <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -21,35 +21,35 @@ export default function AdminSecurityPage() {
         >
           <Link
             href="/settings"
-            className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 
-                     hover:text-gray-900 dark:hover:text-white mb-4 transition-colors"
+            className="inline-flex items-center gap-2 text-gray-600 
+                     hover:text-gray-900 mb-4 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Settings
           </Link>
 
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-3 bg-red-100 dark:bg-red-900/30 rounded-lg">
-              <Shield className="w-6 h-6 text-red-600 dark:text-red-400" />
+            <div className="p-3 bg-red-100 rounded-lg">
+              <Shield className="w-6 h-6 text-red-600" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-3xl font-bold text-gray-900">
                 Admin Security Dashboard
               </h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-1">
+              <p className="text-gray-600 mt-1">
                 Monitor and manage system security
               </p>
             </div>
           </div>
 
           {/* Tabs */}
-          <div className="flex gap-2 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex gap-2 border-b border-gray-200">
             <button
               onClick={() => setActiveTab('overview')}
               className={`px-4 py-2 font-medium transition-colors border-b-2 ${
                 activeTab === 'overview'
-                  ? 'border-blue-600 text-blue-600 dark:text-blue-400'
-                  : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-600 hover:text-gray-900'
               }`}
             >
               <div className="flex items-center gap-2">
@@ -62,8 +62,8 @@ export default function AdminSecurityPage() {
               onClick={() => setActiveTab('logs')}
               className={`px-4 py-2 font-medium transition-colors border-b-2 ${
                 activeTab === 'logs'
-                  ? 'border-blue-600 text-blue-600 dark:text-blue-400'
-                  : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-600 hover:text-gray-900'
               }`}
             >
               <div className="flex items-center gap-2">
@@ -88,3 +88,4 @@ export default function AdminSecurityPage() {
     </div>
   );
 }
+

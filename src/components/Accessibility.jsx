@@ -181,12 +181,12 @@ const Accessibility = () => {
       {isOpen && (
         <div
           id="accessibility-panel"
-          className="fixed bottom-20 right-4 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 w-80 z-50"
+          className="fixed bottom-20 right-4 bg-white rounded-lg shadow-xl border border-gray-200 w-80 z-50"
           role="dialog"
           aria-labelledby="a11y-title"
         >
-          <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-            <h2 id="a11y-title" className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+          <div className="p-4 border-b border-gray-200">
+            <h2 id="a11y-title" className="text-lg font-semibold text-gray-900 flex items-center">
               <Settings size={18} className="mr-2" />
               Accessibility Settings
             </h2>
@@ -195,8 +195,8 @@ const Accessibility = () => {
           <div className="p-4 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <Highlighter size={18} className="mr-2 text-gray-700 dark:text-gray-300" />
-                <label htmlFor="high-contrast" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <Highlighter size={18} className="mr-2 text-gray-700" />
+                <label htmlFor="high-contrast" className="text-sm font-medium text-gray-700">
                   High Contrast
                 </label>
               </div>
@@ -208,7 +208,7 @@ const Accessibility = () => {
                   onChange={(e) => updateSetting('highContrast', e.target.checked)}
                   className="sr-only"
                 />
-                <div className={`w-11 h-6 rounded-full ${settings.highContrast ? 'bg-emerald-600' : 'bg-gray-300 dark:bg-gray-600'} peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-emerald-500`}>
+                <div className={`w-11 h-6 rounded-full ${settings.highContrast ? 'bg-emerald-600' : 'bg-gray-300'} peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-emerald-500`}>
                   <div className={`h-5 w-5 rounded-full bg-white transform transition-transform ${settings.highContrast ? 'translate-x-6' : 'translate-x-1'} shadow-md mt-0.5`}></div>
                 </div>
               </label>
@@ -216,8 +216,8 @@ const Accessibility = () => {
             
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <ZoomIn size={18} className="mr-2 text-gray-700 dark:text-gray-300" />
-                <label htmlFor="large-text" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <ZoomIn size={18} className="mr-2 text-gray-700" />
+                <label htmlFor="large-text" className="text-sm font-medium text-gray-700">
                   Large Text
                 </label>
               </div>
@@ -229,7 +229,7 @@ const Accessibility = () => {
                   onChange={(e) => updateSetting('largeText', e.target.checked)}
                   className="sr-only"
                 />
-                <div className={`w-11 h-6 rounded-full ${settings.largeText ? 'bg-emerald-600' : 'bg-gray-300 dark:bg-gray-600'} peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-emerald-500`}>
+                <div className={`w-11 h-6 rounded-full ${settings.largeText ? 'bg-emerald-600' : 'bg-gray-300'} peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-emerald-500`}>
                   <div className={`h-5 w-5 rounded-full bg-white transform transition-transform ${settings.largeText ? 'translate-x-6' : 'translate-x-1'} shadow-md mt-0.5`}></div>
                 </div>
               </label>
@@ -237,8 +237,8 @@ const Accessibility = () => {
             
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <Mouse size={18} className="mr-2 text-gray-700 dark:text-gray-300" />
-                <label htmlFor="focus-indicators" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <Mouse size={18} className="mr-2 text-gray-700" />
+                <label htmlFor="focus-indicators" className="text-sm font-medium text-gray-700">
                   Focus Indicators
                 </label>
               </div>
@@ -250,7 +250,7 @@ const Accessibility = () => {
                   onChange={(e) => updateSetting('focusIndicators', e.target.checked)}
                   className="sr-only"
                 />
-                <div className={`w-11 h-6 rounded-full ${settings.focusIndicators ? 'bg-emerald-600' : 'bg-gray-300 dark:bg-gray-600'} peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-emerald-500`}>
+                <div className={`w-11 h-6 rounded-full ${settings.focusIndicators ? 'bg-emerald-600' : 'bg-gray-300'} peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-emerald-500`}>
                   <div className={`h-5 w-5 rounded-full bg-white transform transition-transform ${settings.focusIndicators ? 'translate-x-6' : 'translate-x-1'} shadow-md mt-0.5`}></div>
                 </div>
               </label>
@@ -258,8 +258,8 @@ const Accessibility = () => {
             
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <ZoomOut size={18} className="mr-2 text-gray-700 dark:text-gray-300" />
-                <label htmlFor="reduced-motion" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <ZoomOut size={18} className="mr-2 text-gray-700" />
+                <label htmlFor="reduced-motion" className="text-sm font-medium text-gray-700">
                   Reduced Motion
                 </label>
               </div>
@@ -271,7 +271,7 @@ const Accessibility = () => {
                   onChange={(e) => updateSetting('reducedMotion', e.target.checked)}
                   className="sr-only"
                 />
-                <div className={`w-11 h-6 rounded-full ${settings.reducedMotion ? 'bg-emerald-600' : 'bg-gray-300 dark:bg-gray-600'} peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-emerald-500`}>
+                <div className={`w-11 h-6 rounded-full ${settings.reducedMotion ? 'bg-emerald-600' : 'bg-gray-300'} peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-emerald-500`}>
                   <div className={`h-5 w-5 rounded-full bg-white transform transition-transform ${settings.reducedMotion ? 'translate-x-6' : 'translate-x-1'} shadow-md mt-0.5`}></div>
                 </div>
               </label>
@@ -279,8 +279,8 @@ const Accessibility = () => {
             
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <Keyboard size={18} className="mr-2 text-gray-700 dark:text-gray-300" />
-                <label htmlFor="keyboard-shortcuts" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <Keyboard size={18} className="mr-2 text-gray-700" />
+                <label htmlFor="keyboard-shortcuts" className="text-sm font-medium text-gray-700">
                   Keyboard Shortcuts
                 </label>
               </div>
@@ -292,14 +292,14 @@ const Accessibility = () => {
                   onChange={(e) => updateSetting('keyboardShortcuts', e.target.checked)}
                   className="sr-only"
                 />
-                <div className={`w-11 h-6 rounded-full ${settings.keyboardShortcuts ? 'bg-emerald-600' : 'bg-gray-300 dark:bg-gray-600'} peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-emerald-500`}>
+                <div className={`w-11 h-6 rounded-full ${settings.keyboardShortcuts ? 'bg-emerald-600' : 'bg-gray-300'} peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-emerald-500`}>
                   <div className={`h-5 w-5 rounded-full bg-white transform transition-transform ${settings.keyboardShortcuts ? 'translate-x-6' : 'translate-x-1'} shadow-md mt-0.5`}></div>
                 </div>
               </label>
             </div>
           </div>
           
-          <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-xs text-gray-500 dark:text-gray-400 rounded-b-lg">
+          <div className="p-4 border-t border-gray-200 bg-gray-50 text-xs text-gray-500 rounded-b-lg">
             <p className="mb-1"><strong>Keyboard Shortcuts:</strong></p>
             <ul className="list-disc list-inside">
               <li>Alt + A: Toggle this panel</li>
@@ -314,3 +314,4 @@ const Accessibility = () => {
 };
 
 export default Accessibility;
+

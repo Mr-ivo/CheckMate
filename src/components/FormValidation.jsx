@@ -20,7 +20,7 @@ export const FormInput = ({
   return (
     <div className="mb-4">
       {label && (
-        <label htmlFor={name} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">
           {label} {required && <span className="text-red-500">*</span>}
         </label>
       )}
@@ -29,9 +29,9 @@ export const FormInput = ({
         type={type}
         className={`w-full px-3 py-2 border ${
           errors[name] 
-            ? 'border-red-500 dark:border-red-500 focus:ring-red-500 focus:border-red-500' 
-            : 'border-gray-300 dark:border-gray-600 focus:ring-emerald-500 focus:border-emerald-500'
-        } rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 ${className}`}
+            ? 'border-red-500 focus:ring-red-500 focus:border-red-500' 
+            : 'border-gray-300 focus:ring-emerald-500 focus:border-emerald-500'
+        } rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 ${className}`}
         placeholder={placeholder}
         aria-invalid={errors[name] ? "true" : "false"}
         aria-describedby={`${name}-error`}
@@ -39,7 +39,7 @@ export const FormInput = ({
         {...rest}
       />
       {errors[name] && (
-        <div className="mt-1 flex items-center text-sm text-red-600 dark:text-red-400" id={`${name}-error`} role="alert">
+        <div className="mt-1 flex items-center text-sm text-red-600" id={`${name}-error`} role="alert">
           <AlertCircle size={14} className="mr-1" />
           <span>{errors[name].message}</span>
         </div>
@@ -64,7 +64,7 @@ export const FormSelect = ({
   return (
     <div className="mb-4">
       {label && (
-        <label htmlFor={name} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">
           {label} {required && <span className="text-red-500">*</span>}
         </label>
       )}
@@ -72,9 +72,9 @@ export const FormSelect = ({
         id={name}
         className={`w-full px-3 py-2 border ${
           errors[name] 
-            ? 'border-red-500 dark:border-red-500 focus:ring-red-500 focus:border-red-500' 
-            : 'border-gray-300 dark:border-gray-600 focus:ring-emerald-500 focus:border-emerald-500'
-        } rounded-md shadow-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 ${className}`}
+            ? 'border-red-500 focus:ring-red-500 focus:border-red-500' 
+            : 'border-gray-300 focus:ring-emerald-500 focus:border-emerald-500'
+        } rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 ${className}`}
         aria-invalid={errors[name] ? "true" : "false"}
         aria-describedby={`${name}-error`}
         {...register(name, rules)}
@@ -88,7 +88,7 @@ export const FormSelect = ({
         ))}
       </select>
       {errors[name] && (
-        <div className="mt-1 flex items-center text-sm text-red-600 dark:text-red-400" id={`${name}-error`} role="alert">
+        <div className="mt-1 flex items-center text-sm text-red-600" id={`${name}-error`} role="alert">
           <AlertCircle size={14} className="mr-1" />
           <span>{errors[name].message}</span>
         </div>
@@ -112,19 +112,19 @@ export const FormCheckbox = ({
       <input
         id={name}
         type="checkbox"
-        className={`h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-emerald-600 focus:ring-emerald-500 ${className}`}
+        className={`h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500 ${className}`}
         aria-invalid={errors[name] ? "true" : "false"}
         aria-describedby={`${name}-error`}
         {...register(name, rules)}
         {...rest}
       />
       {label && (
-        <label htmlFor={name} className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+        <label htmlFor={name} className="ml-2 block text-sm text-gray-700">
           {label}
         </label>
       )}
       {errors[name] && (
-        <div className="ml-2 flex items-center text-sm text-red-600 dark:text-red-400" id={`${name}-error`} role="alert">
+        <div className="ml-2 flex items-center text-sm text-red-600" id={`${name}-error`} role="alert">
           <AlertCircle size={14} className="mr-1" />
           <span>{errors[name].message}</span>
         </div>
@@ -221,3 +221,4 @@ export default {
   internValidationSchema,
   attendanceValidationSchema
 };
+

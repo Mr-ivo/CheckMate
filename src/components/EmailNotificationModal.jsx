@@ -120,25 +120,25 @@ export default function EmailNotificationModal({
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
               <div className="flex items-center">
                 <Mail className="h-6 w-6 text-emerald-500 mr-3" />
                 <div>
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  <h2 className="text-xl font-semibold text-gray-900">
                     Send Absence Inquiry
                   </h2>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-gray-500">
                     {formatDate(selectedDate)}
                   </p>
                 </div>
               </div>
               <button
                 onClick={onClose}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                className="text-gray-400 hover:text-gray-600"
               >
                 <X size={24} />
               </button>
@@ -150,39 +150,39 @@ export default function EmailNotificationModal({
                 <>
                   {/* Absent Interns List */}
                   <div className="mb-6">
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                    <h3 className="text-lg font-medium text-gray-900 mb-4">
                       Absent Interns ({absentInterns.length})
                     </h3>
                     
-                    <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 max-h-60 overflow-y-auto">
+                    <div className="bg-gray-50 rounded-lg p-4 max-h-60 overflow-y-auto">
                       {absentInterns.map((intern) => {
                         const hasEmail = intern.email || intern.user?.email;
                         return (
-                          <div key={intern.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                          <div key={intern.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                             <div className="flex-1">
-                              <div className="font-medium text-gray-900 dark:text-white">
+                              <div className="font-medium text-gray-900">
                                 {intern.name || intern.user?.name || 'Unknown'}
                               </div>
                               <div className={`text-sm ${
                                 hasEmail 
-                                  ? 'text-gray-500 dark:text-gray-400' 
-                                  : 'text-red-500 dark:text-red-400 font-medium'
+                                  ? 'text-gray-500' 
+                                  : 'text-red-500 font-medium'
                               }`}>
                                 {hasEmail ? hasEmail : '⚠️ No email address'}
                               </div>
                               {!hasEmail && (
-                                <div className="text-xs text-red-600 dark:text-red-400 mt-1">
+                                <div className="text-xs text-red-600 mt-1">
                                   Cannot send email without address
                                 </div>
                               )}
                             </div>
                             <div className="flex items-center space-x-2">
                               {!hasEmail && (
-                                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+                                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
                                   Missing Email
                                 </span>
                               )}
-                              <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                              <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
                                 Absent
                               </span>
                             </div>
@@ -193,14 +193,14 @@ export default function EmailNotificationModal({
                     
                     {/* Warning for missing emails */}
                     {absentInterns.some(intern => !(intern.email || intern.user?.email)) && (
-                      <div className="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                      <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
                         <div className="flex items-start">
-                          <AlertTriangle size={16} className="text-yellow-600 dark:text-yellow-400 mt-0.5 mr-2 flex-shrink-0" />
+                          <AlertTriangle size={16} className="text-yellow-600 mt-0.5 mr-2 flex-shrink-0" />
                           <div className="text-sm">
-                            <div className="font-medium text-yellow-800 dark:text-yellow-200 mb-1">
+                            <div className="font-medium text-yellow-800 mb-1">
                               Missing Email Addresses
                             </div>
-                            <div className="text-yellow-700 dark:text-yellow-300">
+                            <div className="text-yellow-700">
                               Some interns don't have email addresses. Emails will only be sent to interns with valid email addresses.
                               Please add email addresses to intern profiles for complete functionality.
                             </div>
@@ -212,14 +212,14 @@ export default function EmailNotificationModal({
 
                   {/* Email Preview */}
                   <div className="mb-6">
-                    <h4 className="text-md font-medium text-gray-900 dark:text-white mb-3">
+                    <h4 className="text-md font-medium text-gray-900 mb-3">
                       Email Preview
                     </h4>
-                    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-                      <p className="text-sm text-blue-800 dark:text-blue-200">
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <p className="text-sm text-blue-800">
                         <strong>Subject:</strong> Attendance Inquiry - {formatDate(selectedDate)}
                       </p>
-                      <p className="text-sm text-blue-700 dark:text-blue-300 mt-2">
+                      <p className="text-sm text-blue-700 mt-2">
                         A professional email will be sent asking about the reason for absence, 
                         with options to provide explanation and request support if needed.
                       </p>
@@ -230,7 +230,7 @@ export default function EmailNotificationModal({
                   <div className="flex justify-end space-x-3">
                     <button
                       onClick={onClose}
-                      className="px-4 py-2 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-md transition-colors"
+                      className="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
                     >
                       Cancel
                     </button>
@@ -256,7 +256,7 @@ export default function EmailNotificationModal({
               ) : (
                 /* Results Display */
                 <div>
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">
                     Email Results
                   </h3>
                   
@@ -266,15 +266,15 @@ export default function EmailNotificationModal({
                         key={index}
                         className={`flex items-center justify-between p-3 rounded-lg border ${
                           result.success 
-                            ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800' 
-                            : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+                            ? 'bg-green-50 border-green-200' 
+                            : 'bg-red-50 border-red-200'
                         }`}
                       >
                         <div>
-                          <p className="font-medium text-gray-900 dark:text-white">
+                          <p className="font-medium text-gray-900">
                             {result.intern}
                           </p>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                          <p className="text-sm text-gray-500">
                             {result.email}
                           </p>
                         </div>
@@ -285,7 +285,7 @@ export default function EmailNotificationModal({
                             <AlertCircle size={20} className="text-red-500" />
                           )}
                           <span className={`ml-2 text-sm ${
-                            result.success ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'
+                            result.success ? 'text-green-700' : 'text-red-700'
                           }`}>
                             {result.success ? 'Sent' : 'Failed'}
                           </span>
@@ -311,3 +311,4 @@ export default function EmailNotificationModal({
     </AnimatePresence>
   );
 }
+

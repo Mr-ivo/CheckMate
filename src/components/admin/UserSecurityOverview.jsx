@@ -89,10 +89,10 @@ export default function UserSecurityOverview() {
   };
 
   const getSecurityBadge = (score) => {
-    if (score >= 80) return { color: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400', label: 'Excellent', icon: ShieldCheck };
-    if (score >= 60) return { color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400', label: 'Good', icon: Shield };
-    if (score >= 40) return { color: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400', label: 'Fair', icon: ShieldAlert };
-    return { color: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400', label: 'Poor', icon: ShieldAlert };
+    if (score >= 80) return { color: 'bg-green-100 text-green-700', label: 'Excellent', icon: ShieldCheck };
+    if (score >= 60) return { color: 'bg-blue-100 text-blue-700', label: 'Good', icon: Shield };
+    if (score >= 40) return { color: 'bg-yellow-100 text-yellow-700', label: 'Fair', icon: ShieldAlert };
+    return { color: 'bg-red-100 text-red-700', label: 'Poor', icon: ShieldAlert };
   };
 
   if (loading) {
@@ -107,54 +107,54 @@ export default function UserSecurityOverview() {
     <div className="space-y-6">
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 
-                      dark:border-gray-700 p-4">
+        <div className="bg-white rounded-lg border border-gray-200 
+                      p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-              <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <div className="p-2 bg-blue-100 rounded-lg">
+              <Users className="w-5 h-5 text-blue-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.total}</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Total Users</p>
+              <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
+              <p className="text-sm text-gray-600">Total Users</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 
-                      dark:border-gray-700 p-4">
+        <div className="bg-white rounded-lg border border-gray-200 
+                      p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-              <ShieldCheck className="w-5 h-5 text-green-600 dark:text-green-400" />
+            <div className="p-2 bg-green-100 rounded-lg">
+              <ShieldCheck className="w-5 h-5 text-green-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.with2FA}</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">With 2FA</p>
+              <p className="text-2xl font-bold text-gray-900">{stats.with2FA}</p>
+              <p className="text-sm text-gray-600">With 2FA</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 
-                      dark:border-gray-700 p-4">
+        <div className="bg-white rounded-lg border border-gray-200 
+                      p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-              <Shield className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+            <div className="p-2 bg-purple-100 rounded-lg">
+              <Shield className="w-5 h-5 text-purple-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.withBiometric}</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">With Biometric</p>
+              <p className="text-2xl font-bold text-gray-900">{stats.withBiometric}</p>
+              <p className="text-sm text-gray-600">With Biometric</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 
-                      dark:border-gray-700 p-4">
+        <div className="bg-white rounded-lg border border-gray-200 
+                      p-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
-              <Lock className="w-5 h-5 text-red-600 dark:text-red-400" />
+            <div className="p-2 bg-red-100 rounded-lg">
+              <Lock className="w-5 h-5 text-red-600" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.locked}</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Locked Accounts</p>
+              <p className="text-2xl font-bold text-gray-900">{stats.locked}</p>
+              <p className="text-sm text-gray-600">Locked Accounts</p>
             </div>
           </div>
         </div>
@@ -163,13 +163,13 @@ export default function UserSecurityOverview() {
       {/* Users List */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-lg font-semibold text-gray-900">
             User Security Status
           </h3>
           <button
             onClick={fetchUsers}
-            className="px-3 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 
-                     rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center gap-2 
+            className="px-3 py-2 bg-gray-200 text-gray-700 
+                     rounded-lg hover:bg-gray-300 flex items-center gap-2 
                      transition-colors"
           >
             <RefreshCw className="w-4 h-4" />
@@ -188,15 +188,15 @@ export default function UserSecurityOverview() {
                 key={user._id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 
-                         dark:border-gray-700 p-4 hover:border-blue-500 transition-colors"
+                className="bg-white rounded-lg border border-gray-200 
+                         p-4 hover:border-blue-500 transition-colors"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex gap-4 flex-1">
                     {/* User Info */}
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h4 className="font-semibold text-gray-900 dark:text-white">
+                        <h4 className="font-semibold text-gray-900">
                           {user.name}
                         </h4>
                         <span className={`px-2 py-1 text-xs rounded-full flex items-center gap-1 ${badge.color}`}>
@@ -205,22 +205,22 @@ export default function UserSecurityOverview() {
                         </span>
                       </div>
                       
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                      <p className="text-sm text-gray-600 mb-3">
                         {user.email}
                       </p>
 
                       {/* Security Features */}
                       <div className="flex flex-wrap gap-2">
                         {user.has2FA ? (
-                          <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 
-                                       text-green-700 dark:text-green-400 text-xs rounded-full 
+                          <span className="px-2 py-1 bg-green-100 
+                                       text-green-700 text-xs rounded-full 
                                        flex items-center gap-1">
                             <CheckCircle2 className="w-3 h-3" />
                             2FA Enabled
                           </span>
                         ) : (
-                          <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 
-                                       text-gray-600 dark:text-gray-400 text-xs rounded-full 
+                          <span className="px-2 py-1 bg-gray-100 
+                                       text-gray-600 text-xs rounded-full 
                                        flex items-center gap-1">
                             <XCircle className="w-3 h-3" />
                             No 2FA
@@ -228,15 +228,15 @@ export default function UserSecurityOverview() {
                         )}
 
                         {user.hasBiometric ? (
-                          <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 
-                                       text-purple-700 dark:text-purple-400 text-xs rounded-full 
+                          <span className="px-2 py-1 bg-purple-100 
+                                       text-purple-700 text-xs rounded-full 
                                        flex items-center gap-1">
                             <CheckCircle2 className="w-3 h-3" />
                             Biometric
                           </span>
                         ) : (
-                          <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 
-                                       text-gray-600 dark:text-gray-400 text-xs rounded-full 
+                          <span className="px-2 py-1 bg-gray-100 
+                                       text-gray-600 text-xs rounded-full 
                                        flex items-center gap-1">
                             <XCircle className="w-3 h-3" />
                             No Biometric
@@ -244,30 +244,30 @@ export default function UserSecurityOverview() {
                         )}
 
                         {user.isLocked ? (
-                          <span className="px-2 py-1 bg-red-100 dark:bg-red-900/30 
-                                       text-red-700 dark:text-red-400 text-xs rounded-full 
+                          <span className="px-2 py-1 bg-red-100 
+                                       text-red-700 text-xs rounded-full 
                                        flex items-center gap-1">
                             <Lock className="w-3 h-3" />
                             Locked
                           </span>
                         ) : (
-                          <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 
-                                       text-green-700 dark:text-green-400 text-xs rounded-full 
+                          <span className="px-2 py-1 bg-green-100 
+                                       text-green-700 text-xs rounded-full 
                                        flex items-center gap-1">
                             <Unlock className="w-3 h-3" />
                             Active
                           </span>
                         )}
 
-                        <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 
-                                     text-blue-700 dark:text-blue-400 text-xs rounded-full">
+                        <span className="px-2 py-1 bg-blue-100 
+                                     text-blue-700 text-xs rounded-full">
                           {user.activeSessions || 0} Active Sessions
                         </span>
                       </div>
 
                       {/* Last Login */}
                       {user.lastLogin && (
-                        <p className="text-xs text-gray-500 dark:text-gray-500 mt-2">
+                        <p className="text-xs text-gray-500 mt-2">
                           Last login: {new Date(user.lastLogin).toLocaleString()}
                         </p>
                       )}
@@ -278,7 +278,7 @@ export default function UserSecurityOverview() {
                   <button
                     onClick={() => handleForceLogout(user._id, user.name)}
                     disabled={user.activeSessions === 0}
-                    className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 
+                    className="p-2 text-red-600 hover:bg-red-50 
                              rounded-lg transition-colors disabled:opacity-50 
                              disabled:cursor-not-allowed"
                     title="Force logout all sessions"
@@ -292,7 +292,7 @@ export default function UserSecurityOverview() {
         </div>
 
         {users.length === 0 && (
-          <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+          <div className="text-center py-12 text-gray-500">
             <Users className="w-12 h-12 mx-auto mb-3 opacity-50" />
             <p>No users found</p>
           </div>
@@ -301,3 +301,4 @@ export default function UserSecurityOverview() {
     </div>
   );
 }
+

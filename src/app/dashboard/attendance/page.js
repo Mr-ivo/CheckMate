@@ -104,11 +104,11 @@ function AttendanceDetailContent() {
 
   const getStatusColor = (status) => {
     switch(status) {
-      case 'present': return 'text-green-600 bg-green-100 dark:bg-green-900 dark:text-green-300';
-      case 'absent': return 'text-red-600 bg-red-100 dark:bg-red-900 dark:text-red-300';
-      case 'late': return 'text-yellow-600 bg-yellow-100 dark:bg-yellow-900 dark:text-yellow-300';
-      case 'excused': return 'text-blue-600 bg-blue-100 dark:bg-blue-900 dark:text-blue-300';
-      default: return 'text-gray-600 bg-gray-100 dark:bg-gray-700 dark:text-gray-300';
+      case 'present': return 'text-green-600 bg-green-100';
+      case 'absent': return 'text-red-600 bg-red-100';
+      case 'late': return 'text-yellow-600 bg-yellow-100';
+      case 'excused': return 'text-blue-600 bg-blue-100';
+      default: return 'text-gray-600 bg-gray-100';
     }
   };
 
@@ -127,22 +127,22 @@ function AttendanceDetailContent() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <div className="w-6 h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+            <div className="w-6 h-6 bg-gray-200 rounded animate-pulse"></div>
             <div>
-              <div className="h-8 w-48 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div>
-              <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+              <div className="h-8 w-48 bg-gray-200 rounded animate-pulse mb-2"></div>
+              <div className="h-4 w-32 bg-gray-200 rounded animate-pulse"></div>
             </div>
           </div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-              <div className="h-64 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="h-64 bg-gray-200 rounded animate-pulse"></div>
             </div>
           </div>
           <div>
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-              <div className="h-48 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="h-48 bg-gray-200 rounded animate-pulse"></div>
             </div>
           </div>
         </div>
@@ -163,10 +163,10 @@ function AttendanceDetailContent() {
     return (
       <div className="text-center py-12">
         <XCircle size={48} className="mx-auto text-red-500 mb-4" />
-        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+        <h3 className="text-lg font-medium text-gray-900 mb-2">
           {error}
         </h3>
-        <p className="text-gray-500 dark:text-gray-400 mb-4">
+        <p className="text-gray-500 mb-4">
           Unable to load the attendance details. Check the console for more details.
         </p>
         <Link 
@@ -187,15 +187,15 @@ function AttendanceDetailContent() {
         <div className="flex items-center space-x-4">
           <Link 
             href="/attendance"
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
+            className="p-2 hover:bg-gray-100 rounded-md transition-colors"
           >
-            <ArrowLeft size={20} className="text-gray-600 dark:text-gray-400" />
+            <ArrowLeft size={20} className="text-gray-600" />
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-2xl font-bold text-gray-900">
               Attendance Details
             </h1>
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-gray-500">
               {formattedDate}
             </p>
           </div>
@@ -211,17 +211,17 @@ function AttendanceDetailContent() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+            className="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
           >
             <div className="flex items-center space-x-4 mb-6">
-              <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center">
-                <User size={24} className="text-emerald-600 dark:text-emerald-400" />
+              <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center">
+                <User size={24} className="text-emerald-600" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                <h2 className="text-xl font-semibold text-gray-900">
                   {displayIntern.name || displayIntern.user?.name || 'Unknown'}
                 </h2>
-                <p className="text-gray-500 dark:text-gray-400">
+                <p className="text-gray-500">
                   {displayIntern.department || 'General'}
                 </p>
               </div>
@@ -231,19 +231,19 @@ function AttendanceDetailContent() {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <Mail size={16} className="text-gray-400" />
-                  <span className="text-sm text-gray-600 dark:text-gray-300">
+                  <span className="text-sm text-gray-600">
                     {displayIntern.email || displayIntern.user?.email || 'No email'}
                   </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Phone size={16} className="text-gray-400" />
-                  <span className="text-sm text-gray-600 dark:text-gray-300">
+                  <span className="text-sm text-gray-600">
                     {displayIntern.phone || 'No phone'}
                   </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Building size={16} className="text-gray-400" />
-                  <span className="text-sm text-gray-600 dark:text-gray-300">
+                  <span className="text-sm text-gray-600">
                     {displayIntern.department || 'General'}
                   </span>
                 </div>
@@ -251,19 +251,19 @@ function AttendanceDetailContent() {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <User size={16} className="text-gray-400" />
-                  <span className="text-sm text-gray-600 dark:text-gray-300">
+                  <span className="text-sm text-gray-600">
                     ID: {displayIntern.id || displayIntern._id || 'N/A'}
                   </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <MapPin size={16} className="text-gray-400" />
-                  <span className="text-sm text-gray-600 dark:text-gray-300">
+                  <span className="text-sm text-gray-600">
                     {displayIntern.supervisor || 'No supervisor assigned'}
                   </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Calendar size={16} className="text-gray-400" />
-                  <span className="text-sm text-gray-600 dark:text-gray-300">
+                  <span className="text-sm text-gray-600">
                     Start Date: {displayIntern.startDate ? new Date(displayIntern.startDate).toLocaleDateString() : 'N/A'}
                   </span>
                 </div>
@@ -278,9 +278,9 @@ function AttendanceDetailContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+            className="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
           >
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
               Attendance Status
             </h3>
             
@@ -298,27 +298,27 @@ function AttendanceDetailContent() {
               </div>
 
               {attendanceData?.checkInTime && (
-                <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-                  <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Check-in Time</div>
-                  <div className="text-sm font-medium text-gray-900 dark:text-white">
+                <div className="border-t border-gray-200 pt-4">
+                  <div className="text-sm text-gray-500 mb-1">Check-in Time</div>
+                  <div className="text-sm font-medium text-gray-900">
                     {new Date(attendanceData.checkInTime).toLocaleTimeString()}
                   </div>
                 </div>
               )}
 
               {attendanceData?.checkOutTime && (
-                <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-                  <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Check-out Time</div>
-                  <div className="text-sm font-medium text-gray-900 dark:text-white">
+                <div className="border-t border-gray-200 pt-4">
+                  <div className="text-sm text-gray-500 mb-1">Check-out Time</div>
+                  <div className="text-sm font-medium text-gray-900">
                     {new Date(attendanceData.checkOutTime).toLocaleTimeString()}
                   </div>
                 </div>
               )}
 
               {attendanceData?.notes && (
-                <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-                  <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Notes</div>
-                  <div className="text-sm text-gray-900 dark:text-white">
+                <div className="border-t border-gray-200 pt-4">
+                  <div className="text-sm text-gray-500 mb-1">Notes</div>
+                  <div className="text-sm text-gray-900">
                     {attendanceData.notes}
                   </div>
                 </div>
@@ -333,36 +333,36 @@ function AttendanceDetailContent() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+        className="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
       >
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">
           Attendance Summary
         </h3>
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-            <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+          <div className="text-center p-4 bg-green-50 rounded-lg">
+            <div className="text-2xl font-bold text-green-600">
               {displayIntern.attendanceStats?.present || Math.floor(Math.random() * 20) + 15}
             </div>
-            <div className="text-sm text-green-600 dark:text-green-400">Present</div>
+            <div className="text-sm text-green-600">Present</div>
           </div>
-          <div className="text-center p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
-            <div className="text-2xl font-bold text-red-600 dark:text-red-400">
+          <div className="text-center p-4 bg-red-50 rounded-lg">
+            <div className="text-2xl font-bold text-red-600">
               {displayIntern.attendanceStats?.absent || Math.floor(Math.random() * 5) + 1}
             </div>
-            <div className="text-sm text-red-600 dark:text-red-400">Absent</div>
+            <div className="text-sm text-red-600">Absent</div>
           </div>
-          <div className="text-center p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
-            <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
+          <div className="text-center p-4 bg-yellow-50 rounded-lg">
+            <div className="text-2xl font-bold text-yellow-600">
               {displayIntern.attendanceStats?.late || Math.floor(Math.random() * 3) + 1}
             </div>
-            <div className="text-sm text-yellow-600 dark:text-yellow-400">Late</div>
+            <div className="text-sm text-yellow-600">Late</div>
           </div>
-          <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-            <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+          <div className="text-center p-4 bg-blue-50 rounded-lg">
+            <div className="text-2xl font-bold text-blue-600">
               {displayIntern.attendanceStats?.excused || Math.floor(Math.random() * 2) + 1}
             </div>
-            <div className="text-sm text-blue-600 dark:text-blue-400">Excused</div>
+            <div className="text-sm text-blue-600">Excused</div>
           </div>
         </div>
       </motion.div>
@@ -385,3 +385,4 @@ export default function AttendanceDetailPage() {
     </DashboardLayout>
   );
 }
+

@@ -68,24 +68,24 @@ export default function Sidebar({ isCollapsed, toggleSidebar }) {
 
   return (
     <motion.aside
-      className={`fixed left-0 top-0 h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 shadow-sm z-50 transition-all duration-300 ${
+      className={`fixed left-0 top-0 h-screen bg-white border-r border-gray-200 shadow-sm z-50 transition-all duration-300 ${
         isCollapsed ? 'w-16' : 'w-64'
       }`}
     >
       <div className="h-full flex flex-col justify-between py-4">
         {/* Logo Section */}
-        <div className="px-2 py-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="px-2 py-4 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <Link href="/dashboard" className="flex items-center justify-center flex-grow">
               <div className="flex-shrink-0 flex items-center justify-center w-full">
-                <Target size={20} className="text-emerald-600 dark:text-emerald-400" />
+                <Target size={20} className="text-emerald-600" />
               </div>
             </Link>
             
             {/* Toggle Button */}
             <button
               onClick={toggleSidebar}
-              className="p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-800 transition-all duration-200 relative z-[999]"
+              className="p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-all duration-200 relative z-[999]"
               title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
               style={{ pointerEvents: 'auto' }}
             >
@@ -105,8 +105,8 @@ export default function Sidebar({ isCollapsed, toggleSidebar }) {
               href={item.href}
               className={`group relative flex items-center px-4 py-3 rounded-md transition-all duration-200 ${
                 pathname === item.href
-                  ? 'bg-emerald-50 text-emerald-600 dark:bg-gray-800 dark:text-emerald-400'
-                  : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800'
+                  ? 'bg-emerald-50 text-emerald-600'
+                  : 'text-gray-600 hover:bg-gray-100'
               }`}
               title={isCollapsed ? item.name : undefined}
             >
@@ -115,14 +115,14 @@ export default function Sidebar({ isCollapsed, toggleSidebar }) {
               {pathname === item.href && !isCollapsed && (
                 <motion.div
                   layoutId="activeIndicator"
-                  className="absolute right-0 w-1 h-8 bg-emerald-600 dark:bg-emerald-400 rounded-l"
+                  className="absolute right-0 w-1 h-8 bg-emerald-600 rounded-l"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.2 }}
                 />
               )}
               {pathname === item.href && isCollapsed && (
-                <div className="absolute left-0 w-1 h-8 bg-emerald-600 dark:bg-emerald-400 rounded-r" />
+                <div className="absolute left-0 w-1 h-8 bg-emerald-600 rounded-r" />
               )}
             </Link>
           ))}
@@ -131,7 +131,7 @@ export default function Sidebar({ isCollapsed, toggleSidebar }) {
         <div className="px-2 mt-auto mb-4">
           <button 
             onClick={handleLogout}
-            className={`w-full flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-red-600 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-red-400 rounded-md transition-all duration-200 ${
+            className={`w-full flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-red-600 rounded-md transition-all duration-200 ${
               isCollapsed ? 'justify-center' : ''
             }`}
             title={isCollapsed ? "Logout" : undefined}
@@ -144,3 +144,4 @@ export default function Sidebar({ isCollapsed, toggleSidebar }) {
     </motion.aside>
   );
 }
+

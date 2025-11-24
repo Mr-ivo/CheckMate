@@ -150,7 +150,7 @@ const DateRangeFilter = ({ onFilterChange, initialRange = null }) => {
   return (
     <div className="relative" id="date-range-dropdown">
       <button
-        className="flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+        className="flex items-center px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-700 hover:bg-gray-50 transition-colors"
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-haspopup="true"
@@ -161,9 +161,9 @@ const DateRangeFilter = ({ onFilterChange, initialRange = null }) => {
       </button>
       
       {isOpen && (
-        <div className="absolute z-10 mt-1 right-0 w-72 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg">
+        <div className="absolute z-10 mt-1 right-0 w-72 bg-white border border-gray-200 rounded-md shadow-lg">
           <div className="p-4">
-            <h3 className="font-medium text-gray-800 dark:text-white mb-3 flex items-center">
+            <h3 className="font-medium text-gray-800 mb-3 flex items-center">
               <Filter size={16} className="mr-2" />
               Date Range
             </h3>
@@ -171,7 +171,7 @@ const DateRangeFilter = ({ onFilterChange, initialRange = null }) => {
             <div className="space-y-3 mb-4">
               <button
                 className={`block w-full text-left px-3 py-2 text-sm rounded-md ${
-                  presetFilter === 'today' ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300' : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                  presetFilter === 'today' ? 'bg-emerald-100 text-emerald-800' : 'hover:bg-gray-100'
                 }`}
                 onClick={() => handlePresetChange('today')}
               >
@@ -179,7 +179,7 @@ const DateRangeFilter = ({ onFilterChange, initialRange = null }) => {
               </button>
               <button
                 className={`block w-full text-left px-3 py-2 text-sm rounded-md ${
-                  presetFilter === 'lastWeek' ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300' : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                  presetFilter === 'lastWeek' ? 'bg-emerald-100 text-emerald-800' : 'hover:bg-gray-100'
                 }`}
                 onClick={() => handlePresetChange('lastWeek')}
               >
@@ -187,7 +187,7 @@ const DateRangeFilter = ({ onFilterChange, initialRange = null }) => {
               </button>
               <button
                 className={`block w-full text-left px-3 py-2 text-sm rounded-md ${
-                  presetFilter === 'lastMonth' ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300' : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                  presetFilter === 'lastMonth' ? 'bg-emerald-100 text-emerald-800' : 'hover:bg-gray-100'
                 }`}
                 onClick={() => handlePresetChange('lastMonth')}
               >
@@ -195,7 +195,7 @@ const DateRangeFilter = ({ onFilterChange, initialRange = null }) => {
               </button>
               <button
                 className={`block w-full text-left px-3 py-2 text-sm rounded-md ${
-                  presetFilter === 'thisMonth' ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300' : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                  presetFilter === 'thisMonth' ? 'bg-emerald-100 text-emerald-800' : 'hover:bg-gray-100'
                 }`}
                 onClick={() => handlePresetChange('thisMonth')}
               >
@@ -203,7 +203,7 @@ const DateRangeFilter = ({ onFilterChange, initialRange = null }) => {
               </button>
               <button
                 className={`block w-full text-left px-3 py-2 text-sm rounded-md ${
-                  presetFilter === 'custom' ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300' : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                  presetFilter === 'custom' ? 'bg-emerald-100 text-emerald-800' : 'hover:bg-gray-100'
                 }`}
                 onClick={() => handlePresetChange('custom')}
               >
@@ -214,20 +214,20 @@ const DateRangeFilter = ({ onFilterChange, initialRange = null }) => {
             <div className="mb-4">
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">Start Date</label>
+                  <label className="block text-xs text-gray-500 mb-1">Start Date</label>
                   <input
                     type="date"
-                    className="w-full px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded bg-white text-gray-900"
                     value={startDate}
                     onChange={handleStartDateChange}
                     max={endDate || today}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">End Date</label>
+                  <label className="block text-xs text-gray-500 mb-1">End Date</label>
                   <input
                     type="date"
-                    className="w-full px-2 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded bg-white text-gray-900"
                     value={endDate}
                     onChange={handleEndDateChange}
                     min={startDate}
@@ -246,7 +246,7 @@ const DateRangeFilter = ({ onFilterChange, initialRange = null }) => {
               </button>
               <button
                 onClick={resetFilter}
-                className="px-3 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="px-3 py-2 border border-gray-300 text-gray-700 text-sm rounded hover:bg-gray-100"
               >
                 Reset
               </button>
@@ -259,3 +259,4 @@ const DateRangeFilter = ({ onFilterChange, initialRange = null }) => {
 };
 
 export default DateRangeFilter;
+

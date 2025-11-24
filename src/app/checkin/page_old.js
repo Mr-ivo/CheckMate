@@ -181,13 +181,13 @@ export default function CheckIn() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header with Theme Toggle */}
-      <header className="bg-white dark:bg-gray-800 shadow-sm py-4">
+      <header className="bg-white shadow-sm py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <div className="flex items-center">
-            <Clock className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
-            <h1 className="ml-2 text-xl font-bold text-gray-900 dark:text-white">
+            <Clock className="h-8 w-8 text-emerald-600" />
+            <h1 className="ml-2 text-xl font-bold text-gray-900">
               CheckMate
             </h1>
           </div>
@@ -205,19 +205,19 @@ export default function CheckIn() {
             {/* Date and Time Display */}
             <motion.div
               variants={itemVariants}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6 text-center"
+              className="bg-white rounded-lg shadow-md p-6 mb-6 text-center"
             >
               <div className="flex items-center justify-center mb-2">
-                <Calendar className="h-6 w-6 text-emerald-600 dark:text-emerald-400 mr-2" />
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                <Calendar className="h-6 w-6 text-emerald-600 mr-2" />
+                <h2 className="text-xl font-semibold text-gray-900">
                   {formatDate(currentTime)}
                 </h2>
               </div>
-              <div className="text-3xl font-bold text-gray-900 dark:text-white" suppressHydrationWarning>
+              <div className="text-3xl font-bold text-gray-900" suppressHydrationWarning>
                 {formatTime(currentTime)}
               </div>
               {isLate && !checkedIn && (
-                <div className="mt-2 text-yellow-600 dark:text-yellow-400 flex items-center justify-center">
+                <div className="mt-2 text-yellow-600 flex items-center justify-center">
                   <AlertTriangle className="h-5 w-5 mr-1" />
                   <span>You are checking in after the start time (9:00 AM)</span>
                 </div>
@@ -227,19 +227,19 @@ export default function CheckIn() {
             {checkedIn ? (
               <motion.div
                 variants={itemVariants}
-                className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg shadow-md p-8 text-center"
+                className="bg-green-50 border border-green-200 rounded-lg shadow-md p-8 text-center"
               >
                 <div className="flex flex-col items-center">
-                  <div className="mb-4 p-3 bg-green-100 dark:bg-green-900/50 rounded-full">
-                    <CheckCircle2 className="h-12 w-12 text-green-600 dark:text-green-400" />
+                  <div className="mb-4 p-3 bg-green-100 rounded-full">
+                    <CheckCircle2 className="h-12 w-12 text-green-600" />
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">
                     Check-In Successful!
                   </h2>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  <p className="text-gray-600 mb-4">
                     Your attendance has been recorded.
                   </p>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                  <div className="text-sm text-gray-500">
                     Check-in time: {formatTime(new Date())}
                   </div>
                   
@@ -254,16 +254,16 @@ export default function CheckIn() {
             ) : (
               <motion.div
                 variants={itemVariants}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"
+                className="bg-white rounded-lg shadow-md p-6"
               >
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                <h2 className="text-xl font-semibold text-gray-900 mb-6">
                   Daily Check-In
                 </h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="space-y-6">
                     {/* Employee ID */}
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" htmlFor="employeeId">
+                      <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="employeeId">
                         Intern ID
                       </label>
                       <div className="relative">
@@ -273,13 +273,13 @@ export default function CheckIn() {
                         <input
                           type="text"
                           id="employeeId"
-                          className={`pl-10 block w-full py-2 px-3 border ${errors.employeeId ? 'border-red-300 dark:border-red-600' : 'border-gray-300 dark:border-gray-600'} rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                          className={`pl-10 block w-full py-2 px-3 border ${errors.employeeId ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 bg-white text-gray-900
                           placeholder="Enter your intern ID (e.g., INT-001)"
                           {...register("employeeId", { required: "Intern ID is required" })}
                         />
                       </div>
                       {errors.employeeId && (
-                        <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                        <p className="mt-1 text-sm text-red-600">
                           {errors.employeeId.message}
                         </p>
                       )}
@@ -287,18 +287,18 @@ export default function CheckIn() {
                     
                     {/* Name */}
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" htmlFor="name">
+                      <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="name">
                         Full Name
                       </label>
                       <input
                         type="text"
                         id="name"
-                        className={`block w-full py-2 px-3 border ${errors.name ? 'border-red-300 dark:border-red-600' : 'border-gray-300 dark:border-gray-600'} rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                        className={`block w-full py-2 px-3 border ${errors.name ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 bg-white text-gray-900
                         placeholder="Enter your full name"
                         {...register("name", { required: "Full name is required" })}
                       />
                       {errors.name && (
-                        <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                        <p className="mt-1 text-sm text-red-600">
                           {errors.name.message}
                         </p>
                       )}
@@ -306,12 +306,12 @@ export default function CheckIn() {
                     
                     {/* Department */}
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" htmlFor="department">
+                      <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="department">
                         Department
                       </label>
                       <select
                         id="department"
-                        className={`block w-full py-2 px-3 border ${errors.department ? 'border-red-300 dark:border-red-600' : 'border-gray-300 dark:border-gray-600'} rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                        className={`block w-full py-2 px-3 border ${errors.department ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 bg-white text-gray-900
                         {...register("department", { required: "Department is required" })}
                       >
                         <option value="">Select your department</option>
@@ -322,7 +322,7 @@ export default function CheckIn() {
                         <option value="QA Testing">QA Testing</option>
                       </select>
                       {errors.department && (
-                        <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                        <p className="mt-1 text-sm text-red-600">
                           {errors.department.message}
                         </p>
                       )}
@@ -330,12 +330,12 @@ export default function CheckIn() {
                     
                     {/* Notes */}
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" htmlFor="notes">
+                      <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="notes">
                         Notes (Optional)
                       </label>
                       <textarea
                         id="notes"
-                        className="block w-full py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white h-24"
+                        className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 bg-white text-gray-900 h-24"
                         placeholder="Add any notes about your arrival (e.g., reason for late arrival)"
                         {...register("notes")}
                       />
@@ -343,12 +343,12 @@ export default function CheckIn() {
                     
                     {/* Signature */}
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                      <label className="block text-sm font-medium text-gray-700 mb-3">
                         Signature
                       </label>
                       <SignatureCanvas onSave={handleSignatureSave} />
                       {!signature && (
-                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        <p className="mt-1 text-sm text-gray-500">
                           Your signature is required to complete check-in
                         </p>
                       )}
@@ -381,21 +381,21 @@ export default function CheckIn() {
             {/* Quick Info */}
             <motion.div
               variants={itemVariants}
-              className="mt-6 bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-200 dark:border-emerald-800 rounded-lg p-4"
+              className="mt-6 bg-emerald-50 border border-emerald-200 rounded-lg p-4"
             >
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                  <MapPin className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                  <MapPin className="h-5 w-5 text-emerald-600" />
                 </div>
                 <div className="ml-3">
-                  <h3 className="text-sm font-medium text-emerald-800 dark:text-emerald-300">
+                  <h3 className="text-sm font-medium text-emerald-800">
                     Office Location Check-In
                   </h3>
-                  <p className="mt-1 text-sm text-emerald-700 dark:text-emerald-400">
+                  <p className="mt-1 text-sm text-emerald-700">
                     This check-in system is for the main office location. Make sure you're physically present at the office when signing in.
                   </p>
                   {isLate && (
-                    <div className="mt-2 flex items-center text-amber-600 dark:text-amber-400">
+                    <div className="mt-2 flex items-center text-amber-600">
                       <AlertTriangle className="h-4 w-4 mr-1" />
                       <span className="text-xs font-medium">You are checking in after 9:00 AM. This will be recorded as a late arrival.</span>
                     </div>
@@ -411,3 +411,4 @@ export default function CheckIn() {
     </div>
   );
 }
+

@@ -160,8 +160,8 @@ export default function InternDashboard() {
           whileHover={{ scale: 1.02 }}
           className={`p-6 rounded-xl shadow-lg ${
             isCheckedIn 
-              ? 'bg-green-50 dark:bg-green-900/20 border-2 border-green-500' 
-              : 'bg-white dark:bg-gray-800'
+              ? 'bg-green-50 border-2 border-green-500' 
+              : 'bg-white'
           }`}
         >
           <div className="flex items-center justify-between mb-4">
@@ -172,10 +172,10 @@ export default function InternDashboard() {
                 <LogIn className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-lg font-semibold text-gray-900">
                   Check In
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600">
                   {isCheckedIn 
                     ? `Checked in at ${new Date(todayStatus.checkInTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`
                     : 'Start your day'
@@ -189,7 +189,7 @@ export default function InternDashboard() {
             disabled={isCheckedIn}
             className={`w-full py-3 px-4 rounded-lg font-semibold transition-colors ${
               isCheckedIn
-                ? 'bg-gray-300 dark:bg-gray-700 text-gray-500 cursor-not-allowed'
+                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 : 'bg-emerald-600 hover:bg-emerald-700 text-white'
             }`}
           >
@@ -202,8 +202,8 @@ export default function InternDashboard() {
           whileHover={{ scale: 1.02 }}
           className={`p-6 rounded-xl shadow-lg ${
             isCheckedOut 
-              ? 'bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-500' 
-              : 'bg-white dark:bg-gray-800'
+              ? 'bg-blue-50 border-2 border-blue-500' 
+              : 'bg-white'
           }`}
         >
           <div className="flex items-center justify-between mb-4">
@@ -214,10 +214,10 @@ export default function InternDashboard() {
                 <LogOut className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-lg font-semibold text-gray-900">
                   Check Out
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600">
                   {isCheckedOut 
                     ? `Checked out at ${new Date(todayStatus.checkOutTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`
                     : 'End your day'
@@ -231,7 +231,7 @@ export default function InternDashboard() {
             disabled={!isCheckedIn || isCheckedOut}
             className={`w-full py-3 px-4 rounded-lg font-semibold transition-colors ${
               !isCheckedIn || isCheckedOut
-                ? 'bg-gray-300 dark:bg-gray-700 text-gray-500 cursor-not-allowed'
+                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 : 'bg-orange-600 hover:bg-orange-700 text-white'
             }`}
           >
@@ -245,12 +245,12 @@ export default function InternDashboard() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6"
+          className="bg-white rounded-xl shadow-md p-6"
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Attendance Rate</p>
-              <p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400 mt-1">
+              <p className="text-sm text-gray-600">Attendance Rate</p>
+              <p className="text-3xl font-bold text-emerald-600 mt-1">
                 {stats.attendanceRate}%
               </p>
             </div>
@@ -262,12 +262,12 @@ export default function InternDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6"
+          className="bg-white rounded-xl shadow-md p-6"
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Present Days</p>
-              <p className="text-3xl font-bold text-green-600 dark:text-green-400 mt-1">
+              <p className="text-sm text-gray-600">Present Days</p>
+              <p className="text-3xl font-bold text-green-600 mt-1">
                 {stats.presentDays}
               </p>
             </div>
@@ -279,12 +279,12 @@ export default function InternDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6"
+          className="bg-white rounded-xl shadow-md p-6"
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Late Days</p>
-              <p className="text-3xl font-bold text-yellow-600 dark:text-yellow-400 mt-1">
+              <p className="text-sm text-gray-600">Late Days</p>
+              <p className="text-3xl font-bold text-yellow-600 mt-1">
                 {stats.lateDays}
               </p>
             </div>
@@ -296,12 +296,12 @@ export default function InternDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6"
+          className="bg-white rounded-xl shadow-md p-6"
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Total Days</p>
-              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400 mt-1">
+              <p className="text-sm text-gray-600">Total Days</p>
+              <p className="text-3xl font-bold text-blue-600 mt-1">
                 {stats.totalDays}
               </p>
             </div>
@@ -311,10 +311,10 @@ export default function InternDashboard() {
       </div>
 
       {/* Recent Activity */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+      <div className="bg-white rounded-xl shadow-md p-6">
         <div className="flex items-center gap-3 mb-6">
-          <Activity className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+          <Activity className="w-6 h-6 text-emerald-600" />
+          <h2 className="text-xl font-bold text-gray-900">
             Recent Activity
           </h2>
         </div>
@@ -322,8 +322,8 @@ export default function InternDashboard() {
         {recentActivity.length === 0 ? (
           <div className="text-center py-12">
             <Calendar className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-            <p className="text-gray-600 dark:text-gray-400">No attendance records yet</p>
-            <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
+            <p className="text-gray-600">No attendance records yet</p>
+            <p className="text-sm text-gray-500 mt-2">
               Check in to start tracking your attendance
             </p>
           </div>
@@ -332,40 +332,40 @@ export default function InternDashboard() {
             {recentActivity.map((record, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg"
+                className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
               >
                 <div className="flex items-center gap-4">
                   <div className={`p-2 rounded-full ${
-                    record.status === 'present' ? 'bg-green-100 dark:bg-green-900/30' :
-                    record.status === 'late' ? 'bg-yellow-100 dark:bg-yellow-900/30' :
-                    'bg-red-100 dark:bg-red-900/30'
+                    record.status === 'present' ? 'bg-green-100' :
+                    record.status === 'late' ? 'bg-yellow-100' :
+                    'bg-red-100'
                   }`}>
                     {record.status === 'present' ? (
-                      <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
+                      <CheckCircle className="w-5 h-5 text-green-600" />
                     ) : record.status === 'late' ? (
-                      <Clock className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+                      <Clock className="w-5 h-5 text-yellow-600" />
                     ) : (
-                      <XCircle className="w-5 h-5 text-red-600 dark:text-red-400" />
+                      <XCircle className="w-5 h-5 text-red-600" />
                     )}
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">
+                    <p className="font-medium text-gray-900">
                       {new Date(record.date).toLocaleDateString('en-US', { 
                         weekday: 'long',
                         month: 'short',
                         day: 'numeric'
                       })}
                     </p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-gray-600">
                       {record.checkInTime && `In: ${new Date(record.checkInTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`}
                       {record.checkOutTime && ` • Out: ${new Date(record.checkOutTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`}
                     </p>
                   </div>
                 </div>
                 <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                  record.status === 'present' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' :
-                  record.status === 'late' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400' :
-                  'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
+                  record.status === 'present' ? 'bg-green-100 text-green-800' :
+                  record.status === 'late' ? 'bg-yellow-100 text-yellow-800' :
+                  'bg-red-100 text-red-800'
                 }`}>
                   {record.status.charAt(0).toUpperCase() + record.status.slice(1)}
                 </span>
@@ -377,3 +377,4 @@ export default function InternDashboard() {
     </div>
   );
 }
+

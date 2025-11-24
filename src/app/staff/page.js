@@ -179,7 +179,7 @@ export default function Staff() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50">
       <Navbar 
         toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
         isDarkMode={isDarkMode}
@@ -191,10 +191,10 @@ export default function Staff() {
         <div className="max-w-7xl mx-auto">
           <div className="md:flex md:items-center md:justify-between mb-8">
             <div className="flex-1 min-w-0">
-              <h2 className="text-2xl font-bold leading-7 text-gray-900 dark:text-white sm:text-3xl flex items-center">
+              <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl flex items-center">
                 <Users className="mr-2" /> Staff Management
               </h2>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              <p className="mt-1 text-sm text-gray-500">
                 Manage interns and workers in your organization
               </p>
             </div>
@@ -218,7 +218,7 @@ export default function Staff() {
                   </div>
                   <input
                     type="text"
-                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md leading-5 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
+                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
                     placeholder="Search staff..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -229,7 +229,7 @@ export default function Staff() {
                   {/* Export Button */}
                   <button
                     onClick={exportStaffList}
-                    className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none"
+                    className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none"
                   >
                     <Download className="h-4 w-4 mr-2" />
                     Export
@@ -247,14 +247,14 @@ export default function Staff() {
               </div>
 
               {/* Staff Table */}
-              <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+              <div className="bg-white shadow-md rounded-lg overflow-hidden">
                 <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead className="bg-gray-50 dark:bg-gray-700">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
                       <tr>
                         <th 
                           scope="col" 
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                           onClick={() => handleSort('name')}
                         >
                           <div className="flex items-center">
@@ -266,7 +266,7 @@ export default function Staff() {
                         </th>
                         <th 
                           scope="col" 
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                           onClick={() => handleSort('employeeId')}
                         >
                           <div className="flex items-center">
@@ -278,7 +278,7 @@ export default function Staff() {
                         </th>
                         <th 
                           scope="col" 
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                           onClick={() => handleSort('department')}
                         >
                           <div className="flex items-center">
@@ -288,12 +288,12 @@ export default function Staff() {
                             )}
                           </div>
                         </th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Position
                         </th>
                         <th 
                           scope="col" 
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                           onClick={() => handleSort('status')}
                         >
                           <div className="flex items-center">
@@ -305,7 +305,7 @@ export default function Staff() {
                         </th>
                         <th 
                           scope="col" 
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                           onClick={() => handleSort('joinDate')}
                         >
                           <div className="flex items-center">
@@ -315,48 +315,48 @@ export default function Staff() {
                             )}
                           </div>
                         </th>
-                        <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                        <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Actions
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                    <tbody className="bg-white divide-y divide-gray-200">
                       {filteredStaff.length > 0 ? (
                         filteredStaff.map((staffMember) => (
-                          <tr key={staffMember.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                          <tr key={staffMember.id} className="hover:bg-gray-50">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                               {staffMember.name}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                               {staffMember.employeeId}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                               {staffMember.department}
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                               {staffMember.position}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                                staffMember.status === 'Active' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 
-                                staffMember.status === 'On Leave' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' : 
-                                'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
+                                staffMember.status === 'Active' ? 'bg-green-100 text-green-800' : 
+                                staffMember.status === 'On Leave' ? 'bg-yellow-100 text-yellow-800' : 
+                                'bg-gray-100 text-gray-800'
                               }`}>
                                 {staffMember.status}
                               </span>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                               {new Date(staffMember.joinDate).toLocaleDateString()}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                               <button
-                                className="text-emerald-600 hover:text-emerald-500 dark:text-emerald-400 dark:hover:text-emerald-300 mr-3"
+                                className="text-emerald-600 hover:text-emerald-500 mr-3"
                                 title="Edit"
                               >
                                 <Edit className="h-4 w-4" />
                               </button>
                               <button
-                                className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
+                                className="text-red-600 hover:text-red-900"
                                 onClick={() => handleDeleteClick(staffMember.id)}
                                 title="Delete"
                               >
@@ -367,7 +367,7 @@ export default function Staff() {
                         ))
                       ) : (
                         <tr>
-                          <td colSpan="7" className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                          <td colSpan="7" className="px-6 py-4 text-center text-gray-500">
                             No staff members found
                           </td>
                         </tr>
@@ -389,14 +389,14 @@ export default function Staff() {
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto"
           >
-            <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+            <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+              <h3 className="text-lg font-medium text-gray-900">
                 Add New Staff Member
               </h3>
               <button
-                className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+                className="text-gray-400 hover:text-gray-500"
                 onClick={() => setShowAddModal(false)}
               >
                 <X className="h-5 w-5" />
@@ -407,17 +407,17 @@ export default function Staff() {
               <div className="space-y-4">
                 {/* Name */}
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                     Full Name
                   </label>
                   <input
                     type="text"
                     id="name"
-                    className={`mt-1 block w-full border ${errors.name ? 'border-red-300 dark:border-red-600' : 'border-gray-300 dark:border-gray-600'} rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm`}
+                    className={`mt-1 block w-full border ${errors.name ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white text-gray-900 sm:text-sm`}
                     {...register("name", { required: "Name is required" })}
                   />
                   {errors.name && (
-                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                    <p className="mt-1 text-sm text-red-600">
                       {errors.name.message}
                     </p>
                   )}
@@ -425,17 +425,17 @@ export default function Staff() {
 
                 {/* Employee ID */}
                 <div>
-                  <label htmlFor="employeeId" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label htmlFor="employeeId" className="block text-sm font-medium text-gray-700">
                     Employee ID
                   </label>
                   <input
                     type="text"
                     id="employeeId"
-                    className={`mt-1 block w-full border ${errors.employeeId ? 'border-red-300 dark:border-red-600' : 'border-gray-300 dark:border-gray-600'} rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm`}
+                    className={`mt-1 block w-full border ${errors.employeeId ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white text-gray-900 sm:text-sm`}
                     {...register("employeeId", { required: "Employee ID is required" })}
                   />
                   {errors.employeeId && (
-                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                    <p className="mt-1 text-sm text-red-600">
                       {errors.employeeId.message}
                     </p>
                   )}
@@ -443,12 +443,12 @@ export default function Staff() {
 
                 {/* Department */}
                 <div>
-                  <label htmlFor="department" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label htmlFor="department" className="block text-sm font-medium text-gray-700">
                     Department
                   </label>
                   <select
                     id="department"
-                    className={`mt-1 block w-full border ${errors.department ? 'border-red-300 dark:border-red-600' : 'border-gray-300 dark:border-gray-600'} rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm`}
+                    className={`mt-1 block w-full border ${errors.department ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white text-gray-900 sm:text-sm`}
                     {...register("department", { required: "Department is required" })}
                   >
                     <option value="">Select Department</option>
@@ -461,7 +461,7 @@ export default function Staff() {
                     <option value="Operations">Operations</option>
                   </select>
                   {errors.department && (
-                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                    <p className="mt-1 text-sm text-red-600">
                       {errors.department.message}
                     </p>
                   )}
@@ -469,17 +469,17 @@ export default function Staff() {
 
                 {/* Position */}
                 <div>
-                  <label htmlFor="position" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label htmlFor="position" className="block text-sm font-medium text-gray-700">
                     Position
                   </label>
                   <input
                     type="text"
                     id="position"
-                    className={`mt-1 block w-full border ${errors.position ? 'border-red-300 dark:border-red-600' : 'border-gray-300 dark:border-gray-600'} rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm`}
+                    className={`mt-1 block w-full border ${errors.position ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white text-gray-900 sm:text-sm`}
                     {...register("position", { required: "Position is required" })}
                   />
                   {errors.position && (
-                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                    <p className="mt-1 text-sm text-red-600">
                       {errors.position.message}
                     </p>
                   )}
@@ -487,12 +487,12 @@ export default function Staff() {
 
                 {/* Status */}
                 <div>
-                  <label htmlFor="status" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label htmlFor="status" className="block text-sm font-medium text-gray-700">
                     Status
                   </label>
                   <select
                     id="status"
-                    className={`mt-1 block w-full border ${errors.status ? 'border-red-300 dark:border-red-600' : 'border-gray-300 dark:border-gray-600'} rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm`}
+                    className={`mt-1 block w-full border ${errors.status ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white text-gray-900 sm:text-sm`}
                     {...register("status", { required: "Status is required" })}
                   >
                     <option value="Active">Active</option>
@@ -500,7 +500,7 @@ export default function Staff() {
                     <option value="Inactive">Inactive</option>
                   </select>
                   {errors.status && (
-                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                    <p className="mt-1 text-sm text-red-600">
                       {errors.status.message}
                     </p>
                   )}
@@ -508,17 +508,17 @@ export default function Staff() {
 
                 {/* Join Date */}
                 <div>
-                  <label htmlFor="joinDate" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label htmlFor="joinDate" className="block text-sm font-medium text-gray-700">
                     Join Date
                   </label>
                   <input
                     type="date"
                     id="joinDate"
-                    className={`mt-1 block w-full border ${errors.joinDate ? 'border-red-300 dark:border-red-600' : 'border-gray-300 dark:border-gray-600'} rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white sm:text-sm`}
+                    className={`mt-1 block w-full border ${errors.joinDate ? 'border-red-300' : 'border-gray-300'} rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 bg-white text-gray-900 sm:text-sm`}
                     {...register("joinDate", { required: "Join date is required" })}
                   />
                   {errors.joinDate && (
-                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                    <p className="mt-1 text-sm text-red-600">
                       {errors.joinDate.message}
                     </p>
                   )}
@@ -528,7 +528,7 @@ export default function Staff() {
               <div className="mt-6 flex justify-end space-x-3">
                 <button
                   type="button"
-                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-md"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md"
                   onClick={() => setShowAddModal(false)}
                 >
                   Cancel
@@ -551,23 +551,23 @@ export default function Staff() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full"
+            className="bg-white rounded-lg shadow-xl max-w-md w-full"
           >
             <div className="p-6">
-              <div className="flex items-center justify-center w-12 h-12 mx-auto bg-red-100 dark:bg-red-900/30 rounded-full mb-4">
-                <AlertCircle className="h-6 w-6 text-red-600 dark:text-red-400" />
+              <div className="flex items-center justify-center w-12 h-12 mx-auto bg-red-100 rounded-full mb-4">
+                <AlertCircle className="h-6 w-6 text-red-600" />
               </div>
-              <h3 className="text-lg font-medium text-center text-gray-900 dark:text-white mb-2">
+              <h3 className="text-lg font-medium text-center text-gray-900 mb-2">
                 Confirm Deletion
               </h3>
-              <p className="text-center text-gray-500 dark:text-gray-400">
-                Are you sure you want to remove <span className="font-medium text-gray-900 dark:text-white">{staffToDelete?.name}</span> from the staff list? This action cannot be undone.
+              <p className="text-center text-gray-500">
+                Are you sure you want to remove <span className="font-medium text-gray-900">{staffToDelete?.name}</span> from the staff list? This action cannot be undone.
               </p>
 
               <div className="mt-6 flex justify-center space-x-3">
                 <button
                   type="button"
-                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-md"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md"
                   onClick={() => setShowDeleteModal(false)}
                 >
                   Cancel
@@ -587,3 +587,4 @@ export default function Staff() {
     </div>
   );
 }
+

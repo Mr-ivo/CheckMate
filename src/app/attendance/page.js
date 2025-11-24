@@ -38,14 +38,14 @@ const InfoTooltip = ({ message }) => {
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
         onClick={() => setShowTooltip(!showTooltip)}
-        className="text-gray-500 hover:text-emerald-500 dark:text-gray-400 dark:hover:text-emerald-400 focus:outline-none"
+        className="text-gray-500 hover:text-emerald-500 focus:outline-none"
       >
         <Info size={16} />
       </button>
       {showTooltip && (
-        <div className="absolute z-10 w-64 p-3 text-sm text-left bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 -left-4 bottom-full mb-2">
-          <div className="text-gray-700 dark:text-gray-300">{message}</div>
-          <div className="absolute w-3 h-3 bg-white dark:bg-gray-800 border-b border-r border-gray-200 dark:border-gray-700 transform rotate-45 left-5 -bottom-1.5"></div>
+        <div className="absolute z-10 w-64 p-3 text-sm text-left bg-white rounded-md shadow-lg border border-gray-200 -left-4 bottom-full mb-2">
+          <div className="text-gray-700">{message}</div>
+          <div className="absolute w-3 h-3 bg-white border-b border-r border-gray-200 transform rotate-45 left-5 -bottom-1.5"></div>
         </div>
       )}
     </div>
@@ -438,11 +438,11 @@ export default function Attendance() {
 
   const getStatusColor = (status) => {
     switch(status) {
-      case 'present': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
-      case 'absent': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
-      case 'late': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
-      case 'excused': return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
+      case 'present': return 'bg-green-100 text-green-800';
+      case 'absent': return 'bg-red-100 text-red-800';
+      case 'late': return 'bg-yellow-100 text-yellow-800';
+      case 'excused': return 'bg-emerald-100 text-emerald-800';
+      default: return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -508,7 +508,7 @@ export default function Attendance() {
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center">
               <ClipboardCheck className="h-6 w-6 text-emerald-500 mr-2" />
-              <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Attendance Management</h1>
+              <h1 className="text-2xl font-bold text-gray-800">Attendance Management</h1>
               <InfoTooltip message="Signatures are only required during initial intern registration. Daily attendance can be managed by administrators without requiring interns to sign in each day." />
             </div>
             <button
@@ -520,12 +520,12 @@ export default function Attendance() {
               Email Absentees
             </button>
           </div>
-          <div className="mb-6 p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg border border-emerald-100 dark:border-emerald-800">
+          <div className="mb-6 p-4 bg-emerald-50 rounded-lg border border-emerald-100">
             <div className="flex items-start">
               <HelpCircle className="h-5 w-5 text-emerald-500 mr-2 mt-0.5" />
               <div>
-                <h3 className="font-medium text-emerald-700 dark:text-emerald-300">Admin-Managed Attendance</h3>
-                <p className="text-sm text-emerald-600 dark:text-emerald-400 mt-1">
+                <h3 className="font-medium text-emerald-700">Admin-Managed Attendance</h3>
+                <p className="text-sm text-emerald-600 mt-1">
                   Once interns are registered with their signatures, you can mark their daily attendance as present, absent, late, or excused without requiring them to sign in each day.
                 </p>
               </div>
@@ -544,26 +544,26 @@ export default function Attendance() {
                 transition={{ duration: 0.5 }}
               >
                 {/* Date and View Selector */}
-                <div className="mb-6 bg-white dark:bg-gray-800 rounded-lg p-4 shadow-md">
+                <div className="mb-6 bg-white rounded-lg p-4 shadow-md">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                     <div className="flex items-center mb-4 md:mb-0">
                       <button 
                         onClick={() => handleDateChange(-1)}
-                        className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="p-1 rounded-full hover:bg-gray-100"
                       >
-                        <ChevronLeft size={20} className="text-gray-600 dark:text-gray-400" />
+                        <ChevronLeft size={20} className="text-gray-600" />
                       </button>
                       <div className="mx-3 flex items-center">
-                        <Calendar size={18} className="mr-2 text-emerald-600 dark:text-emerald-400" />
-                        <span className="text-lg font-medium text-gray-900 dark:text-white">
+                        <Calendar size={18} className="mr-2 text-emerald-600" />
+                        <span className="text-lg font-medium text-gray-900">
                           {formatDate(currentDate)}
                         </span>
                       </div>
                       <button 
                         onClick={() => handleDateChange(1)}
-                        className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="p-1 rounded-full hover:bg-gray-100"
                       >
-                        <ChevronRight size={20} className="text-gray-600 dark:text-gray-400" />
+                        <ChevronRight size={20} className="text-gray-600" />
                       </button>
                     </div>
                     
@@ -574,7 +574,7 @@ export default function Attendance() {
                           className={`px-4 py-2 text-sm font-medium rounded-l-lg ${
                             viewMode === 'today' 
                               ? 'bg-emerald-600 text-white' 
-                              : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                           }`}
                         >
                           Today
@@ -584,7 +584,7 @@ export default function Attendance() {
                           className={`px-4 py-2 text-sm font-medium ${
                             viewMode === 'week' 
                               ? 'bg-emerald-600 text-white' 
-                              : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                           }`}
                         >
                           Week
@@ -594,7 +594,7 @@ export default function Attendance() {
                           className={`px-4 py-2 text-sm font-medium rounded-r-lg ${
                             viewMode === 'month' 
                               ? 'bg-emerald-600 text-white' 
-                              : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                           }`}
                         >
                           Month
@@ -604,7 +604,7 @@ export default function Attendance() {
                       <select
                         value={selectedDepartment}
                         onChange={(e) => setSelectedDepartment(e.target.value)}
-                        className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                       >
                         {departments.map((department, index) => (
                           <option key={index} value={department}>{department}</option>
@@ -637,48 +637,48 @@ export default function Attendance() {
                 </div>
                 
                 {/* Attendance Table */}
-                <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+                <div className="bg-white shadow-md rounded-lg overflow-hidden">
                   <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                      <thead className="bg-gray-50 dark:bg-gray-700">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-50">
                         <tr>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Employee ID
                           </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Name
                           </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Department
                           </th>
-                          <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Status
                           </th>
-                          <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Mark Attendance
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                      <tbody className="bg-white divide-y divide-gray-200">
                         {filteredInterns.length > 0 ? (
                           filteredInterns.map((intern) => (
-                            <tr key={intern.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                            <tr key={intern.id} className="hover:bg-gray-50">
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                 {intern.employeeId}
                               </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                 {intern.name}
                               </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {intern.department}
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-center">
                                 {intern.status ? (
                                   <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
-                                    intern.status === 'present' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
-                                    intern.status === 'absent' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' :
-                                    intern.status === 'late' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
-                                    'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200'
+                                    intern.status === 'present' ? 'bg-green-100 text-green-800' :
+                                    intern.status === 'absent' ? 'bg-red-100 text-red-800' :
+                                    intern.status === 'late' ? 'bg-yellow-100 text-yellow-800' :
+                                    'bg-emerald-100 text-emerald-800'
                                   }`}>
                                     <span className="mr-1">
                                       {getStatusIcon(intern.status)}
@@ -686,7 +686,7 @@ export default function Attendance() {
                                     {intern.status.charAt(0).toUpperCase() + intern.status.slice(1)}
                                   </span>
                                 ) : (
-                                  <span className="text-gray-400 dark:text-gray-500">Not marked</span>
+                                  <span className="text-gray-400">Not marked</span>
                                 )}
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-center">
@@ -694,7 +694,7 @@ export default function Attendance() {
                                   <button 
                                     onClick={() => handleStatusChange(intern.id, 'present')}
                                     className={`p-2 rounded-full ${
-                                      intern.status === 'present' ? 'bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300' : 'hover:bg-green-100 text-gray-500 hover:text-green-600 dark:hover:bg-green-900 dark:hover:text-green-300'
+                                      intern.status === 'present' ? 'bg-green-100 text-green-600' : 'hover:bg-green-100 text-gray-500 hover:text-green-600'
                                     }`}
                                     title="Present"
                                   >
@@ -703,7 +703,7 @@ export default function Attendance() {
                                   <button 
                                     onClick={() => handleStatusChange(intern.id, 'absent')}
                                     className={`p-2 rounded-full ${
-                                      intern.status === 'absent' ? 'bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300' : 'hover:bg-red-100 text-gray-500 hover:text-red-600 dark:hover:bg-red-900 dark:hover:text-red-300'
+                                      intern.status === 'absent' ? 'bg-red-100 text-red-600' : 'hover:bg-red-100 text-gray-500 hover:text-red-600'
                                     }`}
                                     title="Absent"
                                   >
@@ -712,7 +712,7 @@ export default function Attendance() {
                                   <button 
                                     onClick={() => handleStatusChange(intern.id, 'late')}
                                     className={`p-2 rounded-full ${
-                                      intern.status === 'late' ? 'bg-yellow-100 text-yellow-600 dark:bg-yellow-900 dark:text-yellow-300' : 'hover:bg-yellow-100 text-gray-500 hover:text-yellow-600 dark:hover:bg-yellow-900 dark:hover:text-yellow-300'
+                                      intern.status === 'late' ? 'bg-yellow-100 text-yellow-600' : 'hover:bg-yellow-100 text-gray-500 hover:text-yellow-600'
                                     }`}
                                     title="Late"
                                   >
@@ -721,7 +721,7 @@ export default function Attendance() {
                                   <button 
                                     onClick={() => handleStatusChange(intern.id, 'excused')}
                                     className={`p-2 rounded-full ${
-                                      intern.status === 'excused' ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900 dark:text-emerald-300' : 'hover:bg-emerald-100 text-gray-500 hover:text-emerald-600 dark:hover:bg-emerald-900 dark:hover:text-emerald-300'
+                                      intern.status === 'excused' ? 'bg-emerald-100 text-emerald-600' : 'hover:bg-emerald-100 text-gray-500 hover:text-emerald-600'
                                     }`}
                                     title="Excused"
                                   >
@@ -733,7 +733,7 @@ export default function Attendance() {
                           ))
                         ) : (
                           <tr>
-                            <td colSpan="5" className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                            <td colSpan="5" className="px-6 py-8 text-center text-gray-500">
                               No interns found for the selected department.
                             </td>
                           </tr>
@@ -758,3 +758,4 @@ export default function Attendance() {
     </DashboardLayout>
   );
 }
+

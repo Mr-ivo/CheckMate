@@ -491,10 +491,10 @@ export default function Reports() {
         <div className="max-w-7xl mx-auto">
           <div className="md:flex md:items-center md:justify-between mb-8">
             <div className="flex-1 min-w-0">
-              <h2 className="text-2xl font-bold leading-7 text-gray-900 dark:text-white sm:text-3xl flex items-center">
+              <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl flex items-center">
                 <BarChart2 className="mr-2" /> Attendance Reports
               </h2>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              <p className="mt-1 text-sm text-gray-500">
                 Analyze attendance data and generate reports
               </p>
             </div>
@@ -504,7 +504,7 @@ export default function Reports() {
                 <select
                   value={dateRange}
                   onChange={(e) => setDateRange(e.target.value)}
-                  className="pl-9 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="pl-9 pr-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="week">This Week</option>
                   <option value="month">This Month</option>
@@ -520,7 +520,7 @@ export default function Reports() {
                   const value = e.target.value === 'All Departments' ? 'all' : e.target.value;
                   setSelectedDepartment(value);
                 }}
-                className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 {departments.map((department, index) => (
                   <option key={index} value={department}>{department}</option>
@@ -531,11 +531,11 @@ export default function Reports() {
                 <button className="px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors duration-200 flex items-center">
                   <Download size={16} className="mr-2" /> Export
                 </button>
-                <div className="dropdown-menu absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 hidden">
+                <div className="dropdown-menu absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden">
                   <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                    <button onClick={() => exportReport('pdf')} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left">Export as PDF</button>
-                    <button onClick={() => exportReport('excel')} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left">Export as Excel</button>
-                    <button onClick={() => exportReport('csv')} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left">Export as CSV</button>
+                    <button onClick={() => exportReport('pdf')} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Export as PDF</button>
+                    <button onClick={() => exportReport('excel')} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Export as Excel</button>
+                    <button onClick={() => exportReport('csv')} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">Export as CSV</button>
                   </div>
                 </div>
               </div>
@@ -558,21 +558,21 @@ export default function Reports() {
                   <motion.div
                     key={index}
                     variants={itemVariants}
-                    className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-100 dark:border-gray-700"
+                    className="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100"
                     whileHover={{ y: -4, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
                   >
                     <div className="p-5">
                       <div className="flex items-center">
-                        <div className={`flex items-center justify-center p-2 rounded-lg ${stat.color} bg-opacity-20 dark:bg-opacity-30 text-white`}>
+                        <div className={`flex items-center justify-center p-2 rounded-lg ${stat.color} bg-opacity-20 text-white`}>
                           {stat.icon}
                         </div>
                         <div className="ml-4">
-                          <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{stat.title}</p>
-                          <p className="text-2xl font-semibold text-gray-900 dark:text-white">{stat.value}</p>
+                          <p className="text-sm font-medium text-gray-500">{stat.title}</p>
+                          <p className="text-2xl font-semibold text-gray-900">{stat.value}</p>
                         </div>
                       </div>
                       <div className="mt-2">
-                        <span className="text-xs font-medium text-gray-500 dark:text-gray-400">{stat.trend}</span>
+                        <span className="text-xs font-medium text-gray-500">{stat.trend}</span>
                       </div>
                     </div>
                   </motion.div>
@@ -583,9 +583,9 @@ export default function Reports() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 <motion.div 
                   variants={itemVariants}
-                  className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700"
+                  className="bg-white p-6 rounded-xl shadow-md border border-gray-100"
                 >
-                  <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-white">Monthly Attendance Trend</h3>
+                  <h3 className="text-lg font-medium mb-4 text-gray-900">Monthly Attendance Trend</h3>
                   <div className="h-64">
                     <Line 
                       data={monthlyData}
@@ -626,9 +626,9 @@ export default function Reports() {
                 
                 <motion.div 
                   variants={itemVariants}
-                  className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700"
+                  className="bg-white p-6 rounded-xl shadow-md border border-gray-100"
                 >
-                  <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-white">Weekly Check-in Breakdown</h3>
+                  <h3 className="text-lg font-medium mb-4 text-gray-900">Weekly Check-in Breakdown</h3>
                   <div className="h-64">
                     <Bar 
                       data={weeklyData}
@@ -669,9 +669,9 @@ export default function Reports() {
                 
                 <motion.div 
                   variants={itemVariants}
-                  className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700"
+                  className="bg-white p-6 rounded-xl shadow-md border border-gray-100"
                 >
-                  <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-white">Department-wise Attendance</h3>
+                  <h3 className="text-lg font-medium mb-4 text-gray-900">Department-wise Attendance</h3>
                   <div className="h-64">
                     <Bar 
                       data={departmentData}
@@ -709,9 +709,9 @@ export default function Reports() {
                 
                 <motion.div 
                   variants={itemVariants}
-                  className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700"
+                  className="bg-white p-6 rounded-xl shadow-md border border-gray-100"
                 >
-                  <h3 className="text-lg font-medium mb-4 text-gray-900 dark:text-white">Absence Reasons</h3>
+                  <h3 className="text-lg font-medium mb-4 text-gray-900">Absence Reasons</h3>
                   <div className="h-64 flex items-center justify-center">
                     <div style={{ width: '80%', height: '100%' }}>
                       <Doughnut 
@@ -738,14 +738,14 @@ export default function Reports() {
               {/* Summary Report */}
               <motion.div 
                 variants={itemVariants}
-                className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 overflow-hidden"
+                className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden"
               >
-                <div className="px-6 py-5 border-b border-gray-200 dark:border-gray-700">
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">Attendance Summary</h3>
+                <div className="px-6 py-5 border-b border-gray-200">
+                  <h3 className="text-lg font-medium text-gray-900">Attendance Summary</h3>
                 </div>
                 <div className="p-6">
-                  <div className="prose dark:prose-invert max-w-none">
-                    <p>This {dateRange} shows an overall attendance rate of <strong>{stats.averageAttendance || 0}%</strong>, which is <span className={stats.attendanceTrend > 0 ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}>{stats.attendanceTrend > 0 ? "up" : "down"} {Math.abs(stats.attendanceTrend || 0)}%</span> compared to the previous {dateRange}.</p>
+                  <div className="prose max-w-none">
+                    <p>This {dateRange} shows an overall attendance rate of <strong>{stats.averageAttendance || 0}%</strong>, which is <span className={stats.attendanceTrend > 0 ? "text-green-600" : "text-red-600"}>{stats.attendanceTrend > 0 ? "up" : "down"} {Math.abs(stats.attendanceTrend || 0)}%</span> compared to the previous {dateRange}.</p>
                     
                     <p className="mt-4">Key observations:</p>
                     <ul className="list-disc pl-5 space-y-1">
@@ -764,16 +764,16 @@ export default function Reports() {
                     </ul>
                   </div>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-700 px-6 py-3 flex justify-between">
-                  <span className="text-sm text-gray-500 dark:text-gray-400">Generated on {new Date().toLocaleDateString()}</span>
+                <div className="bg-gray-50 px-6 py-3 flex justify-between">
+                  <span className="text-sm text-gray-500">Generated on {new Date().toLocaleDateString()}</span>
                   <div className="flex space-x-2">
-                    <button onClick={() => exportReport('pdf')} className="text-sm font-medium text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 dark:hover:text-emerald-300">
+                    <button onClick={() => exportReport('pdf')} className="text-sm font-medium text-emerald-600 hover:text-emerald-500">
                       PDF
                     </button>
-                    <button onClick={() => exportReport('excel')} className="text-sm font-medium text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 dark:hover:text-emerald-300">
+                    <button onClick={() => exportReport('excel')} className="text-sm font-medium text-emerald-600 hover:text-emerald-500">
                       Excel
                     </button>
-                    <button onClick={() => exportReport('csv')} className="text-sm font-medium text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 dark:hover:text-emerald-300">
+                    <button onClick={() => exportReport('csv')} className="text-sm font-medium text-emerald-600 hover:text-emerald-500">
                       CSV
                     </button>
                   </div>
@@ -786,3 +786,4 @@ export default function Reports() {
     </DashboardLayout>
   );
 }
+

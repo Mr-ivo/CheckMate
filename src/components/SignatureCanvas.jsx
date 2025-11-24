@@ -121,10 +121,10 @@ const SignatureCanvas = ({ onSave }) => {
 
   return (
     <div className="w-full">
-      <div className="border border-emerald-300 dark:border-emerald-500 rounded-lg p-1 bg-white dark:bg-gray-800">
+      <div className="border border-emerald-300 rounded-lg p-1 bg-white">
         <motion.canvas
           ref={canvasRef}
-          className="w-full h-48 rounded cursor-crosshair touch-none bg-white dark:bg-gray-700"
+          className="w-full h-48 rounded cursor-crosshair touch-none bg-white"
           onMouseDown={startDrawing}
           onMouseMove={draw}
           onMouseUp={stopDrawing}
@@ -141,7 +141,7 @@ const SignatureCanvas = ({ onSave }) => {
         <motion.button
           type="button"
           onClick={clearCanvas}
-          className="px-4 py-2 text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-900/30 dark:hover:bg-red-900/50 dark:text-red-300 rounded-md flex items-center"
+          className="px-4 py-2 text-red-600 bg-red-50 hover:bg-red-100 rounded-md flex items-center"
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           disabled={isEmpty}
@@ -161,7 +161,7 @@ const SignatureCanvas = ({ onSave }) => {
           <Save size={16} className="mr-1" /> Save Signature
         </motion.button>
       </div>
-      <div className="mt-3 text-center text-sm text-gray-500 dark:text-gray-400">
+      <div className="mt-3 text-center text-sm text-gray-500">
         Sign within the box above and click "Save Signature"
       </div>
     </div>
@@ -169,3 +169,4 @@ const SignatureCanvas = ({ onSave }) => {
 };
 
 export default SignatureCanvas;
+

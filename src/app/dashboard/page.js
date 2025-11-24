@@ -561,10 +561,10 @@ function Dashboard() {
           {/* Dashboard Header with Date Filter */}
           <div className="md:flex md:items-center md:justify-between mb-8">
             <div className="flex-1 min-w-0">
-              <h1 className="text-2xl font-semibold text-gray-900 dark:text-white sm:text-3xl">
+              <h1 className="text-2xl font-semibold text-gray-900 sm:text-3xl">
                 Admin Dashboard
               </h1>
-              <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+              <p className="mt-1 text-sm text-gray-600">
                 Overview of attendance and check-ins
               </p>
             </div>
@@ -588,7 +588,7 @@ function Dashboard() {
                 <ChartSkeleton />
                 <ChartSkeleton />
               </div>
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+              <div className="bg-white p-6 rounded-xl shadow-md">
                 {[...Array(5)].map((_, i) => (
                   <TableRowSkeleton key={i} columns={4} />
                 ))}
@@ -606,22 +606,22 @@ function Dashboard() {
                   <motion.div
                     key={index}
                     variants={itemVariants}
-                    className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl overflow-hidden shadow-lg border border-emerald-200 dark:border-gray-700 hover:scale-[1.03] transition-transform duration-200 group"
+                    className="relative bg-white/80 backdrop-blur-xl rounded-2xl overflow-hidden shadow-lg border border-emerald-200 hover:scale-[1.03] transition-transform duration-200 group"
                   >
                     <div className="absolute -top-4 -right-4 opacity-20 group-hover:opacity-30 transition-opacity duration-200">
                       {stat.icon}
                     </div>
                     <div className="p-6 flex flex-col gap-2">
                       <div className="flex items-center gap-3">
-                        <div className={`flex items-center justify-center p-3 rounded-full ${stat.color} bg-opacity-30 dark:bg-opacity-40 text-white shadow-md`}>
+                        <div className={`flex items-center justify-center p-3 rounded-full ${stat.color} bg-opacity-30 text-white shadow-md`}>
                           {stat.icon}
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{stat.title}</p>
-                          <p className="text-2xl font-bold text-gray-900 dark:text-white animate-pulse">{stat.value}</p>
+                          <p className="text-sm font-medium text-gray-500">{stat.title}</p>
+                          <p className="text-2xl font-bold text-gray-900 animate-pulse">{stat.value}</p>
                         </div>
                       </div>
-                      <span className="text-xs font-medium text-gray-500 dark:text-gray-400 mt-2">{stat.change}</span>
+                      <span className="text-xs font-medium text-gray-500 mt-2">{stat.change}</span>
                     </div>
                   </motion.div>
                 ))}
@@ -632,11 +632,11 @@ function Dashboard() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
                 <motion.div 
                   variants={itemVariants}
-                  className="bg-white/80 dark:bg-gray-800/80 p-8 rounded-2xl shadow-lg border border-emerald-200 dark:border-gray-700 flex flex-col"
+                  className="bg-white/80 p-8 rounded-2xl shadow-lg border border-emerald-200 flex flex-col"
                 >
                   <div className="flex items-center gap-2 mb-4">
-                    <ClipboardCheck className="text-emerald-500 dark:text-emerald-400" size={20} />
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Today's Attendance</h3>
+                    <ClipboardCheck className="text-emerald-500" size={20} />
+                    <h3 className="text-lg font-semibold text-gray-900">Today's Attendance</h3>
                   </div>
                   <div className="h-64">
                     <AttendanceChart 
@@ -648,11 +648,11 @@ function Dashboard() {
                 
                 <motion.div 
                   variants={itemVariants}
-                  className="bg-white/80 dark:bg-gray-800/80 p-8 rounded-2xl shadow-lg border border-emerald-200 dark:border-gray-700 flex flex-col"
+                  className="bg-white/80 p-8 rounded-2xl shadow-lg border border-emerald-200 flex flex-col"
                 >
                   <div className="flex items-center gap-2 mb-4">
-                    <BarChart className="text-blue-500 dark:text-blue-400" size={20} />
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Weekly Attendance</h3>
+                    <BarChart className="text-blue-500" size={20} />
+                    <h3 className="text-lg font-semibold text-gray-900">Weekly Attendance</h3>
                   </div>
                   <div className="h-64">
                     <WeeklyChart 
@@ -669,32 +669,32 @@ function Dashboard() {
                   variants={itemVariants}
                   className="mb-10"
                 >
-                  <div className="bg-white/80 dark:bg-gray-800/80 p-8 rounded-2xl shadow-lg border border-emerald-200 dark:border-gray-700">
+                  <div className="bg-white/80 p-8 rounded-2xl shadow-lg border border-emerald-200">
                     <div className="mb-6">
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">My Attendance Dashboard</h3>
-                      <p className="text-gray-600 dark:text-gray-300">Your personal attendance statistics and check-in status</p>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">My Attendance Dashboard</h3>
+                      <p className="text-gray-600">Your personal attendance statistics and check-in status</p>
                     </div>
                     
                     {/* Check-in status card */}
-                    <div className={`p-6 rounded-xl mb-8 ${internData.checkInStatus === 'checked-in' ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800' : 
-                      internData.checkInStatus === 'checked-out' ? 'bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800' : 
-                      'bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800'}`}>
+                    <div className={`p-6 rounded-xl mb-8 ${internData.checkInStatus === 'checked-in' ? 'bg-green-50 border border-green-200' : 
+                      internData.checkInStatus === 'checked-out' ? 'bg-blue-50 border border-blue-200' : 
+                      'bg-yellow-50 border border-yellow-200'}`}>
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="text-lg font-semibold mb-1 text-gray-900 dark:text-white">Today's Status</h4>
+                          <h4 className="text-lg font-semibold mb-1 text-gray-900">Today's Status</h4>
                           {internData.checkInStatus === 'checked-in' && (
-                            <p className="text-green-700 dark:text-green-400">You've checked in today!</p>
+                            <p className="text-green-700">You've checked in today!</p>
                           )}
                           {internData.checkInStatus === 'checked-out' && (
-                            <p className="text-blue-700 dark:text-blue-400">You've completed today's check-in/out.</p>
+                            <p className="text-blue-700">You've completed today's check-in/out.</p>
                           )}
                           {internData.checkInStatus === 'not-checked-in' && (
-                            <p className="text-yellow-700 dark:text-yellow-400">You haven't checked in yet today.</p>
+                            <p className="text-yellow-700">You haven't checked in yet today.</p>
                           )}
                           
                           {/* Action message feedback */}
                           {actionMessage.text && (
-                            <div className={`mt-2 text-sm ${actionMessage.type === 'success' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                            <div className={`mt-2 text-sm ${actionMessage.type === 'success' ? 'text-green-600' : 'text-red-600'}`}>
                               {actionMessage.text}
                             </div>
                           )}
@@ -723,33 +723,33 @@ function Dashboard() {
                     </div>
                     
                     {/* Weekly Attendance Percentage */}
-                    <div className="mb-8 bg-white dark:bg-gray-700 p-6 rounded-lg shadow border border-gray-100 dark:border-gray-600">
-                      <h4 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Weekly Attendance</h4>
+                    <div className="mb-8 bg-white p-6 rounded-lg shadow border border-gray-100">
+                      <h4 className="text-lg font-semibold mb-3 text-gray-900">Weekly Attendance</h4>
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Your attendance for the past 7 days</p>
+                          <p className="text-sm text-gray-500 mb-1">Your attendance for the past 7 days</p>
                           <div className="flex items-center gap-4">
                             <div>
-                              <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                              <p className="text-3xl font-bold text-blue-600">
                                 {internData.weeklyAttendance.percentage}%
                               </p>
                             </div>
                             <div className="grid grid-cols-2 gap-x-6 gap-y-2">
                               <div className="flex items-center gap-1">
                                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                                <span className="text-xs text-gray-600 dark:text-gray-300">Present: {internData.weeklyAttendance.presentDays}</span>
+                                <span className="text-xs text-gray-600">Present: {internData.weeklyAttendance.presentDays}</span>
                               </div>
                               <div className="flex items-center gap-1">
                                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                <span className="text-xs text-gray-600 dark:text-gray-300">Late: {internData.weeklyAttendance.lateDays}</span>
+                                <span className="text-xs text-gray-600">Late: {internData.weeklyAttendance.lateDays}</span>
                               </div>
                               <div className="flex items-center gap-1">
                                 <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-                                <span className="text-xs text-gray-600 dark:text-gray-300">Excused: {internData.weeklyAttendance.excusedDays}</span>
+                                <span className="text-xs text-gray-600">Excused: {internData.weeklyAttendance.excusedDays}</span>
                               </div>
                               <div className="flex items-center gap-1">
                                 <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                                <span className="text-xs text-gray-600 dark:text-gray-300">Absent: {internData.weeklyAttendance.absentDays}</span>
+                                <span className="text-xs text-gray-600">Absent: {internData.weeklyAttendance.absentDays}</span>
                               </div>
                             </div>
                           </div>
@@ -757,16 +757,16 @@ function Dashboard() {
                         <div className="w-24 h-24">
                           <div className="relative w-full h-full">
                             <div className="absolute inset-0 flex items-center justify-center">
-                              <div className="text-sm font-medium text-gray-700 dark:text-gray-300">7 days</div>
+                              <div className="text-sm font-medium text-gray-700">7 days</div>
                             </div>
                             <svg className="w-full h-full" viewBox="0 0 36 36">
-                              <circle cx="18" cy="18" r="16" fill="none" className="stroke-gray-200 dark:stroke-gray-600" strokeWidth="2"></circle>
+                              <circle cx="18" cy="18" r="16" fill="none" className="stroke-gray-200" strokeWidth="2"></circle>
                               <circle 
                                 cx="18" 
                                 cy="18" 
                                 r="16" 
                                 fill="none" 
-                                className="stroke-blue-500 dark:stroke-blue-400" 
+                                className="stroke-blue-500" 
                                 strokeWidth="2" 
                                 strokeDasharray={`${internData.weeklyAttendance.percentage} 100`} 
                                 strokeLinecap="round" 
@@ -776,71 +776,71 @@ function Dashboard() {
                           </div>
                         </div>
                       </div>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-3">
+                      <p className="text-xs text-gray-500 mt-3">
                         Note: Attendance percentage includes both present days and excused absences.
                       </p>
                     </div>
                     
                     {/* Attendance stats */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                      <div className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow border border-gray-100 dark:border-gray-600">
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Days Present</p>
-                        <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">{internData.stats.daysPresent}</p>
+                      <div className="bg-white p-4 rounded-lg shadow border border-gray-100">
+                        <p className="text-sm text-gray-500">Days Present</p>
+                        <p className="text-2xl font-bold text-emerald-600">{internData.stats.daysPresent}</p>
                       </div>
-                      <div className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow border border-gray-100 dark:border-gray-600">
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Days Late</p>
-                        <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{internData.stats.daysLate}</p>
+                      <div className="bg-white p-4 rounded-lg shadow border border-gray-100">
+                        <p className="text-sm text-gray-500">Days Late</p>
+                        <p className="text-2xl font-bold text-yellow-600">{internData.stats.daysLate}</p>
                       </div>
-                      <div className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow border border-gray-100 dark:border-gray-600">
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Days Absent</p>
-                        <p className="text-2xl font-bold text-red-600 dark:text-red-400">{internData.stats.daysAbsent}</p>
+                      <div className="bg-white p-4 rounded-lg shadow border border-gray-100">
+                        <p className="text-sm text-gray-500">Days Absent</p>
+                        <p className="text-2xl font-bold text-red-600">{internData.stats.daysAbsent}</p>
                       </div>
-                      <div className="bg-white dark:bg-gray-700 p-4 rounded-lg shadow border border-gray-100 dark:border-gray-600">
-                        <p className="text-sm text-gray-500 dark:text-gray-400">Check-in Streak</p>
-                        <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{internData.stats.checkInStreak}</p>
+                      <div className="bg-white p-4 rounded-lg shadow border border-gray-100">
+                        <p className="text-sm text-gray-500">Check-in Streak</p>
+                        <p className="text-2xl font-bold text-blue-600">{internData.stats.checkInStreak}</p>
                       </div>
                     </div>
                     
                     {/* Recent attendance history */}
                     <div>
-                      <h4 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">My Recent Attendance</h4>
-                      <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
-                        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                          <thead className="bg-gray-50 dark:bg-gray-800">
+                      <h4 className="text-lg font-semibold mb-4 text-gray-900">My Recent Attendance</h4>
+                      <div className="overflow-hidden rounded-lg border border-gray-200">
+                        <table className="min-w-full divide-y divide-gray-200">
+                          <thead className="bg-gray-50">
                             <tr>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Date</th>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Check-in Time</th>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-in Time</th>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                             </tr>
                           </thead>
-                          <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-700 dark:divide-gray-600">
+                          <tbody className="bg-white divide-y divide-gray-200">
                             {internData.attendanceHistory.slice(0, 5).map((record, index) => (
-                              <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                              <tr key={index} className="hover:bg-gray-50">
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                   {new Date(record.date).toLocaleDateString()}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                   {record.checkInTime ? new Date(record.checkInTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'N/A'}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                                   {record.status === 'present' && (
-                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">Present</span>
+                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Present</span>
                                   )}
                                   {record.status === 'late' && (
-                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">Late</span>
+                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Late</span>
                                   )}
                                   {record.status === 'absent' && (
-                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">Absent</span>
+                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Absent</span>
                                   )}
                                   {record.status === 'excused' && (
-                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">Excused</span>
+                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Excused</span>
                                   )}
                                 </td>
                               </tr>
                             ))}
                             {internData.attendanceHistory.length === 0 && (
                               <tr>
-                                <td colSpan="3" className="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                                <td colSpan="3" className="px-6 py-4 text-center text-sm text-gray-500">
                                   No attendance records found.
                                 </td>
                               </tr>
@@ -856,50 +856,50 @@ function Dashboard() {
               {/* Recent Activity */}
               <motion.div 
                 variants={itemVariants}
-                className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-lg border border-emerald-200 dark:border-gray-700 overflow-hidden"
+                className="bg-white/80 rounded-2xl shadow-lg border border-emerald-200 overflow-hidden"
               >
-                <div className="px-8 py-6 border-b border-emerald-100 dark:border-emerald-800 flex items-center gap-2">
-                  <Clock className="text-emerald-500 dark:text-emerald-400" size={20} />
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Activity</h3>
+                <div className="px-8 py-6 border-b border-emerald-100 flex items-center gap-2">
+                  <Clock className="text-emerald-500" size={20} />
+                  <h3 className="text-lg font-semibold text-gray-900">Recent Activity</h3>
                 </div>
-                <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                <div className="divide-y divide-gray-200">
                   {recentActivity.map((item, index) => (
                     <div key={index} className="px-8 py-5 flex items-center gap-4">
                       <div className="flex-shrink-0">
-                        <div className="w-10 h-10 bg-emerald-50 dark:bg-emerald-900/20 rounded-full flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold text-lg">
+                        <div className="w-10 h-10 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-600 font-bold text-lg">
                           {item.name ? item.name.split(' ').map(n => n[0]).join('') : '?'}
                         </div>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm text-gray-900 dark:text-white font-medium">
+                        <p className="text-sm text-gray-900 font-medium">
                           <span className="font-semibold">{item.name}</span> {item.action}
                         </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        <p className="text-xs text-gray-500 mt-1">
                           {item.time}
                         </p>
                       </div>
                       <div>
                         {item.status === 'present' && (
-                          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300">Present</span>
+                          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700">Present</span>
                         )}
                         {item.status === 'late' && (
-                          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">Late</span>
+                          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-800">Late</span>
                         )}
                         {item.status === 'absent' && (
-                          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300">Absent</span>
+                          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">Absent</span>
                         )}
                         {item.status === 'excused' && (
-                          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300">Excused</span>
+                          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">Excused</span>
                         )}
                         {item.status === 'leave' && (
-                          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300">Leave</span>
+                          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">Leave</span>
                         )}
                       </div>
                     </div>
                   ))}
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-700 px-8 py-4">
-                  <Link href="/activity" className="text-sm font-medium text-emerald-600 dark:text-emerald-400 hover:text-blue-500 dark:hover:text-blue-300">
+                <div className="bg-gray-50 px-8 py-4">
+                  <Link href="/activity" className="text-sm font-medium text-emerald-600 hover:text-blue-500">
                     View all activity →
                   </Link>
                 </div>
@@ -912,6 +912,7 @@ function Dashboard() {
     </ErrorBoundary>
   );
 }
+
 
 
 

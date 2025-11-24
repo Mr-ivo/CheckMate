@@ -18,8 +18,8 @@ export default function SearchResults({ results, isLoading, onResultClick, maxHe
   // If loading, show a loading indicator
   if (isLoading) {
     return (
-      <div className="absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg rounded-md border border-gray-200 dark:border-gray-700 z-50 overflow-hidden">
-        <div className="p-4 text-center text-sm text-gray-500 dark:text-gray-400">
+      <div className="absolute mt-1 w-full bg-white shadow-lg rounded-md border border-gray-200 z-50 overflow-hidden">
+        <div className="p-4 text-center text-sm text-gray-500">
           <div className="flex justify-center mb-2">
             <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-emerald-500"></div>
           </div>
@@ -32,8 +32,8 @@ export default function SearchResults({ results, isLoading, onResultClick, maxHe
   // If no results found
   if (!results || Object.values(results).flat().length === 0) {
     return (
-      <div className="absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg rounded-md border border-gray-200 dark:border-gray-700 z-50 overflow-hidden">
-        <div className="p-4 text-center text-sm text-gray-500 dark:text-gray-400">
+      <div className="absolute mt-1 w-full bg-white shadow-lg rounded-md border border-gray-200 z-50 overflow-hidden">
+        <div className="p-4 text-center text-sm text-gray-500">
           No results found.
         </div>
       </div>
@@ -42,20 +42,20 @@ export default function SearchResults({ results, isLoading, onResultClick, maxHe
 
   // Display results
   return (
-    <div className="absolute mt-1 w-full bg-white dark:bg-gray-800 shadow-lg rounded-md border border-gray-200 dark:border-gray-700 z-50 overflow-hidden">
+    <div className="absolute mt-1 w-full bg-white shadow-lg rounded-md border border-gray-200 z-50 overflow-hidden">
       <div className={`overflow-y-auto`} style={{ maxHeight }}>
         {/* Interns Section */}
         {results.interns && results.interns.length > 0 && (
           <>
-            <div className="px-4 py-2 bg-gray-50 dark:bg-gray-900 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+            <div className="px-4 py-2 bg-gray-50 text-xs font-medium text-gray-500 uppercase">
               Interns
             </div>
-            <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+            <ul className="divide-y divide-gray-200">
               {results.interns.map((intern) => (
                 <li key={intern.id || intern._id}>
                   <Link 
                     href={`/interns/${intern._id || intern.id}`}
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
+                    className="block px-4 py-2 hover:bg-gray-100 transition-colors duration-150"
                     onClick={() => onResultClick && onResultClick()}
                   >
                     <div className="flex items-center">
@@ -63,10 +63,10 @@ export default function SearchResults({ results, isLoading, onResultClick, maxHe
                         {iconMap.intern}
                       </div>
                       <div className="ml-3">
-                        <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                        <p className="text-sm font-medium text-gray-900">
                           {intern.userId?.name || intern.name || 'Unknown'}
                         </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-xs text-gray-500">
                           {intern.userId?.email || intern.email || ''}
                         </p>
                       </div>
@@ -81,10 +81,10 @@ export default function SearchResults({ results, isLoading, onResultClick, maxHe
         {/* Attendance Section */}
         {results.attendance && results.attendance.length > 0 && (
           <>
-            <div className="px-4 py-2 bg-gray-50 dark:bg-gray-900 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+            <div className="px-4 py-2 bg-gray-50 text-xs font-medium text-gray-500 uppercase">
               Attendance
             </div>
-            <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+            <ul className="divide-y divide-gray-200">
               {results.attendance.map((record) => {
                 // Determine icon based on status
                 let statusIcon = iconMap.default;
@@ -102,7 +102,7 @@ export default function SearchResults({ results, isLoading, onResultClick, maxHe
                   <li key={record.id || record._id}>
                                       <Link 
                     href={`/dashboard/attendance?date=${formattedDate}&internId=${record.internId?._id || record.internId}`}
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-150"
+                    className="block px-4 py-2 hover:bg-gray-100 transition-colors duration-150"
                     onClick={() => onResultClick && onResultClick()}
                   >
                       <div className="flex items-center">
@@ -110,10 +110,10 @@ export default function SearchResults({ results, isLoading, onResultClick, maxHe
                           {statusIcon}
                         </div>
                         <div className="ml-3">
-                          <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                          <p className="text-sm font-medium text-gray-900">
                             {internName} - {record.status}
                           </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                          <p className="text-xs text-gray-500">
                             {formattedDate}
                           </p>
                         </div>
@@ -129,3 +129,4 @@ export default function SearchResults({ results, isLoading, onResultClick, maxHe
     </div>
   );
 }
+

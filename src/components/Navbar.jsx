@@ -297,7 +297,7 @@ export default function Navbar({ toggleSidebar, isMobile }) {
   }, []);
 
   return (
-    <nav className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800 w-full z-30">
+    <nav className="bg-white shadow-sm border-b border-gray-200 w-full z-30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           {/* Left section - Logo */}
@@ -320,7 +320,7 @@ export default function Navbar({ toggleSidebar, isMobile }) {
           <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-sm mx-2 lg:mx-4 items-center -ml-8" ref={searchRef}>
             <div className="w-full relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search size={16} className="text-gray-400 dark:text-gray-500" />
+                <Search size={16} className="text-gray-400" />
               </div>
               <input
                 type="text"
@@ -328,7 +328,7 @@ export default function Navbar({ toggleSidebar, isMobile }) {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => searchQuery.trim().length >= 2 && setShowSearchResults(true)}
                 placeholder="Search interns, attendance..."
-                className="block w-full pl-10 pr-12 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800/70 text-sm text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200 shadow-sm"
+                className="block w-full pl-10 pr-12 py-2 border border-gray-200 rounded-lg bg-gray-50 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200 shadow-sm"
                 aria-label="Search"
                 autoComplete="off"
               />
@@ -336,13 +336,13 @@ export default function Navbar({ toggleSidebar, isMobile }) {
                 {isSearching ? (
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-emerald-500 mr-1"></div>
                 ) : (
-                  <kbd className="hidden sm:inline-flex items-center rounded px-1.5 text-xs font-semibold text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 mr-1">
+                  <kbd className="hidden sm:inline-flex items-center rounded px-1.5 text-xs font-semibold text-gray-500 border border-gray-300 bg-gray-100 mr-1">
                     ⌘K
                   </kbd>
                 )}
                 <button 
                   type="submit" 
-                  className="p-0.5 rounded-md text-gray-400 hover:text-emerald-500 dark:text-gray-500 dark:hover:text-emerald-400 focus:outline-none"
+                  className="p-0.5 rounded-md text-gray-400 hover:text-emerald-500 focus:outline-none"
                   aria-label="Submit search"
                 >
                   <ChevronRight size={14} />
@@ -366,7 +366,7 @@ export default function Navbar({ toggleSidebar, isMobile }) {
             {isMobile && (
               <button
                 onClick={toggleSidebar}
-                className="p-2 rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white focus:outline-none"
+                className="p-2 rounded-md text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none"
                 aria-label="Toggle sidebar"
               >
                 <Menu size={20} />
@@ -376,7 +376,7 @@ export default function Navbar({ toggleSidebar, isMobile }) {
             {/* Notifications */}
             <div className="relative" ref={notificationRef}>
               <button
-                className="relative p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                className="relative p-2 text-gray-600 hover:text-gray-900 transition-colors"
                 aria-label="Notifications"
                 onClick={() => setShowNotifications(!showNotifications)}
               >
@@ -391,17 +391,17 @@ export default function Navbar({ toggleSidebar, isMobile }) {
               {/* Notifications Dropdown */}
               {showNotifications && (
                 <motion.div 
-                  className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50 border border-gray-200 dark:border-gray-700"
+                  className="absolute right-0 mt-2 w-80 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-                    <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">Notifications</h3>
+                  <div className="px-4 py-2 border-b border-gray-200 flex justify-between items-center">
+                    <h3 className="text-sm font-medium text-gray-700">Notifications</h3>
                     {unreadCount > 0 && (
                       <button 
                         onClick={handleMarkAllAsRead}
-                        className="text-xs font-medium text-emerald-600 dark:text-emerald-400 cursor-pointer hover:underline"
+                        className="text-xs font-medium text-emerald-600 cursor-pointer hover:underline"
                       >
                         Mark all as read
                       </button>
@@ -410,14 +410,14 @@ export default function Navbar({ toggleSidebar, isMobile }) {
                   
                   <div className="max-h-60 overflow-y-auto">
                     {notificationsLoading ? (
-                      <div className="px-4 py-6 text-center text-sm text-gray-500 dark:text-gray-400">
+                      <div className="px-4 py-6 text-center text-sm text-gray-500">
                         Loading notifications...
                       </div>
                     ) : notifications.length > 0 ? (
                       notifications.map((notification) => (
                         <div 
                           key={notification._id}
-                          className={`px-4 py-3 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer ${notification.isRead ? '' : 'bg-blue-50 dark:bg-gray-700/60'}`}
+                          className={`px-4 py-3 border-b border-gray-100 hover:bg-gray-50 cursor-pointer ${notification.isRead ? '' : 'bg-blue-50'}`}
                           onClick={() => {
                             if (!notification.isRead) {
                               handleMarkAsRead(notification._id);
@@ -433,10 +433,10 @@ export default function Navbar({ toggleSidebar, isMobile }) {
                               {notification.isRead ? null : <div className="w-2 h-2 rounded-full bg-blue-600"></div>}
                             </div>
                             <div className="ml-3 flex-1">
-                              <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">{notification.title}</p>
-                              <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{notification.message}</p>
+                              <p className="text-sm font-semibold text-gray-800">{notification.title}</p>
+                              <p className="text-sm text-gray-600 mt-1">{notification.message}</p>
                               <div className="flex items-center justify-between mt-2">
-                                <p className="text-xs text-gray-500 dark:text-gray-400">
+                                <p className="text-xs text-gray-500">
                                   {new Date(notification.createdAt).toLocaleDateString('en-US', {
                                     month: 'short',
                                     day: 'numeric',
@@ -460,14 +460,14 @@ export default function Navbar({ toggleSidebar, isMobile }) {
                         </div>
                       ))
                     ) : (
-                      <div className="px-4 py-6 text-center text-sm text-gray-500 dark:text-gray-400">
+                      <div className="px-4 py-6 text-center text-sm text-gray-500">
                         No new notifications
                       </div>
                     )}
                   </div>
                   
-                  <div className="px-4 py-2 border-t border-gray-200 dark:border-gray-700 text-center">
-                    <Link href="/notifications" className="text-xs font-medium text-emerald-600 dark:text-emerald-400 hover:underline">
+                  <div className="px-4 py-2 border-t border-gray-200 text-center">
+                    <Link href="/notifications" className="text-xs font-medium text-emerald-600 hover:underline">
                       View all notifications
                     </Link>
                   </div>
@@ -478,35 +478,35 @@ export default function Navbar({ toggleSidebar, isMobile }) {
             {/* Profile menu */}
             <div className="relative" ref={profileMenuRef}>
               <button
-                className="p-1 rounded-full border-2 border-gray-200 dark:border-gray-700 hover:border-emerald-500 dark:hover:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                className="p-1 rounded-full border-2 border-gray-200 hover:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
                 aria-label="User menu"
                 onClick={() => setShowProfileMenu(!showProfileMenu)}
               >
-                <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
-                  <User size={16} className="text-gray-500 dark:text-gray-400" />
+                <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                  <User size={16} className="text-gray-500" />
                 </div>
               </button>
               
               {/* Profile Dropdown */}
               {showProfileMenu && (
                 <motion.div
-                  className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50 border border-gray-200 dark:border-gray-700"
+                  className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
-                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Admin User</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">admin@example.com</p>
+                  <div className="px-4 py-3 border-b border-gray-100">
+                    <p className="text-sm font-medium text-gray-700">Admin User</p>
+                    <p className="text-xs text-gray-500 mt-1">admin@example.com</p>
                   </div>
                   
-                  <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     Your Profile
                   </Link>
-                  <Link href="/settings" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <Link href="/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     Settings
                   </Link>
-                  <Link href="/logout" className="block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <Link href="/logout" className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
                     Sign out
                   </Link>
                 </motion.div>
@@ -518,3 +518,4 @@ export default function Navbar({ toggleSidebar, isMobile }) {
     </nav>
   );
 }
+

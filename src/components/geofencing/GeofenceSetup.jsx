@@ -148,10 +148,10 @@ export default function GeofenceSetup() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-lg font-semibold text-gray-900">
             Geofence Locations
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          <p className="text-sm text-gray-600 mt-1">
             Define allowed check-in locations with radius
           </p>
         </div>
@@ -173,16 +173,16 @@ export default function GeofenceSetup() {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-gray-800 rounded-lg border-2 border-emerald-500 p-6"
+          className="bg-white rounded-lg border-2 border-emerald-500 p-6"
         >
-          <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <h4 className="text-lg font-semibold text-gray-900 mb-4">
             {editingId ? 'Edit Geofence' : 'Add New Geofence'}
           </h4>
           
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Location Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Location Name *
               </label>
               <input
@@ -190,9 +190,9 @@ export default function GeofenceSetup() {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="e.g., Main Office, Branch A"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 
-                         rounded-lg focus:ring-2 focus:ring-emerald-500 dark:bg-gray-700 
-                         dark:text-white"
+                className="w-full px-4 py-2 border border-gray-300 
+                         rounded-lg focus:ring-2 focus:ring-emerald-500 
+                        "
                 required
               />
             </div>
@@ -200,7 +200,7 @@ export default function GeofenceSetup() {
             {/* Coordinates */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Latitude *
                 </label>
                 <input
@@ -209,15 +209,15 @@ export default function GeofenceSetup() {
                   value={formData.latitude}
                   onChange={(e) => setFormData({ ...formData, latitude: e.target.value })}
                   placeholder="e.g., 40.7128"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 
-                           rounded-lg focus:ring-2 focus:ring-emerald-500 dark:bg-gray-700 
-                           dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 
+                           rounded-lg focus:ring-2 focus:ring-emerald-500 
+                          "
                   required
                 />
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Longitude *
                 </label>
                 <input
@@ -226,9 +226,9 @@ export default function GeofenceSetup() {
                   value={formData.longitude}
                   onChange={(e) => setFormData({ ...formData, longitude: e.target.value })}
                   placeholder="e.g., -74.0060"
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 
-                           rounded-lg focus:ring-2 focus:ring-emerald-500 dark:bg-gray-700 
-                           dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 
+                           rounded-lg focus:ring-2 focus:ring-emerald-500 
+                          "
                   required
                 />
               </div>
@@ -247,7 +247,7 @@ export default function GeofenceSetup() {
 
             {/* Radius */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Radius (meters): {formData.radius}m
               </label>
               <input
@@ -259,7 +259,7 @@ export default function GeofenceSetup() {
                 onChange={(e) => setFormData({ ...formData, radius: parseInt(e.target.value) })}
                 className="w-full"
               />
-              <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
+              <div className="flex justify-between text-xs text-gray-500 mt-1">
                 <span>50m</span>
                 <span>5000m</span>
               </div>
@@ -267,7 +267,7 @@ export default function GeofenceSetup() {
 
             {/* Description */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Description (Optional)
               </label>
               <textarea
@@ -275,9 +275,9 @@ export default function GeofenceSetup() {
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 placeholder="Additional notes about this location..."
                 rows="3"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 
-                         rounded-lg focus:ring-2 focus:ring-emerald-500 dark:bg-gray-700 
-                         dark:text-white"
+                className="w-full px-4 py-2 border border-gray-300 
+                         rounded-lg focus:ring-2 focus:ring-emerald-500 
+                        "
               />
             </div>
 
@@ -295,8 +295,8 @@ export default function GeofenceSetup() {
               <button
                 type="button"
                 onClick={handleCancel}
-                className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 
-                         rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center 
+                className="px-4 py-2 bg-gray-200 text-gray-700 
+                         rounded-lg hover:bg-gray-300 flex items-center 
                          gap-2 transition-colors"
               >
                 <X className="w-4 h-4" />
@@ -314,21 +314,21 @@ export default function GeofenceSetup() {
             key={geofence._id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 
-                     dark:border-gray-700 p-4 hover:border-emerald-500 transition-colors"
+            className="bg-white rounded-lg border border-gray-200 
+                     p-4 hover:border-emerald-500 transition-colors"
           >
             <div className="flex items-start justify-between">
               <div className="flex gap-3 flex-1">
-                <div className="p-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg">
-                  <MapPin className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                <div className="p-2 bg-emerald-100 rounded-lg">
+                  <MapPin className="w-5 h-5 text-emerald-600" />
                 </div>
                 
                 <div className="flex-1">
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
+                  <h4 className="font-semibold text-gray-900 mb-1">
                     {geofence.name}
                   </h4>
                   
-                  <div className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                  <div className="text-sm text-gray-600 space-y-1">
                     <p>
                       📍 {geofence.location?.coordinates?.[1]?.toFixed(6) || 'N/A'}, {geofence.location?.coordinates?.[0]?.toFixed(6) || 'N/A'}
                     </p>
@@ -336,7 +336,7 @@ export default function GeofenceSetup() {
                       🎯 Radius: {geofence.radius}m
                     </p>
                     {geofence.description && (
-                      <p className="text-gray-500 dark:text-gray-500">
+                      <p className="text-gray-500">
                         {geofence.description}
                       </p>
                     )}
@@ -344,15 +344,15 @@ export default function GeofenceSetup() {
                   
                   <div className="flex items-center gap-2 mt-2">
                     {geofence.isActive ? (
-                      <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 
-                                     text-green-700 dark:text-green-400 text-xs rounded-full 
+                      <span className="px-2 py-1 bg-green-100 
+                                     text-green-700 text-xs rounded-full 
                                      flex items-center gap-1">
                         <CheckCircle2 className="w-3 h-3" />
                         Active
                       </span>
                     ) : (
-                      <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 
-                                     text-gray-600 dark:text-gray-400 text-xs rounded-full">
+                      <span className="px-2 py-1 bg-gray-100 
+                                     text-gray-600 text-xs rounded-full">
                         Inactive
                       </span>
                     )}
@@ -364,7 +364,7 @@ export default function GeofenceSetup() {
               <div className="flex gap-2">
                 <button
                   onClick={() => handleEdit(geofence)}
-                  className="p-2 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 
+                  className="p-2 text-emerald-600 hover:bg-emerald-50 
                            rounded-lg transition-colors"
                   title="Edit"
                 >
@@ -373,7 +373,7 @@ export default function GeofenceSetup() {
                 
                 <button
                   onClick={() => handleDelete(geofence._id)}
-                  className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 
+                  className="p-2 text-red-600 hover:bg-red-50 
                            rounded-lg transition-colors"
                   title="Delete"
                 >
@@ -385,7 +385,7 @@ export default function GeofenceSetup() {
         ))}
 
         {geofences.length === 0 && !showAddForm && (
-          <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+          <div className="text-center py-12 text-gray-500">
             <MapPin className="w-12 h-12 mx-auto mb-3 opacity-50" />
             <p>No geofences configured</p>
             <p className="text-sm mt-1">Click "Add Location" to create your first geofence</p>
@@ -394,15 +394,15 @@ export default function GeofenceSetup() {
       </div>
 
       {/* Info Box */}
-      <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 
+      <div className="bg-emerald-50 border border-emerald-200 
                     rounded-lg p-4">
         <div className="flex gap-3">
-          <AlertCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
+          <AlertCircle className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
           <div>
-            <h4 className="font-semibold text-emerald-900 dark:text-emerald-300 mb-1">
+            <h4 className="font-semibold text-emerald-900 mb-1">
               How Geofencing Works
             </h4>
-            <ul className="text-sm text-emerald-800 dark:text-emerald-400 space-y-1">
+            <ul className="text-sm text-emerald-800 space-y-1">
               <li>• Users can only check-in when they are within the defined radius</li>
               <li>• Location is verified using GPS coordinates</li>
               <li>• Multiple geofences can be created for different locations</li>
@@ -414,3 +414,4 @@ export default function GeofenceSetup() {
     </div>
   );
 }
+

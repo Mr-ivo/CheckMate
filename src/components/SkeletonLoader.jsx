@@ -5,7 +5,7 @@ import React from 'react';
 // Base skeleton component
 const SkeletonItem = ({ className = "" }) => (
   <div 
-    className={`animate-pulse bg-gray-200 dark:bg-gray-700 rounded ${className}`}
+    className={`animate-pulse bg-gray-200 rounded ${className}`}
   ></div>
 );
 
@@ -24,7 +24,7 @@ export const TableRowSkeleton = ({ columns = 5 }) => {
 
 // Card skeleton
 export const CardSkeleton = () => (
-  <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700">
+  <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
     <SkeletonItem className="h-6 w-2/3 mb-4" />
     <SkeletonItem className="h-20 w-full mb-3" />
     <SkeletonItem className="h-4 w-full mb-2" />
@@ -54,7 +54,7 @@ export const ChartSkeleton = () => (
 
 // Stats card skeleton
 export const StatsCardSkeleton = () => (
-  <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+  <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
     <SkeletonItem className="h-4 w-1/2 mb-3" />
     <SkeletonItem className="h-8 w-1/3 mb-2" />
     <SkeletonItem className="h-3 w-2/3" />
@@ -63,7 +63,7 @@ export const StatsCardSkeleton = () => (
 
 // Notification skeleton
 export const NotificationSkeleton = () => (
-  <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800">
+  <div className="p-4 border border-gray-200 rounded-lg bg-white">
     <div className="flex">
       <SkeletonItem className="h-8 w-8 rounded-full mr-3" />
       <div className="flex-1">
@@ -92,7 +92,7 @@ export const DashboardSkeleton = () => (
     </div>
     
     {/* Table section */}
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700">
+    <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
       <SkeletonItem className="h-6 w-1/4 mb-6" />
       <div className="space-y-4">
         {[...Array(5)].map((_, i) => (
@@ -112,3 +112,4 @@ export default {
   NotificationSkeleton,
   DashboardSkeleton
 };
+

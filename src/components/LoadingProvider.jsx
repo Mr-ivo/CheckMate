@@ -54,7 +54,7 @@ function LoadingProviderContent({ children }) {
   return (
     <LoadingContext.Provider value={{ isLoading, setIsLoading, triggerLoading }}>
       {/* Global loading overlay - always rendered but only visible when isLoading is true */}
-      <div className={`fixed inset-0 bg-white/90 dark:bg-gray-900/90 z-[9999] flex items-center justify-center backdrop-blur-md transition-opacity duration-300 ${isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+      <div className={`fixed inset-0 bg-white/90 z-[9999] flex items-center justify-center backdrop-blur-md transition-opacity duration-300 ${isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <div className="logo-loader scale-150">
           <Image 
             src="/checkmate-logo.png" 
@@ -73,7 +73,7 @@ function LoadingProviderContent({ children }) {
 export default function LoadingProvider({ children }) {
   return (
     <Suspense fallback={
-      <div className="fixed inset-0 bg-white/90 dark:bg-gray-900/90 z-[9999] flex items-center justify-center backdrop-blur-md">
+      <div className="fixed inset-0 bg-white/90 z-[9999] flex items-center justify-center backdrop-blur-md">
         <div className="logo-loader scale-150">
           <Image 
             src="/checkmate-logo.png" 
@@ -89,3 +89,4 @@ export default function LoadingProvider({ children }) {
     </Suspense>
   );
 }
+

@@ -100,24 +100,24 @@ export default function RegisterPage() {
 
   if (registrationSuccess) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 flex items-center justify-center p-4">
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 max-w-md w-full text-center"
+          className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center"
         >
           <div className="mb-6">
-            <div className="mx-auto w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
-              <CheckCircle2 className="w-12 h-12 text-green-600 dark:text-green-400" />
+            <div className="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
+              <CheckCircle2 className="w-12 h-12 text-green-600" />
             </div>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Registration Successful!
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
+          <p className="text-gray-600 mb-6">
             Your account has been created and is pending admin approval. You'll receive an email once your account is activated.
           </p>
-          <div className="text-sm text-gray-500 dark:text-gray-400">
+          <div className="text-sm text-gray-500">
             Redirecting to login page...
           </div>
         </motion.div>
@@ -126,25 +126,25 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 max-w-2xl w-full"
+        className="bg-white rounded-2xl shadow-2xl p-8 max-w-2xl w-full"
       >
         {/* Header */}
         <div className="text-center mb-8">
           <Link 
             href="/login"
-            className="inline-flex items-center text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 mb-4"
+            className="inline-flex items-center text-emerald-600 hover:text-emerald-700 mb-4"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Login
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
             Create Account
           </h1>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600">
             Register to join the CheckMate attendance system
           </p>
         </div>
@@ -154,7 +154,7 @@ export default function RegisterPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Full Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Full Name *
               </label>
               <div className="relative">
@@ -162,8 +162,8 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   className={`w-full pl-10 pr-4 py-3 border ${
-                    errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                    errors.name ? 'border-red-500' : 'border-gray-300'
+                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900
                   placeholder="John Doe"
                   {...register('name', { 
                     required: 'Full name is required',
@@ -172,13 +172,13 @@ export default function RegisterPage() {
                 />
               </div>
               {errors.name && (
-                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name.message}</p>
+                <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
               )}
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Email Address *
               </label>
               <div className="relative">
@@ -186,8 +186,8 @@ export default function RegisterPage() {
                 <input
                   type="email"
                   className={`w-full pl-10 pr-4 py-3 border ${
-                    errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                    errors.email ? 'border-red-500' : 'border-gray-300'
+                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900
                   placeholder="john@example.com"
                   {...register('email', { 
                     required: 'Email is required',
@@ -199,13 +199,13 @@ export default function RegisterPage() {
                 />
               </div>
               {errors.email && (
-                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email.message}</p>
+                <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
               )}
             </div>
 
             {/* Employee ID */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Employee ID *
               </label>
               <div className="relative">
@@ -213,8 +213,8 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   className={`w-full pl-10 pr-4 py-3 border ${
-                    errors.employeeId ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                    errors.employeeId ? 'border-red-500' : 'border-gray-300'
+                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900
                   placeholder="EMP-001"
                   {...register('employeeId', { 
                     required: 'Employee ID is required'
@@ -222,13 +222,13 @@ export default function RegisterPage() {
                 />
               </div>
               {errors.employeeId && (
-                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.employeeId.message}</p>
+                <p className="mt-1 text-sm text-red-600">{errors.employeeId.message}</p>
               )}
             </div>
 
             {/* Phone */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Phone Number *
               </label>
               <div className="relative">
@@ -236,8 +236,8 @@ export default function RegisterPage() {
                 <input
                   type="tel"
                   className={`w-full pl-10 pr-4 py-3 border ${
-                    errors.phone ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                    errors.phone ? 'border-red-500' : 'border-gray-300'
+                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900
                   placeholder="+1234567890"
                   {...register('phone', { 
                     required: 'Phone number is required',
@@ -249,21 +249,21 @@ export default function RegisterPage() {
                 />
               </div>
               {errors.phone && (
-                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.phone.message}</p>
+                <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
               )}
             </div>
 
             {/* Department */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Department *
               </label>
               <div className="relative">
                 <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <select
                   className={`w-full pl-10 pr-4 py-3 border ${
-                    errors.department ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                    errors.department ? 'border-red-500' : 'border-gray-300'
+                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900
                   {...register('department', { required: 'Department is required' })}
                 >
                   <option value="">Select Department</option>
@@ -273,13 +273,13 @@ export default function RegisterPage() {
                 </select>
               </div>
               {errors.department && (
-                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.department.message}</p>
+                <p className="mt-1 text-sm text-red-600">{errors.department.message}</p>
               )}
             </div>
 
             {/* Position */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Position *
               </label>
               <div className="relative">
@@ -287,27 +287,27 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   className={`w-full pl-10 pr-4 py-3 border ${
-                    errors.position ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                    errors.position ? 'border-red-500' : 'border-gray-300'
+                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900
                   placeholder="Software Developer"
                   {...register('position', { required: 'Position is required' })}
                 />
               </div>
               {errors.position && (
-                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.position.message}</p>
+                <p className="mt-1 text-sm text-red-600">{errors.position.message}</p>
               )}
             </div>
           </div>
 
           {/* Address */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Address
             </label>
             <div className="relative">
               <MapPin className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
               <textarea
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900"
                 placeholder="Your address"
                 rows="2"
                 {...register('address')}
@@ -317,7 +317,7 @@ export default function RegisterPage() {
 
           {/* Password */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Password *
             </label>
             <div className="relative">
@@ -325,8 +325,8 @@ export default function RegisterPage() {
               <input
                 type={showPassword ? 'text' : 'password'}
                 className={`w-full pl-10 pr-12 py-3 border ${
-                  errors.password ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                  errors.password ? 'border-red-500' : 'border-gray-300'
+                } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900
                 placeholder="••••••••"
                 {...register('password', { 
                   required: 'Password is required',
@@ -344,26 +344,26 @@ export default function RegisterPage() {
             {password && (
               <div className="mt-2">
                 <div className="flex items-center gap-2 mb-1">
-                  <div className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                  <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div 
                       className={`h-full ${passwordStrength.color} transition-all duration-300`}
                       style={{ width: `${(passwordStrength.strength / 4) * 100}%` }}
                     />
                   </div>
-                  <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
+                  <span className="text-xs font-medium text-gray-600">
                     {passwordStrength.label}
                   </span>
                 </div>
               </div>
             )}
             {errors.password && (
-              <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.password.message}</p>
+              <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
             )}
           </div>
 
           {/* Confirm Password */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Confirm Password *
             </label>
             <div className="relative">
@@ -371,8 +371,8 @@ export default function RegisterPage() {
               <input
                 type={showConfirmPassword ? 'text' : 'password'}
                 className={`w-full pl-10 pr-12 py-3 border ${
-                  errors.confirmPassword ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                  errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
+                } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900
                 placeholder="••••••••"
                 {...register('confirmPassword', { 
                   required: 'Please confirm your password',
@@ -388,15 +388,15 @@ export default function RegisterPage() {
               </button>
             </div>
             {errors.confirmPassword && (
-              <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.confirmPassword.message}</p>
+              <p className="mt-1 text-sm text-red-600">{errors.confirmPassword.message}</p>
             )}
           </div>
 
           {/* Info Box */}
-          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
             <div className="flex items-start gap-3">
-              <AlertCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
-              <div className="text-sm text-blue-800 dark:text-blue-300">
+              <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+              <div className="text-sm text-blue-800">
                 <p className="font-medium mb-1">Account Approval Required</p>
                 <p>Your account will be reviewed by an administrator. You'll receive an email notification once approved.</p>
               </div>
@@ -425,9 +425,9 @@ export default function RegisterPage() {
 
         {/* Login Link */}
         <div className="mt-6 text-center">
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600">
             Already have an account?{' '}
-            <Link href="/login" className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 font-medium">
+            <Link href="/login" className="text-emerald-600 hover:text-emerald-700 font-medium">
               Sign in here
             </Link>
           </p>
@@ -436,3 +436,4 @@ export default function RegisterPage() {
     </div>
   );
 }
+

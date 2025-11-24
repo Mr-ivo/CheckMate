@@ -153,7 +153,7 @@ export default function UserManagementPage() {
   const getStatusBadge = (user) => {
     if (!user.isActive && user.role === 'intern') {
       return (
-        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">
+        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
           <Clock className="w-3 h-3" />
           Pending
         </span>
@@ -161,14 +161,14 @@ export default function UserManagementPage() {
     }
     if (user.isActive) {
       return (
-        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
+        <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
           <CheckCircle className="w-3 h-3" />
           Active
         </span>
       );
     }
     return (
-      <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">
+      <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
         <XCircle className="w-3 h-3" />
         Inactive
       </span>
@@ -181,24 +181,24 @@ export default function UserManagementPage() {
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+      <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-8">
             <Link
               href="/settings"
-              className="inline-flex items-center text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 mb-4"
+              className="inline-flex items-center text-emerald-600 hover:text-emerald-700 mb-4"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Settings
             </Link>
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
-                  <Users className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
+                <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
+                  <Users className="w-8 h-8 text-emerald-600" />
                   User Management
                 </h1>
-                <p className="text-gray-600 dark:text-gray-400 mt-2">
+                <p className="text-gray-600 mt-2">
                   Approve registrations and manage user accounts
                 </p>
               </div>
@@ -217,12 +217,12 @@ export default function UserManagementPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6"
+              className="bg-white rounded-xl shadow-md p-6"
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Total Users</p>
-                  <p className="text-3xl font-bold text-gray-900 dark:text-white mt-1">
+                  <p className="text-sm text-gray-600">Total Users</p>
+                  <p className="text-3xl font-bold text-gray-900 mt-1">
                     {users.length}
                   </p>
                 </div>
@@ -234,12 +234,12 @@ export default function UserManagementPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6"
+              className="bg-white rounded-xl shadow-md p-6"
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Pending Approval</p>
-                  <p className="text-3xl font-bold text-yellow-600 dark:text-yellow-400 mt-1">
+                  <p className="text-sm text-gray-600">Pending Approval</p>
+                  <p className="text-3xl font-bold text-yellow-600 mt-1">
                     {pendingCount}
                   </p>
                 </div>
@@ -251,12 +251,12 @@ export default function UserManagementPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6"
+              className="bg-white rounded-xl shadow-md p-6"
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Active Users</p>
-                  <p className="text-3xl font-bold text-green-600 dark:text-green-400 mt-1">
+                  <p className="text-sm text-gray-600">Active Users</p>
+                  <p className="text-3xl font-bold text-green-600 mt-1">
                     {activeCount}
                   </p>
                 </div>
@@ -268,12 +268,12 @@ export default function UserManagementPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6"
+              className="bg-white rounded-xl shadow-md p-6"
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Inactive Users</p>
-                  <p className="text-3xl font-bold text-red-600 dark:text-red-400 mt-1">
+                  <p className="text-sm text-gray-600">Inactive Users</p>
+                  <p className="text-3xl font-bold text-red-600 mt-1">
                     {inactiveCount}
                   </p>
                 </div>
@@ -283,7 +283,7 @@ export default function UserManagementPage() {
           </div>
 
           {/* Filters */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6">
+          <div className="bg-white rounded-xl shadow-md p-6 mb-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Search */}
               <div className="relative">
@@ -293,7 +293,7 @@ export default function UserManagementPage() {
                   placeholder="Search by name, email, or department..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900"
                 />
               </div>
 
@@ -303,7 +303,7 @@ export default function UserManagementPage() {
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900"
                 >
                   <option value="all">All Users</option>
                   <option value="pending">Pending Approval</option>
@@ -315,7 +315,7 @@ export default function UserManagementPage() {
           </div>
 
           {/* Users List */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+          <div className="bg-white rounded-xl shadow-md overflow-hidden">
             {loading ? (
               <div className="flex items-center justify-center py-12">
                 <div className="w-12 h-12 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin" />
@@ -323,65 +323,65 @@ export default function UserManagementPage() {
             ) : filteredUsers.length === 0 ? (
               <div className="text-center py-12">
                 <Users className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                <p className="text-gray-600 dark:text-gray-400">No users found</p>
+                <p className="text-gray-600">No users found</p>
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-gray-50 dark:bg-gray-700">
+                  <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         User
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Contact
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Department
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Role
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Status
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Actions
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                  <tbody className="divide-y divide-gray-200">
                     {filteredUsers.map((user) => (
-                      <tr key={user._id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                      <tr key={user._id} className="hover:bg-gray-50">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
-                            <div className="flex-shrink-0 h-10 w-10 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center">
-                              <span className="text-emerald-600 dark:text-emerald-400 font-semibold">
+                            <div className="flex-shrink-0 h-10 w-10 bg-emerald-100 rounded-full flex items-center justify-center">
+                              <span className="text-emerald-600 font-semibold">
                                 {user.name?.charAt(0).toUpperCase()}
                               </span>
                             </div>
                             <div className="ml-4">
-                              <div className="text-sm font-medium text-gray-900 dark:text-white">
+                              <div className="text-sm font-medium text-gray-900">
                                 {user.name}
                               </div>
-                              <div className="text-sm text-gray-500 dark:text-gray-400">
+                              <div className="text-sm text-gray-500">
                                 {user.email}
                               </div>
                             </div>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900 dark:text-white">
+                          <div className="text-sm text-gray-900">
                             {user.phone || 'N/A'}
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900 dark:text-white">
+                          <div className="text-sm text-gray-900">
                             {user.department || 'N/A'}
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+                          <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
                             {user.role}
                           </span>
                         </td>
@@ -394,7 +394,7 @@ export default function UserManagementPage() {
                               setSelectedUser(user);
                               setShowModal(true);
                             }}
-                            className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 font-medium"
+                            className="text-emerald-600 hover:text-emerald-700 font-medium"
                           >
                             View Details
                           </button>
@@ -424,17 +424,17 @@ export default function UserManagementPage() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
             >
               {/* Modal Header */}
-              <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
+              <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  <h2 className="text-2xl font-bold text-gray-900">
                     User Details
                   </h2>
                   <button
                     onClick={() => setShowModal(false)}
-                    className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                    className="text-gray-400 hover:text-gray-600"
                   >
                     <XCircle className="w-6 h-6" />
                   </button>
@@ -453,8 +453,8 @@ export default function UserManagementPage() {
                   <div className="flex items-start gap-3">
                     <Users className="w-5 h-5 text-gray-400 mt-1" />
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Full Name</p>
-                      <p className="text-base font-medium text-gray-900 dark:text-white">
+                      <p className="text-sm text-gray-500">Full Name</p>
+                      <p className="text-base font-medium text-gray-900">
                         {selectedUser.name}
                       </p>
                     </div>
@@ -463,8 +463,8 @@ export default function UserManagementPage() {
                   <div className="flex items-start gap-3">
                     <Mail className="w-5 h-5 text-gray-400 mt-1" />
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Email</p>
-                      <p className="text-base font-medium text-gray-900 dark:text-white">
+                      <p className="text-sm text-gray-500">Email</p>
+                      <p className="text-base font-medium text-gray-900">
                         {selectedUser.email}
                       </p>
                     </div>
@@ -473,8 +473,8 @@ export default function UserManagementPage() {
                   <div className="flex items-start gap-3">
                     <Phone className="w-5 h-5 text-gray-400 mt-1" />
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Phone</p>
-                      <p className="text-base font-medium text-gray-900 dark:text-white">
+                      <p className="text-sm text-gray-500">Phone</p>
+                      <p className="text-base font-medium text-gray-900">
                         {selectedUser.phone || 'N/A'}
                       </p>
                     </div>
@@ -483,8 +483,8 @@ export default function UserManagementPage() {
                   <div className="flex items-start gap-3">
                     <Building className="w-5 h-5 text-gray-400 mt-1" />
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Department</p>
-                      <p className="text-base font-medium text-gray-900 dark:text-white">
+                      <p className="text-sm text-gray-500">Department</p>
+                      <p className="text-base font-medium text-gray-900">
                         {selectedUser.department || 'N/A'}
                       </p>
                     </div>
@@ -493,8 +493,8 @@ export default function UserManagementPage() {
                   <div className="flex items-start gap-3">
                     <Briefcase className="w-5 h-5 text-gray-400 mt-1" />
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Role</p>
-                      <p className="text-base font-medium text-gray-900 dark:text-white capitalize">
+                      <p className="text-sm text-gray-500">Role</p>
+                      <p className="text-base font-medium text-gray-900 capitalize">
                         {selectedUser.role}
                       </p>
                     </div>
@@ -503,8 +503,8 @@ export default function UserManagementPage() {
                   <div className="flex items-start gap-3">
                     <Clock className="w-5 h-5 text-gray-400 mt-1" />
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">Registered</p>
-                      <p className="text-base font-medium text-gray-900 dark:text-white">
+                      <p className="text-sm text-gray-500">Registered</p>
+                      <p className="text-base font-medium text-gray-900">
                         {new Date(selectedUser.createdAt).toLocaleDateString()}
                       </p>
                     </div>
@@ -512,7 +512,7 @@ export default function UserManagementPage() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+                <div className="border-t border-gray-200 pt-6">
                   {!selectedUser.isActive && selectedUser.role === 'intern' ? (
                     // Pending user actions
                     <div className="flex gap-4">
@@ -554,10 +554,10 @@ export default function UserManagementPage() {
 
                 {/* Warning for pending users */}
                 {!selectedUser.isActive && selectedUser.role === 'intern' && (
-                  <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                     <div className="flex items-start gap-3">
-                      <AlertCircle className="w-5 h-5 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
-                      <div className="text-sm text-yellow-800 dark:text-yellow-300">
+                      <AlertCircle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                      <div className="text-sm text-yellow-800">
                         <p className="font-medium mb-1">Pending Approval</p>
                         <p>This user is waiting for admin approval. Review their information and approve or reject their registration.</p>
                       </div>
@@ -572,3 +572,4 @@ export default function UserManagementPage() {
     </DashboardLayout>
   );
 }
+

@@ -165,14 +165,14 @@ const BatchImportExport = ({ onImportSuccess, existingData = [] }) => {
               className="hidden"
             />
           </label>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-xs text-gray-500 mt-1">
             Upload CSV or Excel files
           </p>
         </div>
         
         <button
           onClick={exportToCSV}
-          className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 inline-flex items-center"
+          className="px-4 py-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 inline-flex items-center"
         >
           <Download size={16} className="mr-2" />
           Export as CSV
@@ -180,7 +180,7 @@ const BatchImportExport = ({ onImportSuccess, existingData = [] }) => {
         
         <button
           onClick={exportToExcel}
-          className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 inline-flex items-center"
+          className="px-4 py-2 border border-gray-300 rounded-md bg-white hover:bg-gray-50 inline-flex items-center"
         >
           <Download size={16} className="mr-2" />
           Export as Excel
@@ -195,16 +195,16 @@ const BatchImportExport = ({ onImportSuccess, existingData = [] }) => {
       )}
       
       {fileName && !isUploading && (
-        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-md border border-gray-200 dark:border-gray-700">
-          <p className="font-medium text-gray-800 dark:text-white mb-2">File: {fileName}</p>
+        <div className="bg-gray-50 p-4 rounded-md border border-gray-200">
+          <p className="font-medium text-gray-800 mb-2">File: {fileName}</p>
           
           {errors.length > 0 && (
             <div className="mb-4">
-              <p className="text-red-600 dark:text-red-400 font-medium flex items-center">
+              <p className="text-red-600 font-medium flex items-center">
                 <AlertCircle size={16} className="mr-1" />
                 Import has {errors.length} error(s)
               </p>
-              <ul className="text-sm text-red-600 dark:text-red-400 ml-6 list-disc">
+              <ul className="text-sm text-red-600 ml-6 list-disc">
                 {errors.slice(0, 5).map((error, index) => (
                   <li key={index}>{error}</li>
                 ))}
@@ -215,28 +215,28 @@ const BatchImportExport = ({ onImportSuccess, existingData = [] }) => {
           
           {previewData && (
             <>
-              <p className="font-medium text-gray-800 dark:text-white mb-2">Preview:</p>
+              <p className="font-medium text-gray-800 mb-2">Preview:</p>
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <table className="min-w-full divide-y divide-gray-200">
                   <thead>
                     <tr>
                       {requiredHeaders.map(header => (
                         <th 
                           key={header} 
-                          className="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                          className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
                           {header}
                         </th>
                       ))}
                     </tr>
                   </thead>
-                  <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                  <tbody className="bg-white divide-y divide-gray-200">
                     {previewData.map((row, rowIndex) => (
                       <tr key={rowIndex} className="text-sm">
                         {requiredHeaders.map(header => (
                           <td 
                             key={`${rowIndex}-${header}`} 
-                            className="px-3 py-2 whitespace-nowrap text-gray-900 dark:text-white"
+                            className="px-3 py-2 whitespace-nowrap text-gray-900"
                           >
                             {row[header] || ''}
                           </td>
@@ -253,7 +253,7 @@ const BatchImportExport = ({ onImportSuccess, existingData = [] }) => {
                   disabled={errors.length > 0}
                   className={`px-4 py-2 rounded-md inline-flex items-center ${
                     errors.length > 0 
-                      ? 'bg-gray-300 dark:bg-gray-600 cursor-not-allowed' 
+                      ? 'bg-gray-300 cursor-not-allowed' 
                       : 'bg-emerald-600 hover:bg-emerald-700 text-white'
                   }`}
                 >
@@ -263,7 +263,7 @@ const BatchImportExport = ({ onImportSuccess, existingData = [] }) => {
                 
                 <button
                   onClick={cancelImport}
-                  className="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 inline-flex items-center"
+                  className="px-4 py-2 rounded-md border border-gray-300 bg-white hover:bg-gray-50 inline-flex items-center"
                 >
                   <X size={16} className="mr-2" />
                   Cancel
@@ -274,8 +274,8 @@ const BatchImportExport = ({ onImportSuccess, existingData = [] }) => {
         </div>
       )}
       
-      <div className="text-sm text-gray-500 dark:text-gray-400 bg-blue-50 dark:bg-blue-900/30 p-4 rounded-md border-l-4 border-blue-500">
-        <p className="font-medium text-blue-700 dark:text-blue-300 mb-1">CSV Format Instructions:</p>
+      <div className="text-sm text-gray-500 bg-blue-50 p-4 rounded-md border-l-4 border-blue-500">
+        <p className="font-medium text-blue-700 mb-1">CSV Format Instructions:</p>
         <ul className="list-disc pl-5 space-y-1">
           <li>First row must contain headers: {requiredHeaders.join(', ')}</li>
           <li>Each intern must have a unique Employee ID</li>
@@ -288,3 +288,4 @@ const BatchImportExport = ({ onImportSuccess, existingData = [] }) => {
 };
 
 export default BatchImportExport;
+

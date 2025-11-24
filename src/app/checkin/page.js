@@ -257,10 +257,10 @@ export default function CheckInEnhanced() {
 
   const getLocationStatusColor = () => {
     switch (locationStatus) {
-      case 'valid': return 'text-green-600 dark:text-green-400';
-      case 'invalid': return 'text-red-600 dark:text-red-400';
-      case 'checking': return 'text-yellow-600 dark:text-yellow-400';
-      default: return 'text-gray-600 dark:text-gray-400';
+      case 'valid': return 'text-green-600';
+      case 'invalid': return 'text-red-600';
+      case 'checking': return 'text-yellow-600';
+      default: return 'text-gray-600';
     }
   };
 
@@ -276,13 +276,13 @@ export default function CheckInEnhanced() {
 
   if (!currentUser) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Shield className="w-16 h-16 mx-auto mb-4 text-gray-400" />
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Authentication Required
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 mb-4">
+          <p className="text-gray-600 mb-4">
             Please log in to access the check-in system
           </p>
           <a
@@ -299,18 +299,18 @@ export default function CheckInEnhanced() {
   const isCheckedIn = attendanceStatus?.checkIn && !attendanceStatus?.checkOut;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col">
       {/* Header */}
-      <header className="bg-white dark:bg-gray-800 shadow-sm py-4 sticky top-0 z-10">
+      <header className="bg-white shadow-sm py-4 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             <div className="flex items-center">
-              <Clock className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
+              <Clock className="h-8 w-8 text-emerald-600" />
               <div className="ml-3">
-                <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-xl font-bold text-gray-900">
                   CheckMate
                 </h1>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-600">
                   Welcome, {currentUser.name}
                 </p>
               </div>
@@ -336,34 +336,34 @@ export default function CheckInEnhanced() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6"
+                className="bg-white rounded-xl shadow-lg p-6"
               >
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
-                    <Calendar className="h-6 w-6 text-emerald-600 dark:text-emerald-400 mr-2" />
-                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    <Calendar className="h-6 w-6 text-emerald-600 mr-2" />
+                    <h2 className="text-xl font-semibold text-gray-900">
                       {formatDate(currentTime)}
                     </h2>
                   </div>
-                  <div className="text-5xl font-bold text-gray-900 dark:text-white mb-4" suppressHydrationWarning>
+                  <div className="text-5xl font-bold text-gray-900 mb-4" suppressHydrationWarning>
                     {formatTime(currentTime)}
                   </div>
                   
                   {/* Status Badge */}
                   {isCheckedIn ? (
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full">
                       <CheckCircle2 className="w-5 h-5" />
                       <span className="font-medium">Checked In</span>
                     </div>
                   ) : (
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-full">
                       <Activity className="w-5 h-5" />
                       <span className="font-medium">Not Checked In</span>
                     </div>
                   )}
 
                   {isLate && !isCheckedIn && (
-                    <div className="mt-4 flex items-center justify-center text-amber-600 dark:text-amber-400">
+                    <div className="mt-4 flex items-center justify-center text-amber-600">
                       <AlertTriangle className="h-5 w-5 mr-2" />
                       <span>Late arrival will be recorded (after 9:00 AM)</span>
                     </div>
@@ -376,23 +376,23 @@ export default function CheckInEnhanced() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6"
+                className="bg-white rounded-xl shadow-lg p-6"
               >
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-6">
                   {isCheckedIn ? 'Check Out' : 'Check In'}
                 </h3>
 
                 {isCheckedIn ? (
                   /* Check-Out Section */
                   <div className="space-y-4">
-                    <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <div className="flex items-center gap-3 mb-2">
-                        <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400" />
-                        <span className="font-medium text-green-900 dark:text-green-300">
+                        <CheckCircle2 className="w-5 h-5 text-green-600" />
+                        <span className="font-medium text-green-900">
                           Checked in at {new Date(attendanceStatus.checkIn).toLocaleTimeString()}
                         </span>
                       </div>
-                      <p className="text-sm text-green-700 dark:text-green-400">
+                      <p className="text-sm text-green-700">
                         Remember to check out when you leave
                       </p>
                     </div>
@@ -427,10 +427,10 @@ export default function CheckInEnhanced() {
                         </button>
                         <div className="relative my-6">
                           <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                            <div className="w-full border-t border-gray-300"></div>
                           </div>
                           <div className="relative flex justify-center text-sm">
-                            <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">
+                            <span className="px-2 bg-white text-gray-500">
                               or
                             </span>
                           </div>
@@ -461,34 +461,34 @@ export default function CheckInEnhanced() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
-                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6"
+                className="bg-white rounded-xl shadow-lg p-6"
               >
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-emerald-600" />
                   Today's Activity
                 </h3>
                 
                 <div className="space-y-3">
                   {attendanceStatus?.checkIn && (
-                    <div className="flex items-center justify-between p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                      <span className="text-sm text-gray-700 dark:text-gray-300">Check-In</span>
-                      <span className="text-sm font-semibold text-green-600 dark:text-green-400">
+                    <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                      <span className="text-sm text-gray-700">Check-In</span>
+                      <span className="text-sm font-semibold text-green-600">
                         {new Date(attendanceStatus.checkIn).toLocaleTimeString()}
                       </span>
                     </div>
                   )}
                   
                   {attendanceStatus?.checkOut && (
-                    <div className="flex items-center justify-between p-3 bg-red-50 dark:bg-red-900/20 rounded-lg">
-                      <span className="text-sm text-gray-700 dark:text-gray-300">Check-Out</span>
-                      <span className="text-sm font-semibold text-red-600 dark:text-red-400">
+                    <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+                      <span className="text-sm text-gray-700">Check-Out</span>
+                      <span className="text-sm font-semibold text-red-600">
                         {new Date(attendanceStatus.checkOut).toLocaleTimeString()}
                       </span>
                     </div>
                   )}
 
                   {!attendanceStatus?.checkIn && (
-                    <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
+                    <p className="text-sm text-gray-500 text-center py-4">
                       No activity yet today
                     </p>
                   )}
@@ -500,22 +500,22 @@ export default function CheckInEnhanced() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 }}
-                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6"
+                className="bg-white rounded-xl shadow-lg p-6"
               >
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">
                   Recent Activity
                 </h3>
                 
                 <div className="space-y-2">
                   {recentActivity.slice(0, 5).map((activity, index) => (
-                    <div key={index} className="flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-700 rounded">
-                      <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <div key={index} className="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
+                      <span className="text-sm text-gray-600">
                         {new Date(activity.date).toLocaleDateString()}
                       </span>
                       <span className={`text-xs px-2 py-1 rounded-full ${
                         activity.status === 'present' 
-                          ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                          : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                          ? 'bg-green-100 text-green-700'
+                          : 'bg-red-100 text-red-700'
                       }`}>
                         {activity.status}
                       </span>
@@ -523,7 +523,7 @@ export default function CheckInEnhanced() {
                   ))}
                   
                   {recentActivity.length === 0 && (
-                    <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
+                    <p className="text-sm text-gray-500 text-center py-4">
                       No recent activity
                     </p>
                   )}
@@ -535,15 +535,15 @@ export default function CheckInEnhanced() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 }}
-                className="bg-emerald-50 dark:bg-emerald-900/10 border border-emerald-200 dark:border-emerald-800 rounded-xl p-4"
+                className="bg-emerald-50 border border-emerald-200 rounded-xl p-4"
               >
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <MapPin className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-sm font-medium text-emerald-900 dark:text-emerald-300 mb-1">
+                    <h4 className="text-sm font-medium text-emerald-900 mb-1">
                       Location-Based Check-In
                     </h4>
-                    <p className="text-xs text-emerald-700 dark:text-emerald-400">
+                    <p className="text-xs text-emerald-700">
                       You must be within an approved location to check in. Your location is verified automatically.
                     </p>
                   </div>
@@ -558,3 +558,4 @@ export default function CheckInEnhanced() {
     </div>
   );
 }
+

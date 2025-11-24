@@ -66,16 +66,16 @@ export default function AuditLogViewer() {
 
   const getActionColor = (action) => {
     const colors = {
-      'login': 'text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30',
-      'logout': 'text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30',
-      '2fa_enabled': 'text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30',
-      '2fa_disabled': 'text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-900/30',
-      'password_changed': 'text-purple-600 dark:text-purple-400 bg-purple-100 dark:bg-purple-900/30',
-      'failed_login': 'text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/30',
-      'account_locked': 'text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/30',
-      'session_terminated': 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700'
+      'login': 'text-green-600 bg-green-100',
+      'logout': 'text-blue-600 bg-blue-100',
+      '2fa_enabled': 'text-green-600 bg-green-100',
+      '2fa_disabled': 'text-orange-600 bg-orange-100',
+      'password_changed': 'text-purple-600 bg-purple-100',
+      'failed_login': 'text-red-600 bg-red-100',
+      'account_locked': 'text-red-600 bg-red-100',
+      'session_terminated': 'text-gray-600 bg-gray-100'
     };
-    return colors[action] || 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700';
+    return colors[action] || 'text-gray-600 bg-gray-100';
   };
 
   const getActionLabel = (action) => {
@@ -94,10 +94,10 @@ export default function AuditLogViewer() {
 
   const getSeverityBadge = (severity) => {
     const badges = {
-      'low': { color: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400', label: 'Low' },
-      'medium': { color: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400', label: 'Medium' },
-      'high': { color: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400', label: 'High' },
-      'critical': { color: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400', label: 'Critical' }
+      'low': { color: 'bg-green-100 text-green-700', label: 'Low' },
+      'medium': { color: 'bg-yellow-100 text-yellow-700', label: 'Medium' },
+      'high': { color: 'bg-orange-100 text-orange-700', label: 'High' },
+      'critical': { color: 'bg-red-100 text-red-700', label: 'Critical' }
     };
     return badges[severity] || badges['low'];
   };
@@ -139,10 +139,10 @@ export default function AuditLogViewer() {
       {/* Header & Controls */}
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-lg font-semibold text-gray-900">
             Security Audit Logs
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          <p className="text-sm text-gray-600 mt-1">
             Track all security-related activities
           </p>
         </div>
@@ -150,8 +150,8 @@ export default function AuditLogViewer() {
         <div className="flex gap-2">
           <button
             onClick={fetchLogs}
-            className="px-3 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 
-                     rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center gap-2 
+            className="px-3 py-2 bg-gray-200 text-gray-700 
+                     rounded-lg hover:bg-gray-300 flex items-center gap-2 
                      transition-colors"
           >
             <RefreshCw className="w-4 h-4" />
@@ -180,9 +180,9 @@ export default function AuditLogViewer() {
             placeholder="Search by user, action, or IP..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 
-                     rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 
-                     dark:text-white"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 
+                     rounded-lg focus:ring-2 focus:ring-blue-500 
+                    "
           />
         </div>
 
@@ -190,8 +190,8 @@ export default function AuditLogViewer() {
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
-                   focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+          className="px-4 py-2 border border-gray-300 rounded-lg 
+                   focus:ring-2 focus:ring-blue-500"
         >
           <option value="all">All Actions</option>
           <option value="login">Logins</option>
@@ -216,8 +216,8 @@ export default function AuditLogViewer() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, x: -100 }}
-                className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 
-                         dark:border-gray-700 p-4 hover:border-blue-500 transition-colors"
+                className="bg-white rounded-lg border border-gray-200 
+                         p-4 hover:border-blue-500 transition-colors"
               >
                 <div className="flex items-start gap-4">
                   {/* Action Icon */}
@@ -229,10 +229,10 @@ export default function AuditLogViewer() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-4 mb-2">
                       <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white">
+                        <h4 className="font-semibold text-gray-900">
                           {getActionLabel(log.action)}
                         </h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                        <p className="text-sm text-gray-600">
                           {log.userEmail || 'Unknown User'}
                         </p>
                       </div>
@@ -243,7 +243,7 @@ export default function AuditLogViewer() {
                     </div>
 
                     {/* Metadata */}
-                    <div className="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-500">
+                    <div className="flex flex-wrap gap-4 text-sm text-gray-500">
                       <div className="flex items-center gap-1">
                         <Clock className="w-3 h-3" />
                         <span>{formatTimestamp(log.timestamp)}</span>
@@ -268,8 +268,8 @@ export default function AuditLogViewer() {
 
                     {/* Additional Details */}
                     {log.details && (
-                      <div className="mt-2 text-sm text-gray-600 dark:text-gray-400 
-                                    bg-gray-50 dark:bg-gray-900 rounded p-2">
+                      <div className="mt-2 text-sm text-gray-600 
+                                    bg-gray-50 rounded p-2">
                         {log.details}
                       </div>
                     )}
@@ -281,7 +281,7 @@ export default function AuditLogViewer() {
         </AnimatePresence>
 
         {filteredLogs.length === 0 && (
-          <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+          <div className="text-center py-12 text-gray-500">
             <Shield className="w-12 h-12 mx-auto mb-3 opacity-50" />
             <p>No audit logs found</p>
             {searchTerm && (
@@ -297,22 +297,22 @@ export default function AuditLogViewer() {
           <button
             onClick={() => setPage(p => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 
-                     rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50 
+            className="px-4 py-2 bg-gray-200 text-gray-700 
+                     rounded-lg hover:bg-gray-300 disabled:opacity-50 
                      disabled:cursor-not-allowed transition-colors"
           >
             Previous
           </button>
           
-          <span className="text-sm text-gray-600 dark:text-gray-400">
+          <span className="text-sm text-gray-600">
             Page {page} of {totalPages}
           </span>
           
           <button
             onClick={() => setPage(p => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
-            className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 
-                     rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50 
+            className="px-4 py-2 bg-gray-200 text-gray-700 
+                     rounded-lg hover:bg-gray-300 disabled:opacity-50 
                      disabled:cursor-not-allowed transition-colors"
           >
             Next
@@ -322,3 +322,4 @@ export default function AuditLogViewer() {
     </div>
   );
 }
+

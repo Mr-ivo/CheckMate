@@ -38,15 +38,15 @@ export default function NotificationTester() {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
       <div className="flex items-center mb-4">
         <Bell className="w-5 h-5 text-blue-600 mr-2" />
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h3 className="text-lg font-semibold text-gray-900">
           Notification Tester
         </h3>
       </div>
       
-      <p className="text-gray-600 dark:text-gray-300 mb-4">
+      <p className="text-gray-600 mb-4">
         Test the notification system by creating sample notifications. 
         This will create 5 different types of notifications to test the UI and functionality.
       </p>
@@ -69,7 +69,7 @@ export default function NotificationTester() {
         )}
       </button>
       
-      <div className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+      <div className="mt-4 text-sm text-gray-500">
         <p><strong>This will create:</strong></p>
         <ul className="list-disc list-inside mt-2 space-y-1">
           <li>New intern joined notification (Medium priority)</li>
@@ -82,3 +82,4 @@ export default function NotificationTester() {
     </div>
   );
 }
+
