@@ -21,16 +21,33 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="icon" href="/favicon.ico" />
+        <meta 
+          name="viewport" 
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" 
+        />
+        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta httpEquiv="Pragma" content="no-cache" />
+        <meta httpEquiv="Expires" content="0" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
                 // Force light mode immediately on page load
-                document.documentElement.classList.remove('dark');
-                document.body.classList.remove('dark');
-                document.documentElement.style.colorScheme = 'light';
-                localStorage.removeItem('darkMode');
-                localStorage.removeItem('theme');
+                if (typeof window !== 'undefined') {
+                  document.documentElement.classList.remove('dark');
+                  document.body.classList.remove('dark');
+                  document.documentElement.style.colorScheme = 'light';
+                  localStorage.removeItem('darkMode');
+                  localStorage.removeItem('theme');
+                  localStorage.setItem('theme', 'light');
+                  // Force reload stylesheets
+                  const links = document.querySelectorAll('link[rel="stylesheet"]');
+                  links.forEach(link => {
+                    const href = link.href;
+                    link.href = href + '?v=' + Date.now();
+                  });
+                }
               })();
             `,
           }}
