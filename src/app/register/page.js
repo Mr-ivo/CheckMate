@@ -163,7 +163,7 @@ export default function RegisterPage() {
                   type="text"
                   className={`w-full pl-10 pr-4 py-3 border ${
                     errors.name ? 'border-red-500' : 'border-gray-300'
-                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900
+                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900`}
                   placeholder="John Doe"
                   {...register('name', { 
                     required: 'Full name is required',
@@ -187,7 +187,7 @@ export default function RegisterPage() {
                   type="email"
                   className={`w-full pl-10 pr-4 py-3 border ${
                     errors.email ? 'border-red-500' : 'border-gray-300'
-                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900
+                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900`}
                   placeholder="john@example.com"
                   {...register('email', { 
                     required: 'Email is required',
@@ -214,7 +214,7 @@ export default function RegisterPage() {
                   type="text"
                   className={`w-full pl-10 pr-4 py-3 border ${
                     errors.employeeId ? 'border-red-500' : 'border-gray-300'
-                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900
+                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900`}
                   placeholder="EMP-001"
                   {...register('employeeId', { 
                     required: 'Employee ID is required'
@@ -237,7 +237,7 @@ export default function RegisterPage() {
                   type="tel"
                   className={`w-full pl-10 pr-4 py-3 border ${
                     errors.phone ? 'border-red-500' : 'border-gray-300'
-                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900
+                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900`}
                   placeholder="+1234567890"
                   {...register('phone', { 
                     required: 'Phone number is required',
@@ -263,7 +263,7 @@ export default function RegisterPage() {
                 <select
                   className={`w-full pl-10 pr-4 py-3 border ${
                     errors.department ? 'border-red-500' : 'border-gray-300'
-                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900
+                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900`}
                   {...register('department', { required: 'Department is required' })}
                 >
                   <option value="">Select Department</option>
@@ -288,7 +288,7 @@ export default function RegisterPage() {
                   type="text"
                   className={`w-full pl-10 pr-4 py-3 border ${
                     errors.position ? 'border-red-500' : 'border-gray-300'
-                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900
+                  } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900`}
                   placeholder="Software Developer"
                   {...register('position', { required: 'Position is required' })}
                 />
@@ -326,7 +326,7 @@ export default function RegisterPage() {
                 type={showPassword ? 'text' : 'password'}
                 className={`w-full pl-10 pr-12 py-3 border ${
                   errors.password ? 'border-red-500' : 'border-gray-300'
-                } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900
+                } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900`}
                 placeholder="••••••••"
                 {...register('password', { 
                   required: 'Password is required',
@@ -372,7 +372,7 @@ export default function RegisterPage() {
                 type={showConfirmPassword ? 'text' : 'password'}
                 className={`w-full pl-10 pr-12 py-3 border ${
                   errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
-                } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900
+                } rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent bg-white text-gray-900`}
                 placeholder="••••••••"
                 {...register('confirmPassword', { 
                   required: 'Please confirm your password',
@@ -436,4 +436,3 @@ export default function RegisterPage() {
     </div>
   );
 }
-
